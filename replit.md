@@ -126,6 +126,8 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
   - Call-to-action updated: "Processo 100% Gratuito" → "Edital CT/2025-BR"
   - Official subheadline: "Processo Oficial • Registro MEC/CNE nº 47.892"
   - Color scheme updated: slate-800 → #1451B4 (institutional blue) for step numbers and CTA
+  - Content adapted for Conselheiro Tutelar context: "Nomeação" instead of "Contratação"
+  - Text formatting improved with proper padding (px-4) and spacing to prevent content overflow
   - Maintained institutional design with consistent blue branding throughout
   - Complete national vacancy distribution: 2,847 positions across all 27 states/DF
   - São Paulo: 572 vacancies (highest), Roraima: 9 vacancies (lowest)

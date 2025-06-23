@@ -481,36 +481,50 @@ def ranking():
             'is_current_user': True
         }
         
-        # Generate other candidates
-        for i, name in enumerate(candidate_names[:8]):
-            # Create varied scores around user's score
-            if i < 2:  # Some candidates with higher scores
-                candidate_score = min(100, total_score + random.randint(5, 15))
-            elif i < 4:  # Some with similar scores
-                candidate_score = max(0, total_score + random.randint(-3, 3))
-            else:  # Some with lower scores
-                candidate_score = max(0, total_score - random.randint(2, 10))
-            
+        # Generate candidates ensuring user is in 3rd position
+        candidates = []
+        
+        # First place candidate (higher score than user)
+        candidates.append({
+            'name': candidate_names[0],
+            'city': user_city,
+            'state': user_state,
+            'neighborhood': 'Centro',
+            'score': round(total_score + random.randint(8, 12)),
+            'is_current_user': False,
+            'position': 1
+        })
+        
+        # Second place candidate (higher score than user)
+        candidates.append({
+            'name': candidate_names[1],
+            'city': user_city,
+            'state': user_state,
+            'neighborhood': 'Vila Nova',
+            'score': round(total_score + random.randint(3, 7)),
+            'is_current_user': False,
+            'position': 2
+        })
+        
+        # User in 3rd position
+        user_candidate['position'] = 3
+        candidates.append(user_candidate)
+        
+        # Add remaining candidates with lower scores
+        for i, name in enumerate(candidate_names[2:8]):
+            candidate_score = max(0, total_score - random.randint(2, 10))
             candidates.append({
                 'name': name,
                 'city': user_city,
                 'state': user_state,
-                'neighborhood': random.choice(['Centro', 'Vila Nova', 'Jardim América', 'São José']),
+                'neighborhood': random.choice(['Jardim América', 'São José', 'Asa Norte']),
                 'score': round(candidate_score),
-                'is_current_user': False
+                'is_current_user': False,
+                'position': i + 4
             })
         
-        # Add user to the list
-        candidates.append(user_candidate)
-        
-        # Sort by score (descending) and assign positions
-        candidates.sort(key=lambda x: x['score'], reverse=True)
-        
-        for i, candidate in enumerate(candidates):
-            candidate['position'] = i + 1
-        
-        # Find user's ranking
-        user_ranking = next(c for c in candidates if c['is_current_user'])
+        # User's ranking is always 3rd position
+        user_ranking = user_candidate
         
         # Show top 6 candidates in ranking
         ranking_list = candidates[:6]

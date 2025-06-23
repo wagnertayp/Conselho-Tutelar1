@@ -1,0 +1,159 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-prosegur-black mb-4 font-heading">Processo Seletivo Vigilante de Carro Forte</h1>
+        <p class="text-prosegur-gray mb-2 font-body">Sistema de Cadastro para Processo Seletivo da Prosegur</p>
+        <div class="h-1 w-32 bg-prosegur-yellow"></div>
+    </div>
+
+    <div class="bg-white shadow-sm rounded-lg p-6 mb-8 border border-gray-200">
+        <div class="flex items-start space-x-4 mb-6">
+            <div class="flex-shrink-0">
+                <i class="fas fa-map-marker-alt text-2xl text-prosegur-yellow"></i>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-prosegur-black mb-2 font-heading">Endereço Residencial</h2>
+                <p class="text-prosegur-gray text-sm font-body">
+                    Informe seu endereço residencial completo. Essas informações são necessárias para o processo de verificação de antecedentes e análise de perfil para a vaga de Vigilante de Carro Forte.
+                </p>
+            </div>
+        </div>
+
+        <form class="space-y-6 max-w-2xl mx-auto" method="POST">
+            <div>
+                <label for="zip_code" class="block text-sm font-medium text-prosegur-black font-body">CEP *</label>
+                <input type="text" id="zip_code" name="zip_code" required
+                    inputmode="numeric"
+                    pattern="\d{5}-?\d{3}"
+                    maxlength="9"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+            </div>
+
+            <div>
+                <label for="address" class="block text-sm font-medium text-prosegur-black font-body">Endereço *</label>
+                <input type="text" id="address" name="address" required
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="number" class="block text-sm font-medium text-prosegur-black font-body">Número *</label>
+                    <input type="text" id="number" name="number" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+                </div>
+                <div>
+                    <label for="complement" class="block text-sm font-medium text-prosegur-black font-body">Complemento</label>
+                    <input type="text" id="complement" name="complement"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+                </div>
+            </div>
+
+            <div>
+                <label for="neighborhood" class="block text-sm font-medium text-prosegur-black font-body">Bairro *</label>
+                <input type="text" id="neighborhood" name="neighborhood" required
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="city" class="block text-sm font-medium text-prosegur-black font-body">Cidade *</label>
+                    <input type="text" id="city" name="city" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+                </div>
+                <div>
+                    <label for="state" class="block text-sm font-medium text-prosegur-black font-body">Estado *</label>
+                    <select id="state" name="state" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-prosegur-yellow focus:ring-prosegur-yellow focus:ring-opacity-50 py-3 pl-4 font-semibold text-gray-700 bg-gray-50 font-body">
+                        <option value="">Selecione...</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
+                <h3 class="text-sm font-medium text-prosegur-black mb-2 font-heading">Termo de Responsabilidade</h3>
+                <p class="text-sm text-prosegur-gray font-body">
+                    Declaro que todas as informações de endereço fornecidas são verdadeiras e correspondem ao meu local de residência atual. Entendo que essas informações serão utilizadas para verificação de antecedentes e análise de perfil no processo seletivo da Prosegur.
+                </p>
+            </div>
+
+            <div>
+                <button type="submit"
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-prosegur-black bg-prosegur-yellow hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-prosegur-yellow transition-colors duration-200 font-body">
+                    <i class="fas fa-arrow-right mr-2"></i>Continuar Processo
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cepInput = document.getElementById('zip_code');
+    const addressInput = document.getElementById('address');
+    const neighborhoodInput = document.getElementById('neighborhood');
+    const cityInput = document.getElementById('city');
+    const stateInput = document.getElementById('state');
+
+    cepInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length <= 8) {
+            value = value.replace(/(\d{5})(\d{3})/, function(regex, arg1, arg2) {
+                if (arg2) return ${arg1}-${arg2};
+                return arg1;
+            });
+            e.target.value = value;
+
+            // Se o CEP estiver completo (8 dígitos), busca o endereço
+            if (value.replace(/\D/g, '').length === 8) {
+                const cepSemPontuacao = value.replace(/\D/g, '');
+                const apiUrl = https://viacep.com.br/ws/${cepSemPontuacao}/json/;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            addressInput.value = data.logradouro;
+                            neighborhoodInput.value = data.bairro;
+                            cityInput.value = data.localidade;
+                            stateInput.value = data.uf;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar CEP:', error);
+                    });
+            }
+        }
+    });
+});
+</script>
+
+{% endblock %}

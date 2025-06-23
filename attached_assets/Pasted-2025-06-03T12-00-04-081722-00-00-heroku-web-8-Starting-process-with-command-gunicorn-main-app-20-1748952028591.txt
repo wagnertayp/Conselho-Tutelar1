@@ -1,0 +1,46 @@
+2025-06-03T12:00:04.081722+00:00 heroku[web.8]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:04.488127+00:00 heroku[web.35]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:04.545549+00:00 heroku[web.20]: State changed from crashed to starting
+2025-06-03T12:00:04.729590+00:00 heroku[web.11]: Process exited with status 127
+2025-06-03T12:00:04.693270+00:00 app[web.11]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:04.762193+00:00 heroku[web.11]: State changed from starting to crashed
+2025-06-03T12:00:04.899867+00:00 heroku[web.8]: Process exited with status 127
+2025-06-03T12:00:04.929289+00:00 heroku[web.8]: State changed from starting to crashed
+2025-06-03T12:00:04.835716+00:00 app[web.8]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:05.137488+00:00 heroku[web.22]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:05.341192+00:00 heroku[web.28]: State changed from crashed to starting
+2025-06-03T12:00:05.410905+00:00 heroku[web.27]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:05.576377+00:00 heroku[web.16]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:05.546446+00:00 app[web.35]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:05.586011+00:00 heroku[web.35]: Process exited with status 127
+2025-06-03T12:00:05.623703+00:00 heroku[web.35]: State changed from starting to crashed
+2025-06-03T12:00:05.688363+00:00 heroku[web.29]: State changed from crashed to starting
+2025-06-03T12:00:05.688342+00:00 heroku[web.22]: Process exited with status 127
+2025-06-03T12:00:05.712857+00:00 heroku[web.22]: State changed from starting to crashed
+2025-06-03T12:00:05.648296+00:00 app[web.22]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:06.017760+00:00 heroku[web.27]: Process exited with status 127
+2025-06-03T12:00:05.981426+00:00 app[web.27]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:06.039999+00:00 heroku[web.27]: State changed from starting to crashed
+2025-06-03T12:00:06.177539+00:00 heroku[web.16]: Process exited with status 127
+2025-06-03T12:00:06.136407+00:00 app[web.16]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:06.205273+00:00 heroku[web.16]: State changed from starting to crashed
+2025-06-03T12:00:06.363275+00:00 heroku[web.18]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:06.687700+00:00 heroku[web.40]: State changed from crashed to starting
+2025-06-03T12:00:06.864204+00:00 app[web.18]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:06.903344+00:00 heroku[web.18]: Process exited with status 127
+2025-06-03T12:00:06.932067+00:00 heroku[web.18]: State changed from starting to crashed
+2025-06-03T12:00:07.506821+00:00 heroku[web.20]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:08.200121+00:00 heroku[web.20]: Process exited with status 127
+2025-06-03T12:00:08.150841+00:00 app[web.20]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:08.222086+00:00 heroku[web.20]: State changed from starting to crashed
+2025-06-03T12:00:08.212925+00:00 heroku[web.28]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:08.590479+00:00 heroku[web.29]: Starting process with command `gunicorn main:app`
+2025-06-03T12:00:08.685608+00:00 heroku[web.14]: State changed from crashed to starting
+2025-06-03T12:00:08.818652+00:00 heroku[web.28]: Process exited with status 127
+2025-06-03T12:00:08.787403+00:00 app[web.28]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:08.848494+00:00 heroku[web.28]: State changed from starting to crashed
+2025-06-03T12:00:08.858859+00:00 heroku[web.39]: State changed from crashed to starting
+2025-06-03T12:00:09.262220+00:00 heroku[web.29]: Process exited with status 127
+2025-06-03T12:00:09.206843+00:00 app[web.29]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T12:00:09.289894+00:00 heroku[web.29]: State changed from starting to crashed
+2025-06-03T12:00:09.568260+00:00 heroku[web.40]: Starting process with command `gunicorn main:app`

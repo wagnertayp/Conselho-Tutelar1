@@ -1,0 +1,251 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosegur - Trabalhe Conosco</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="bg-[#FFCC00] flex items-center justify-between px-4 md:px-8 py-4">
+            <div class="flex items-center">
+                <img src="https://i.ibb.co/sp0WP8BN/prosegur-logo-1.png" alt="Prosegur logo with a globe icon and the company name" class="h-8 md:h-10 mr-4">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-black font-medium text-sm uppercase">Sobre Prosegur</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase">Pequenas e Médias Empresas</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase">Grandes Empresas</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase border-b-2 border-black">Trabalhe Conosco</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-black"><i class="fas fa-search text-lg"></i></a>
+                <a href="#" class="text-black"><i class="fas fa-user text-lg"></i></a>
+                <a href="#" class="text-black text-sm uppercase font-medium hidden md:block">Área do Cliente</a>
+            </div>
+        </div>
+        <div class="bg-[#333333] text-white px-4 md:px-8 py-1 text-xs">
+            <nav class="flex items-center space-x-2">
+                <a href="#" class="text-gray-300 hover:text-white">Início</a>
+                <span class="text-gray-400">></span>
+                <span class="text-white">Trabalhe Conosco</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative">
+        <img src="https://i.ibb.co/xKyJXbBV/foto-02-1-1-1.jpg" alt="A group of professionals in a modern office environment collaborating and smiling" class="w-full h-[200px] md:h-[300px] object-cover">
+        <div class="absolute inset-0 bg-[#FFCC00] opacity-70"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="max-w-lg relative text-center">
+                    <h1 class="text-lg md:text-xl font-bold text-black mb-2 relative z-10 transform -translate-y-6 leading-tight">Venha fazer parte da maior empresa de segurança privada do Brasil!</h1>
+                    <a href="#" class="bg-[#FFCC00] text-black font-medium px-4 py-2 rounded inline-block mt-4 relative z-10 shadow-md">224 VAGAS IMEDIATAS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Details Section -->
+    <section class="py-10 md:py-14">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-lg md:text-xl font-bold mb-1 leading-tight">224 Vagas Imediatas para Vigilante de Transporte de Valores</h2>
+            <div class="w-24 h-2 bg-[#FFCC00] mx-auto mb-3 rounded-full"></div>
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">A Prosegur está em busca de profissionais dedicados para preencher 224 vagas imediatas de Vigilante de Transporte de Valores. Junte-se à maior empresa de segurança privada do Brasil e faça parte de uma equipe que valoriza seus talentos!</p>
+            
+            <ul class="max-w-3xl mx-auto mb-6 md:mb-10 text-left list-disc list-inside leading-relaxed text-sm">
+                <li>Ser maior de 21 anos.</li>
+                <li>Não possuir histórico criminal.</li>
+                <li>Ensino Fundamental completo.</li>
+                <li>Vagas disponíveis para homens e mulheres.</li>
+            </ul>
+            
+            <div class="h-[200px] md:h-[250px] mb-6">
+                <img src="https://agenciasertao.com/wp-content/uploads/2023/03/vagas-de-emprego-Prosegur.jpg" alt="Carro forte da Prosegur estacionado em frente a um banco com o logotipo da empresa visível" class="w-full h-full object-cover rounded-lg">
+            </div>
+
+            <h3 class="text-base md:text-lg font-bold mb-1 leading-tight">Detalhes da Vaga</h3>
+            <div class="w-20 h-2 bg-[#FFCC00] mx-auto mb-3 rounded-full"></div>
+            <ul class="text-left max-w-2xl mx-auto mb-6 leading-relaxed text-sm">
+                <li class="mb-2"><strong>Cargo:</strong> Vigilante de Carro Forte</li>
+                <li class="mb-2"><strong>Salário Base:</strong> R$ 3.611,54</li>
+                <li class="mb-2"><strong>Vale Alimentação:</strong> R$ 1.630,62 por mês</li>
+                <li class="mb-2"><strong>Benefícios Adicionais:</strong>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Seguro de vida</li>
+                        <li>Plano de saúde</li>
+                        <li>Plano odontológico</li>
+                        <li>Auxílio creche</li>
+                        <li>Adicional de periculosidade</li>
+                        <li>Adicional noturno (quando aplicável)</li>
+                        <li>Participação nos lucros</li>
+                        <li>Oportunidades de crescimento na carreira</li>
+                        <li>Treinamentos e capacitações</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="h-[200px] md:h-[250px] mb-6">
+                <img src="https://bestempregos.pt/wp-content/uploads/2022/09/prosegur-2.jpg" alt="Vigilante de transporte de valores da Prosegur em posição de alerta" class="w-full h-full object-cover rounded-lg">
+            </div>
+
+            <h3 class="text-base md:text-lg font-bold mb-1 leading-tight">Carga Horária</h3>
+            <div class="w-20 h-2 bg-[#FFCC00] mx-auto mb-3 rounded-full"></div>
+            <p class="mb-3 leading-relaxed text-sm">A jornada de trabalho para profissionais de transporte de valores na Prosegur pode seguir diferentes escalas, incluindo:</p>
+            <ul class="text-left max-w-2xl mx-auto mb-6 leading-relaxed text-sm">
+                <li class="mb-2">5x2: Cinco dias de trabalho por dois de descanso.</li>
+                <li class="mb-2">12x36: Doze horas de trabalho por trinta e seis horas de descanso.</li>
+            </ul>
+
+            <h3 class="text-base md:text-lg font-bold mb-1 leading-tight">Vagas por Estado</h3>
+            <div class="w-20 h-2 bg-[#FFCC00] mx-auto mb-3 rounded-full"></div>
+            <p class="mb-3 leading-relaxed text-sm">Temos vagas disponíveis em diversos estados do Brasil. Confira abaixo:</p>
+            <table class="table-auto border-collapse border border-gray-300 mx-auto text-left text-xs">
+                <thead>
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-2">Estado</th>
+                        <th class="border border-gray-300 px-4 py-2">Quantidade de Vagas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="border border-gray-300 px-4 py-2">Acre</td><td class="border border-gray-300 px-4 py-2">5</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Alagoas</td><td class="border border-gray-300 px-4 py-2">6</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Amapá</td><td class="border border-gray-300 px-4 py-2">4</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Amazonas</td><td class="border border-gray-300 px-4 py-2">8</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Bahia</td><td class="border border-gray-300 px-4 py-2">15</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Ceará</td><td class="border border-gray-300 px-4 py-2">10</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Distrito Federal</td><td class="border border-gray-300 px-4 py-2">7</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Espírito Santo</td><td class="border border-gray-300 px-4 py-2">6</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Goiás</td><td class="border border-gray-300 px-4 py-2">9</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Maranhão</td><td class="border border-gray-300 px-4 py-2">8</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Mato Grosso</td><td class="border border-gray-300 px-4 py-2">7</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Mato Grosso do Sul</td><td class="border border-gray-300 px-4 py-2">6</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Minas Gerais</td><td class="border border-gray-300 px-4 py-2">20</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Pará</td><td class="border border-gray-300 px-4 py-2">8</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Paraíba</td><td class="border border-gray-300 px-4 py-2">5</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Paraná</td><td class="border border-gray-300 px-4 py-2">25</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Pernambuco</td><td class="border border-gray-300 px-4 py-2">10</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Piauí</td><td class="border border-gray-300 px-4 py-2">5</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Rio de Janeiro</td><td class="border border-gray-300 px-4 py-2">30</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Rio Grande do Norte</td><td class="border border-gray-300 px-4 py-2">6</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Rio Grande do Sul</td><td class="border border-gray-300 px-4 py-2">20</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Rondônia</td><td class="border border-gray-300 px-4 py-2">5</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Roraima</td><td class="border border-gray-300 px-4 py-2">4</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Santa Catarina</td><td class="border border-gray-300 px-4 py-2">12</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">São Paulo</td><td class="border border-gray-300 px-4 py-2">50</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Sergipe</td><td class="border border-gray-300 px-4 py-2">5</td></tr>
+                    <tr><td class="border border-gray-300 px-4 py-2">Tocantins</td><td class="border border-gray-300 px-4 py-2">5</td></tr>
+                </tbody>
+            </table>
+
+            <a href="#" class="bg-[#FFCC00] text-black font-medium px-6 md:px-8 py-3 rounded-full inline-block mt-6">Candidate-se Agora</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:mb-12">
+                <div>
+                    <h3 class="text-base font-medium mb-4">Quem Somos</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">O Grupo Prosegur</a></li>
+                        <li><a href="#" class="hover:text-white">Sobre Prosegur</a></li>
+                        <li><a href="#" class="hover:text-white">Onde estamos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4">Pequenas e Médias Empresas</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Supermercados</a></li>
+                        <li><a href="#" class="hover:text-white">Drogarias</a></li>
+                        <li><a href="#" class="hover:text-white">Postos de Combustíveis</a></li>
+                        <li><a href="#" class="hover:text-white">Outros varejistas</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4">Grandes Empresas</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Bancos</a></li>
+                        <li><a href="#" class="hover:text-white">Cooperativas de crédito</a></li>
+                        <li><a href="#" class="hover:text-white">Varejistas</a></li>
+                        <li><a href="#" class="hover:text-white">Indústria</a></li>
+                        <li><a href="#" class="hover:text-white">Serviços</a></li>
+                        <li><a href="#" class="hover:text-white">Grandes Eventos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4">Trabalhe Conosco</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Vagas</a></li>
+                        <li><a href="#" class="hover:text-white">Blog Dinheiro</a></li>
+                        <li><a href="#" class="hover:text-white">Media Center</a></li>
+                        <li><a href="#" class="hover:text-white">Sala de Imprensa</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 mb-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <div class="mb-4 md:mb-0">
+                    <span>© Copyright 2025 Prosegur</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <a href="#" class="hover:text-white">Sitemap</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Legal</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Política de Cookies</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Canal Ético</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Cambiar preferencias de las cookies</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Função para obter o estado do usuário por IP
+        async function getUserState() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                return data.region;
+            } catch (error) {
+                console.error('Erro ao obter localização:', error);
+                return 'Não disponível';
+            }
+        }
+
+        // Função para atualizar o estado do usuário na tabela
+        async function updateUserState() {
+            const userStateElement = document.getElementById('userState');
+            const state = await getUserState();
+            userStateElement.textContent = state;
+        }
+
+        // Chama a função para atualizar o estado do usuário quando a página carregar
+        window.addEventListener('load', updateUserState);
+    </script>
+</body>
+</html>

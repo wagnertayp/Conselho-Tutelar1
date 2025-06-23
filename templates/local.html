@@ -1,0 +1,248 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-prosegur-black mb-4 font-heading">Seleção de Unidade CRAS</h1>
+        <p class="text-prosegur-gray mb-2 font-body">Selecione a unidade CRAS mais próxima à sua localização</p>
+        <div class="h-1 w-32 bg-prosegur-blue"></div>
+    </div>
+
+    <!-- CEP Search Section -->
+    <div class="bg-white rounded-lg p-6 mb-6 shadow-sm border">
+        <div class="max-w-md mx-auto">
+            <i class="fas fa-map-marker-alt text-2xl text-prosegur-blue mb-4"></i>
+            <h2 class="text-lg font-bold text-prosegur-black mb-4 font-heading">Localização por CEP</h2>
+            <p class="text-sm text-prosegur-gray mb-4 font-body">
+                Digite seu CEP para encontrarmos as unidades CRAS do seu estado:
+            </p>
+            <div class="mb-4">
+                <label for="cep" class="block text-sm font-medium text-prosegur-black mb-2">CEP *</label>
+                <input type="text" id="cep" name="cep" maxlength="9" 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-prosegur-blue focus:border-prosegur-blue font-body" 
+                       placeholder="00000-000" required>
+            </div>
+            <div id="state-info" class="hidden mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p class="text-sm text-blue-800">
+                    <strong>Estado detectado:</strong> <span id="detected-state"></span>
+                </p>
+            </div>
+            <button type="button" onclick="searchByZip()" 
+                    class="w-full bg-prosegur-blue text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-600 transition-colors duration-200 font-body">
+                <i class="fas fa-search mr-2"></i>Buscar Unidades CRAS
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Message -->
+    <div id="loading" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div class="flex items-center">
+            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
+            <span class="text-blue-800 font-medium">Buscando unidades CRAS...</span>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="results" class="hidden">
+        <h2 class="text-xl font-bold text-prosegur-black mb-4 font-heading">Unidades CRAS Disponíveis</h2>
+        <div id="units-list" class="space-y-4">
+            <!-- Units will be populated here -->
+        </div>
+    </div>
+</div>
+
+<script>
+// Dados reais extraídos da tabela da página /vagas
+const stateVacancies = {
+    'AC': { vacancies: 45, salary: 'R$ 2.500,00' },
+    'AL': { vacancies: 124, salary: 'R$ 2.300,00' },
+    'AP': { vacancies: 38, salary: 'R$ 2.600,00' },
+    'AM': { vacancies: 186, salary: 'R$ 2.800,00' },
+    'BA': { vacancies: 682, salary: 'R$ 2.900,00' },
+    'CE': { vacancies: 425, salary: 'R$ 2.600,00' },
+    'DF': { vacancies: 156, salary: 'R$ 4.200,00' },
+    'ES': { vacancies: 152, salary: 'R$ 3.000,00' },
+    'GO': { vacancies: 287, salary: 'R$ 2.800,00' },
+    'MA': { vacancies: 298, salary: 'R$ 2.500,00' },
+    'MT': { vacancies: 146, salary: 'R$ 2.900,00' },
+    'MS': { vacancies: 118, salary: 'R$ 2.800,00' },
+    'MG': { vacancies: 756, salary: 'R$ 3.200,00' },
+    'PA': { vacancies: 356, salary: 'R$ 2.700,00' },
+    'PB': { vacancies: 178, salary: 'R$ 2.400,00' },
+    'PR': { vacancies: 324, salary: 'R$ 3.100,00' },
+    'PE': { vacancies: 398, salary: 'R$ 2.700,00' },
+    'PI': { vacancies: 142, salary: 'R$ 2.350,00' },
+    'RJ': { vacancies: 412, salary: 'R$ 3.600,00' },
+    'RN': { vacancies: 156, salary: 'R$ 2.500,00' },
+    'RS': { vacancies: 398, salary: 'R$ 3.400,00' },
+    'RO': { vacancies: 78, salary: 'R$ 2.600,00' },
+    'RR': { vacancies: 32, salary: 'R$ 2.700,00' },
+    'SC': { vacancies: 234, salary: 'R$ 3.300,00' },
+    'SP': { vacancies: 892, salary: 'R$ 3.800,00' },
+    'SE': { vacancies: 89, salary: 'R$ 2.250,00' },
+    'TO': { vacancies: 128, salary: 'R$ 2.400,00' }
+};
+
+// CEP mask
+document.getElementById('cep').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 5) {
+        value = value.slice(0, 5) + '-' + value.slice(5, 8);
+    }
+    e.target.value = value;
+});
+
+async function searchByZip() {
+    const cep = document.getElementById('cep').value.replace(/\D/g, '');
+    
+    if (cep.length !== 8) {
+        alert('Por favor, digite um CEP válido com 8 dígitos.');
+        return;
+    }
+    
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('results').classList.add('hidden');
+    
+    // Get state from CEP using ViaCEP API
+    const cepResponse = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const cepData = await cepResponse.json();
+    
+    if (cepData.erro) {
+        alert('CEP não encontrado. Verifique o CEP digitado.');
+        document.getElementById('loading').classList.add('hidden');
+        return;
+    }
+    
+    const state = cepData.uf;
+    const city = cepData.localidade;
+    
+    // Show detected state
+    document.getElementById('detected-state').textContent = `${cepData.localidade} - ${state}`;
+    document.getElementById('state-info').classList.remove('hidden');
+    
+    // Search units for this state
+    await searchUnitsForState(state, city);
+}
+
+// Removed searchByState function as state selection was removed
+
+async function searchUnitsForState(state, userCity = null) {
+    console.log(`Buscando unidades CRAS para ${state}`);
+    
+    const response = await fetch('/api/search-cras-units', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            state: state,
+            user_city: userCity
+        })
+    });
+    
+    const data = await response.json();
+    console.log('Resposta do backend:', data);
+    
+    if (data.success && data.units && data.units.length > 0) {
+        console.log(`Backend retornou ${data.units.length} unidades`);
+        displayUnits(data.units, state);
+    } else {
+        console.error('Erro na resposta:', data);
+        alert('Erro ao buscar unidades CRAS. Tente novamente.');
+        document.getElementById('loading').classList.add('hidden');
+    }
+}
+
+function displayUnits(units, state) {
+    console.log(`Exibindo ${units.length} unidades para ${state}`);
+    
+    const unitsList = document.getElementById('units-list');
+    const stateInfo = stateVacancies[state] || { vacancies: 20, salary: 'R$ 2.500,00' };
+    
+    // Distribuição real das vagas baseada na tabela da página /vagas
+    const totalVacancies = stateInfo.vacancies;
+    const numUnits = units.length;
+    
+    unitsList.innerHTML = '';
+    
+    // Criar distribuição variada e realística das vagas
+    const vacancyDistribution = [];
+    let remainingVacancies = totalVacancies;
+    
+    // Distribuir vagas de forma variada (entre 2 e 8 vagas por unidade)
+    for (let i = 0; i < numUnits; i++) {
+        if (i === numUnits - 1) {
+            // Última unidade recebe todas as vagas restantes
+            vacancyDistribution.push(remainingVacancies);
+        } else {
+            // Calcular vagas para esta unidade (variação entre 2 e 6)
+            const minVagas = 2;
+            const maxVagas = Math.min(6, Math.floor(remainingVacancies / (numUnits - i)));
+            const vagasUnidade = Math.floor(Math.random() * (maxVagas - minVagas + 1)) + minVagas;
+            
+            vacancyDistribution.push(vagasUnidade);
+            remainingVacancies -= vagasUnidade;
+        }
+    }
+    
+    console.log('Distribuição de vagas:', vacancyDistribution);
+    console.log('Total distribuído:', vacancyDistribution.reduce((a, b) => a + b, 0));
+    
+    units.forEach((unit, index) => {
+        const unitVacancies = vacancyDistribution[index];
+        
+        const unitElement = document.createElement('div');
+        unitElement.className = 'bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow';
+        
+        unitElement.innerHTML = `
+            <div class="mb-3">
+                <h3 class="text-lg font-bold text-prosegur-black mb-2">${unit.name}</h3>
+                <p class="text-prosegur-gray mb-3 text-sm">${unit.address}</p>
+                
+                <div class="grid grid-cols-3 gap-3 mb-4 text-sm">
+                    <div class="text-center">
+                        <p class="text-gray-600 mb-1">Vagas</p>
+                        <p class="font-bold text-prosegur-blue">${unitVacancies}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-gray-600 mb-1">Salário</p>
+                        <p class="font-bold text-prosegur-blue">${stateInfo.salary}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-gray-600 mb-1">Regime</p>
+                        <p class="font-bold text-prosegur-blue">40h/sem</p>
+                    </div>
+                </div>
+                
+                <button onclick="selectUnit('${unit.name}', '${unit.address}', '${state}')" 
+                        class="w-full bg-prosegur-blue text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200 text-sm">
+                    Selecionar Esta Unidade
+                </button>
+            </div>
+        `;
+        
+        unitsList.appendChild(unitElement);
+    });
+    
+    // Show results with real data and hide loading
+    document.getElementById('results').classList.remove('hidden');
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('results-count').textContent = units.length;
+    document.getElementById('results-state').textContent = state;
+    document.getElementById('total-vacancies').textContent = totalVacancies;
+}
+
+function selectUnit(unitName, unitAddress, state) {
+    // Save selected unit info to localStorage
+    localStorage.setItem('selectedUnit', JSON.stringify({
+        name: unitName,
+        address: unitAddress,
+        state: state,
+        salary: stateVacancies[state]?.salary || 'R$ 2.500,00'
+    }));
+    
+    // Redirect to index page
+    window.location.href = '/';
+}
+</script>
+{% endblock %}

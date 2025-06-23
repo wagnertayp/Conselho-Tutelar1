@@ -1,0 +1,64 @@
+-----> Building on the Heroku-24 stack
+-----> Determining which buildpack to use for this app
+ !     Warning: Multiple default buildpacks reported the ability to handle this app. The first buildpack in the list below will be used.
+			Detected buildpacks: Python,Node.js
+			See https://devcenter.heroku.com/articles/buildpacks#buildpack-detect-order
+-----> Python app detected
+-----> Using Python 3.11.8 specified in runtime.txt
+ !     Warning: The runtime.txt file is deprecated.
+ !     
+ !     The runtime.txt file is deprecated since it has been replaced
+ !     by the more widely supported .python-version file:
+ !     https://devcenter.heroku.com/changelog-items/3141
+ !     
+ !     Please switch to using a .python-version file instead.
+ !     
+ !     Delete your runtime.txt file and create a new file in the
+ !     root directory of your app named:
+ !     .python-version
+ !     
+ !     Make sure to include the '.' character at the start of the
+ !     filename. Don't add a file extension such as '.txt'.
+ !     
+ !     In the new file, specify your app's major Python version number
+ !     only. Don't include quotes or a 'python-' prefix.
+ !     
+ !     For example, to request the latest version of Python 3.11,
+ !     update your .python-version file so it contains exactly:
+ !     3.11
+ !     
+ !     We strongly recommend that you don't specify the Python patch
+ !     version number, since it will pin your app to an exact Python
+ !     version and so stop your app from receiving security updates
+ !     each time it builds.
+ !     
+ !     In the future support for runtime.txt will be removed and
+ !     this warning will be made an error.
+ !     Warning: A Python patch update is available!
+ !     
+ !     Your app is using Python 3.11.8, however, there is a newer
+ !     patch release of Python 3.11 available: 3.11.12
+ !     
+ !     It is important to always use the latest patch version of
+ !     Python to keep your app secure.
+ !     
+ !     Update your runtime.txt file to use the new version.
+ !     
+ !     We strongly recommend that you don't pin your app to an
+ !     exact Python version such as 3.11.8, and instead only specify
+ !     the major Python version of 3.11 in your runtime.txt file.
+ !     This will allow your app to receive the latest available Python
+ !     patch version automatically and prevent this warning.
+-----> Installing Python 3.11.8
+-----> Installing pip 25.1.1, setuptools 70.3.0 and wheel 0.45.1
+-----> Installing SQLite3
+-----> Installing dependencies using 'pip install -r requirements.txt'
+       Collecting Flask==3.0.2 (from -r requirements.txt (line 1))
+         Downloading flask-3.0.2-py3-none-any.whl.metadata (3.6 kB)
+       ERROR: Could not find a version that satisfies the requirement Fla==3.1.1 (from versions: none)
+       ERROR: No matching distribution found for Fla==3.1.1
+ !     Error: Unable to install dependencies using pip.
+ !     
+ !     See the log output above for more information.
+ !     Push rejected, failed to compile Python app.
+ !     Push failed

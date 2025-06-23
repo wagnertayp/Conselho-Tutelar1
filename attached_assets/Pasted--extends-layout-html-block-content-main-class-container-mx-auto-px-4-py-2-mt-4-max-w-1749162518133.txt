@@ -1,0 +1,264 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main class="container mx-auto px-4 py-2 mt-4 max-w-[1200px]">
+    <div class="bg-green-50 text-green-800 py-4 px-6 text-center rounded-lg mb-6 shadow-sm">
+        <div class="flex items-center justify-center mb-2">
+            <i class="fas fa-id-card text-green-600 text-2xl mr-3"></i>
+            <h1 class="text-xl md:text-2xl font-bold uppercase tracking-wide">CNV Digital Gerada</h1>
+        </div>
+        <p class="text-sm md:text-base">Sua Carteira Nacional de Vigilante foi criada com sucesso</p>
+    </div>
+    
+    <div class="mb-6">
+        <p class="mb-4 text-sm md:text-base text-gray-700 leading-relaxed">Parabéns! Sua CNV Digital foi criada com sucesso. Este documento oficial habilita o portador para atividades de vigilância em todo território nacional.</p>
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+            <div class="flex items-start">
+                <i class="fas fa-info-circle text-amber-600 mr-3 mt-1"></i>
+                <div>
+                    <p class="text-amber-800 font-medium text-sm md:text-base">Para validar oficialmente este documento e habilitar seu uso no estande de tiro, é necessário efetuar o pagamento da taxa de validação.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CNV Digital Document -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6">
+        <div class="bg-blue-900 text-white py-3 px-4">
+            <h2 class="text-sm md:text-base font-medium">CARTEIRA NACIONAL DE VIGILANTE - CNV DIGITAL</h2>
+            <p class="text-xs md:text-sm text-blue-200">Ministério da Justiça e Segurança Pública</p>
+        </div>
+        
+        <div class="card-container bg-yellow-50 relative overflow-hidden shadow-lg" style="aspect-ratio: 1.58 / 1; width: 100%; max-width: 600px; margin: 0 auto;">
+            <!-- Brazilian Coat of Arms Watermark -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <img src="https://www.gov.br/planalto/pt-br/conheca-a-presidencia/acervo/simbolos-nacionais/brasao-da-republica/brasaooficialcolorido.png" alt="Brazilian coat of arms" class="w-3/4 h-3/4 object-contain">
+            </div>
+            
+            <div class="relative z-10 h-full flex flex-col p-4">
+                <!-- Header -->
+                <div class="text-center mb-2">
+                    <h1 class="text-red-600 font-bold text-[2.2vw] sm:text-sm md:text-base lg:text-lg">VÁLIDA EM TODO O TERRITÓRIO NACIONAL</h1>
+                    <h2 class="text-blue-900 font-bold text-[2vw] sm:text-xs md:text-sm lg:text-base">ARTIGO 19 DA LEI 7.102 DE 20/06/1983</h2>
+                    <p class="text-blue-900 font-bold text-[1.7vw] sm:text-[0.7rem] md:text-xs lg:text-sm">É ASSEGURADO AO VIGILANTE: PORTE DE ARMA, QUANDO EM SERVIÇO;</p>
+                    <p class="text-blue-900 font-bold text-[1.7vw] sm:text-[0.7rem] md:text-xs lg:text-sm">PRISÃO ESPECIAL POR ATO DECORRENTE DO SERVIÇO</p>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="flex-grow grid grid-cols-2 gap-2 text-[1.7vw] sm:text-[0.7rem] md:text-xs lg:text-sm">
+                    <div>
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">NOME COMPLETO</h3>
+                            <p class="text-black uppercase" id="cnv-name">{{ user_data.full_name or 'NOME DO VIGILANTE' }}</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">DATA DE FORMAÇÃO</h3>
+                            <p class="text-black" id="cnv-formation-date">13/02/1990</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">DATA NASCIMENTO</h3>
+                            <p class="text-black" id="cnv-birth-date">{{ user_data.birth_date or '18/02/1964' }}</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">ÓRGÃO EXPEDIDOR</h3>
+                            <p class="text-black">SSP/SP</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">CPF</h3>
+                            <p class="text-black" id="cnv-cpf">{{ user_data.cpf or '000.000.000-00' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <div class="mb-1">
+                                <h3 class="text-black font-bold">CADASTRO NO AFIS</h3>
+                                <p class="text-black">NÃO</p>
+                            </div>
+                        </div>
+                        
+                        <!-- QR Code -->
+                        <div class="flex justify-end">
+                            <div id="qrcode" class="w-[35%] aspect-square"></div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        
+        <!-- Download and Print Buttons -->
+        <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4 mt-4">
+            <button onclick="window.print()" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 md:px-6 rounded-lg transition-colors duration-200 text-sm md:text-base">
+                <i class="fas fa-print mr-2"></i>
+                Imprimir CNV
+            </button>
+            
+            <button onclick="downloadCNV()" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 md:px-6 rounded-lg transition-colors duration-200 text-sm md:text-base">
+                <i class="fas fa-download mr-2"></i>
+                Baixar PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Payment Instructions -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+        <h3 class="text-lg font-bold text-blue-900 mb-3">Próximos Passos para Ativação</h3>
+        <div class="space-y-3">
+            <div class="flex items-start">
+                <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</div>
+                <div>
+                    <h4 class="font-medium text-blue-900">Efetuar Pagamento</h4>
+                    <p class="text-blue-700 text-sm">Realize o pagamento da taxa de ativação de R$ 88,70 via PIX.</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</div>
+                <div>
+                    <h4 class="font-medium text-blue-900">Validação Automática</h4>
+                    <p class="text-blue-700 text-sm">Após confirmação do pagamento, sua CNV será ativada automaticamente.</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</div>
+                <div>
+                    <h4 class="font-medium text-blue-900">Acesso ao Estande</h4>
+                    <p class="text-blue-700 text-sm">Com a CNV ativa, você estará habilitado para utilizar o estande de tiro.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="text-center">
+        <button onclick="processCNVPayment()" id="payment-btn" class="w-full md:w-auto bg-[#FFCC00] hover:bg-[#e6b800] text-black font-bold py-4 px-8 rounded-lg text-base md:text-lg transition-colors duration-200 shadow-lg">
+            <span id="payment-btn-text">Pagar Taxa de Ativação</span>
+        </button>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+// Load user data from localStorage and update CNV
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        
+        // Update CNV with real user data
+        if (userData.full_name || userData.name) {
+            document.getElementById('cnv-name').textContent = (userData.full_name || userData.name).toUpperCase();
+        }
+        
+        if (userData.cpf) {
+            // Format CPF
+            const cpf = userData.cpf.replace(/\D/g, '');
+            const formattedCPF = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            document.getElementById('cnv-cpf').textContent = formattedCPF;
+        }
+        
+        if (userData.birth_date) {
+            document.getElementById('cnv-birth-date').textContent = userData.birth_date;
+        }
+        
+        if (userData.city && userData.state) {
+            document.getElementById('cnv-birth-place').textContent = userData.city.toUpperCase() + '/' + userData.state.toUpperCase();
+        }
+        
+        if (userData.rg) {
+            const state = userData.state || 'SP';
+            document.getElementById('cnv-rg').textContent = userData.rg + ' SSP/' + state + '/' + state;
+        }
+        
+        if (userData.father_name) {
+            document.getElementById('cnv-father').textContent = userData.father_name.toUpperCase();
+        }
+        
+        // Set formation date to current date in Portuguese format
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const formationDate = ${day}/${month}/${year};
+        document.getElementById('cnv-formation-date').textContent = formationDate;
+        
+    } catch (error) {
+        console.log('Erro ao carregar dados do usuário:', error);
+    }
+    
+    // Generate QR Code exactly like the provided HTML
+    window.onload = function() {
+        var qr = qrcode(0, 'M');
+        qr.addData('https://prosegur.com/cnv-validation');
+        qr.make();
+        document.getElementById('qrcode').innerHTML = qr.createImgTag(4);
+    }
+});
+
+async function processCNVPayment() {
+    const paymentBtn = document.getElementById('payment-btn');
+    const paymentBtnText = document.getElementById('payment-btn-text');
+    
+    // Disable button and show loading
+    paymentBtn.disabled = true;
+    paymentBtnText.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processando...';
+    
+    try {
+        // Get user data from localStorage
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        
+        // Create payment request
+        const response = await fetch('/create_cnv_payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Redirect to payment page
+            window.location.href = '/pagamento';
+        } else {
+            throw new Error(result.error || 'Erro ao processar pagamento');
+        }
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao processar pagamento. Tente novamente.');
+        
+        // Reset button
+        paymentBtn.disabled = false;
+        paymentBtnText.innerHTML = 'Pagar Taxa de Ativação';
+    }
+}
+
+function downloadCNV() {
+    // Simple implementation - in production, this would generate a proper PDF
+    window.print();
+}
+</script>
+
+<style>
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .card-container, .card-container * {
+        visibility: visible;
+    }
+    .card-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}

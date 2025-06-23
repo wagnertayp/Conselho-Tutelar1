@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - Prosegur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .sale-popup {
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <div class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="https://i.postimg.cc/zvmGLmsw-/Localiza-Fone-4-1-1.png" alt="Prosegur" class="h-8 mr-4">
+                    <h1 class="text-2xl font-bold text-gray-900">Painel de Controle</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div id="connection-status" class="w-3 h-3 bg-green-500 rounded-full pulse-animation"></div>
+                        <span class="text-sm text-gray-600">Conectado</span>
+                    </div>
+                    <div class="text-sm text-gray-500" id="last-update">
+                        Última atualização: --:--
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Real-time Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Active Users -->
+            <div class="metric-card bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-users text-blue-600 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Usuários Online</p>
+                        <p id="active-users" class="text-2xl font-semibold text-gray-900">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Views -->
+            <div class="metric-card bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-eye text-green-600 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Visualizações (Hoje)</p>
+                        <p id="page-views" class="text-2xl font-semibold text-gray-900">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Sales -->
+            <div class="metric-card bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-shopping-cart text-yellow-600 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Vendas (Hoje)</p>
+                        <p id="total-sales" class="text-2xl font-semibold text-gray-900">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue -->
+            <div class="metric-card bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-dollar-sign text-red-600 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Receita (Hoje)</p>
+                        <p id="total-revenue" class="text-2xl font-semibold text-gray-900">R$ --</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Recent Sales -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">Vendas Recentes</h3>
+                </div>
+                <div class="p-6">
+                    <div id="recent-sales" class="space-y-4">
+                        <div class="text-center text-gray-500 py-8">
+                            <i class="fas fa-chart-line text-4xl mb-4"></i>
+                            <p>Aguardando dados de vendas...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Pages -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">Páginas Mais Visitadas</h3>
+                </div>
+                <div class="p-6">
+                    <div id="popular-pages" class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">/</span>
+                            <span id="home-views" class="text-sm font-medium text-gray-900">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">/vagas</span>
+                            <span id="vagas-views" class="text-sm font-medium text-gray-900">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">/agendamento</span>
+                            <span id="agendamento-views" class="text-sm font-medium text-gray-900">--</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">/pagamento</span>
+                            <span id="pagamento-views" class="text-sm font-medium text-gray-900">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sale Notification Popup -->
+    <div id="sale-popup" class="fixed top-4 right-4 z-50 hidden">
+        <div class="sale-popup bg-green-600 text-prosegur-black rounded-lg shadow-lg p-4 max-w-sm">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle text-2xl mr-3"></i>
+                <div>
+                    <h4 class="font-bold">Nova Venda!</h4>
+                    <p id="sale-details" class="text-sm">--</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let metrics = {
+            activeUsers: 0,
+            pageViews: 0,
+            totalSales: 0,
+            totalRevenue: 0,
+            pageViewsByRoute: {
+                '/': 0,
+                '/vagas': 0,
+                '/agendamento': 0,
+                '/pagamento': 0
+            }
+        };
+
+        let recentSales = [];
+
+        // Update display elements
+        function updateDisplay() {
+            document.getElementById('active-users').textContent = metrics.activeUsers;
+            document.getElementById('page-views').textContent = metrics.pageViews;
+            document.getElementById('total-sales').textContent = metrics.totalSales;
+            document.getElementById('total-revenue').textContent = `R$ ${metrics.totalRevenue.toFixed(2)}`;
+            
+            // Update page views
+            document.getElementById('home-views').textContent = metrics.pageViewsByRoute['/'];
+            document.getElementById('vagas-views').textContent = metrics.pageViewsByRoute['/vagas'];
+            document.getElementById('agendamento-views').textContent = metrics.pageViewsByRoute['/agendamento'];
+            document.getElementById('pagamento-views').textContent = metrics.pageViewsByRoute['/pagamento'];
+            
+            // Update last update time
+            document.getElementById('last-update').textContent = 
+                `Última atualização: ${new Date().toLocaleTimeString('pt-BR')}`;
+        }
+
+        // Show sale popup
+        function showSalePopup(saleData) {
+            const popup = document.getElementById('sale-popup');
+            const details = document.getElementById('sale-details');
+            
+            details.textContent = `${saleData.customerName} - R$ ${saleData.amount.toFixed(2)}`;
+            popup.classList.remove('hidden');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Update recent sales display
+        function updateRecentSales() {
+            const container = document.getElementById('recent-sales');
+            
+            if (recentSales.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-chart-line text-4xl mb-4"></i>
+                        <p>Nenhuma venda hoje</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = recentSales.slice(-5).reverse().map(sale => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                        <p class="font-medium text-gray-900">${sale.customerName}</p>
+                        <p class="text-sm text-gray-500">${sale.timestamp}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-green-600">R$ ${sale.amount.toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Fetch analytics data
+        async function fetchAnalytics() {
+            try {
+                const response = await fetch('/api/analytics');
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Check for new sales
+                    if (data.totalSales > metrics.totalSales && metrics.totalSales > 0) {
+                        // New sale detected
+                        if (data.recentSales && data.recentSales.length > 0) {
+                            const latestSale = data.recentSales[data.recentSales.length - 1];
+                            showSalePopup(latestSale);
+                        }
+                    }
+                    
+                    // Update metrics
+                    metrics = data;
+                    recentSales = data.recentSales || [];
+                    
+                    updateDisplay();
+                    updateRecentSales();
+                    
+                    // Update connection status
+                    document.getElementById('connection-status').className = 'w-3 h-3 bg-green-500 rounded-full pulse-animation';
+                } else {
+                    throw new Error('Failed to fetch analytics');
+                }
+            } catch (error) {
+                console.error('Error fetching analytics:', error);
+                // Update connection status to show error
+                document.getElementById('connection-status').className = 'w-3 h-3 bg-red-500 rounded-full';
+            }
+        }
+
+        // Initialize dashboard
+        function initDashboard() {
+            fetchAnalytics();
+            
+            // Update every 5 seconds
+            setInterval(fetchAnalytics, 5000);
+        }
+
+        // Start dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

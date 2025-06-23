@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Documento de Arrecadação Municipal - DAM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arial:400,700&display=swap" rel="stylesheet"/>
+    <style>
+      body { font-family: 'Arial', Arial, sans-serif; }
+      .barcode {
+        letter-spacing: 2px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.85rem;
+      }
+      @media (max-width: 640px) {
+        .barcode { font-size: 0.7rem; }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex flex-col items-center py-2">
+    <div class="w-full max-w-lg bg-white rounded-xl shadow-lg border border-gray-300 overflow-hidden">
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2 px-4 pt-4 pb-2 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-white">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <img src="https://www.gov.br/agricultura/pt-br/centrais-de-conteudo/imagens/brasao.png" alt="Brasão da República Federativa do Brasil" class="w-14 h-14 object-contain"/>
+          <div>
+            <div class="text-[15px] font-semibold text-gray-800 leading-tight text-center sm:text-left">
+              Prefeitura Municipal de Campo Grande
+            </div>
+            <div class="text-xs text-gray-700 text-center sm:text-left">
+              Secretaria Municipal de Finanças e Planejamento
+            </div>
+            <div class="text-xs font-bold text-gray-900 text-center sm:text-left">
+              Documento de Arrecadação Municipal - DAM
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center sm:items-end w-full sm:w-auto mt-2 sm:mt-0">
+          <span class="text-3xl font-extrabold text-[#2196d3] leading-none">SEFIN</span>
+          <span class="text-xs text-[#2196d3] font-semibold text-center sm:text-right leading-tight">
+            Secretaria Municipal<br>de Finanças e<br>Planejamento
+          </span>
+        </div>
+      </div>
+      <!-- Dados do Contribuinte -->
+      <div class="px-4 py-3">
+        <div class="grid grid-cols-1 gap-2 text-xs sm:text-sm">
+          <div>
+            <span class="font-bold">Nome / Razão Social:</span>
+            JOSE WAGNER FERREIRA DA SILVA
+          </div>
+          <div>
+            <span class="font-bold">Endereço:</span>
+            RUA 90, 431 QUADRA: 00147 LOTE:00017
+          </div>
+          <div>
+            <span class="font-bold">C. Insc. Municipal:</span>
+            11880500615
+            <span class="font-bold ml-2">Bairro:</span>
+            NOVA CAMPO GRANDE BL 08
+          </div>
+          <div class="flex flex-wrap gap-x-4 gap-y-1">
+            <span><span class="font-bold">Guia DAM:</span> 140038/23-75</span>
+            <span><span class="font-bold">Processo:</span></span>
+            <span><span class="font-bold">Auto de Infração:</span></span>
+          </div>
+        </div>
+      </div>
+      <!-- Tabela de Débitos -->
+      <div class="px-2 sm:px-4">
+        <div class="overflow-x-auto rounded-lg border border-gray-300">
+          <table class="min-w-full text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-[#f3f6fa] text-gray-700">
+                <th class="p-2 border-b border-gray-300 font-bold">Ident. Débito</th>
+                <th class="p-2 border-b border-gray-300 font-bold">Receita</th>
+                <th class="p-2 border-b border-gray-300 font-bold">Vencimento</th>
+                <th class="p-2 border-b border-gray-300 font-bold">Vlr Tributo (R$)</th>
+                <th class="p-2 border-b border-gray-300 font-bold">Desc (R$)</th>
+                <th class="p-2 border-b border-gray-300 font-bold">Acrés (R$)</th>
+                <th class="p-2 border-b border-gray-300 font-bold">Vlr Total (R$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td class="p-2 border-b border-gray-200">2023010401010</td>
+                <td class="p-2 border-b border-gray-200">PREDIAL</td>
+                <td class="p-2 border-b border-gray-200">10/04/2023</td>
+                <td class="p-2 border-b border-gray-200">64,03</td>
+                <td class="p-2 border-b border-gray-200">0,00</td>
+                <td class="p-2 border-b border-gray-200">0,64</td>
+                <td class="p-2 border-b border-gray-200">64,67</td>
+              </tr>
+              <tr class="text-center">
+                <td class="p-2">2023010501015</td>
+                <td class="p-2">PREDIAL</td>
+                <td class="p-2">10/05/2023</td>
+                <td class="p-2">64,03</td>
+                <td class="p-2">0,00</td>
+                <td class="p-2">0,00</td>
+                <td class="p-2">64,03</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Informações de Pagamento -->
+      <div class="px-4 py-3">
+        <div class="flex flex-col gap-2 sm:flex-row sm:gap-0 items-stretch text-xs sm:text-sm">
+          <div class="flex-1 flex items-center justify-center bg-[#e3eaf3] border border-gray-300 font-bold rounded-t-md sm:rounded-t-none sm:rounded-l-md py-2 px-2 text-center">
+            NÃO RECEBER APÓS DATA DE VALIDADE
+          </div>
+          <div class="flex-1 flex items-center justify-center border border-gray-300 border-t-0 sm:border-t sm:border-l-0 sm:border-r-0 py-2 px-2 text-center">
+            Data de Vencimento:
+            <span class="ml-1 font-bold">10/05/2023</span>
+          </div>
+          <div class="flex-1 flex items-center justify-center bg-[#e3eaf3] border border-gray-300 font-bold rounded-b-md sm:rounded-b-none sm:rounded-r-md py-2 px-2 text-center">
+            VALOR TOTAL A PAGAR
+          </div>
+          <div class="flex-1 flex items-center justify-center border border-gray-300 border-t-0 sm:border-t sm:border-l-0 py-2 px-2 font-bold text-center">
+            128,70
+          </div>
+        </div>
+      </div>
+      <!-- Código de Barras -->
+      <div class="px-4 pb-2">
+        <div class="barcode bg-white border border-gray-300 rounded-md px-2 py-2 w-full text-center select-none overflow-x-auto whitespace-nowrap">
+          81620000001-5 28700868202-6 30510000099-4 91400382375-6
+        </div>
+      </div>
+      <div class="flex justify-between items-center px-4 pb-2">
+        <div class="text-xs font-bold text-gray-700">1ª VIA PREFEITURA</div>
+        <div class="text-xs text-gray-500">26 de abr de 2023 08:35</div>
+      </div>
+      <!-- PIX QR Code Section -->
+      <div class="px-4 py-4 border-t border-gray-200 bg-[#f8fafc]">
+        <h2 class="text-base font-bold text-center mb-2 text-[#2196d3]">Pagamento via PIX</h2>
+        <div class="flex flex-col items-center gap-2">
+          <img src="https://replicate.delivery/xezq/iRfbXPk82HRfWksqGPSf0Thkm1qSdJonGCkuderCFLYJgxaTB/out-0.png" alt="QR Code para pagamento PIX" class="w-40 h-40 rounded-md border border-gray-300 shadow-sm"/>
+          <input type="text" readonly value="00020126580014br.gov.bcb.pix0136b3e1..." class="w-full text-xs text-gray-700 bg-gray-100 border border-gray-300 rounded px-2 py-1 mt-1 mb-1 text-center" />
+          <button onclick="navigator.clipboard.writeText('00020126580014br.gov.bcb.pix0136b3e1...')" class="w-full sm:w-auto bg-[#2196d3] hover:bg-[#176cae] text-white text-xs font-semibold rounded px-3 py-2 transition">
+            Copiar código PIX
+          </button>
+        </div>
+        <p class="text-center mt-2 text-xs text-gray-600">
+          Escaneie o QR Code ou copie o código para pagar via PIX no app do seu banco.
+        </p>
+      </div>
+      <!-- 2ª VIA CONTRIBUINTE -->
+      <div class="flex justify-between items-center px-4 py-2 border-t border-gray-200 bg-white">
+        <div class="text-xs font-bold text-gray-700">2ª VIA CONTRIBUINTE</div>
+        <div class="text-xs text-gray-500">26 de abr de 2023 08:35</div>
+      </div>
+    </div>
+  </body>
+</html>

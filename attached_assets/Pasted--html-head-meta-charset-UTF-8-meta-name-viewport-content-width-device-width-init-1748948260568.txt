@@ -1,0 +1,165 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosegur - Confirmação de Agendamento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="bg-[#FFCC00] flex items-center justify-between px-4 md:px-8 py-4">
+            <div class="flex items-center">
+                <img src="https://i.ibb.co/sp0WP8BN/prosegur-logo-1.png" alt="Prosegur logo with a globe icon and the company name" class="h-8 md:h-10 mr-4">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-black font-medium text-sm uppercase">Sobre Prosegur</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase">Pequenas e Médias Empresas</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase">Grandes Empresas</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase border-b-2 border-black">Trabalhe Conosco</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-black"><i class="fas fa-search text-lg"></i></a>
+                <a href="#" class="text-black"><i class="fas fa-user text-lg"></i></a>
+                <a href="#" class="text-black text-sm uppercase font-medium hidden md:block">Área do Cliente</a>
+            </div>
+        </div>
+        <div class="bg-[#333333] text-white px-4 md:px-8 py-1 text-xs">
+            <nav class="flex items-center space-x-2">
+                <a href="#" class="text-gray-300 hover:text-white">Início</a>
+                <span class="text-gray-400">></span>
+                <span class="text-white">Confirmação de Agendamento</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="py-10 md:py-14">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-lg md:text-xl font-bold mb-1 leading-tight">Confirmação de Agendamento do Curso</h2>
+            <div class="w-24 h-2 bg-[#FFCC00] mx-auto mb-3 rounded-full"></div>
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Para confirmar o agendamento do curso prático para assumir a vaga de Vigilante de Carro Forte, é obrigatório o pagamento da munição que será utilizada no treinamento. O valor é de <span class="font-bold text-red-600">R$ 147,50</span>.
+            </p>
+
+            <div class="flex flex-col items-center mb-6">
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="w-6 h-6 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+                    <span class="text-yellow-500 font-medium text-sm">Aguardando pagamento para finalizar</span>
+                </div>
+                <img src="https://placehold.co/200x200" alt="QR Code para pagamento do curso prático de Vigilante de Carro Forte" class="w-48 h-48 mb-4">
+                <p class="text-sm text-gray-600 mb-4">Escaneie o QR Code acima para realizar o pagamento.</p>
+            </div>
+
+            <div class="max-w-lg mx-auto">
+                <label for="pix-code" class="block text-sm font-medium text-gray-700 mb-2">Código Pix (Copia e Cola):</label>
+                <div class="relative mb-4">
+                    <input type="text" id="pix-code" value="00020126580014BR.GOV.BCB.PIX0136fakepixcode1234567895204000053039865405147.505802BR5925Prosegur Segurança Privada6009Sao Paulo62070503***6304ABCD" readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700">
+                </div>
+                <button onclick="copyPixCode()" class="bg-[#FFCC00] text-black font-medium px-4 py-2 rounded text-sm w-full">Copiar Código Pix</button>
+            </div>
+
+            <p class="max-w-3xl mx-auto mt-6 mb-6 md:mb-10 leading-relaxed text-sm font-bold text-red-600">
+                Atenção: Caso o pagamento não seja realizado, você poderá perder a vaga para outro candidato que efetuar o pagamento antes de você. Garanta sua vaga agora mesmo!
+            </p>
+
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Após o pagamento, o curso de Vigilante da Prosegur será confirmado e você poderá assumir a vaga. Certifique-se de clicar no botão abaixo após realizar o pagamento.
+            </p>
+
+            <a href="#" class="bg-[#FFCC00] text-black font-medium px-6 md:px-8 py-3 rounded-full inline-block">Confirmar Pagamento</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:mb-12">
+                <div>
+                    <h3 class="text-base font-medium mb-4">Quem Somos</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">O Grupo Prosegur</a></li>
+                        <li><a href="#" class="hover:text-white">Sobre Prosegur</a></li>
+                        <li><a href="#" class="hover:text-white">Onde estamos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4">Pequenas e Médias Empresas</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Supermercados</a></li>
+                        <li><a href="#" class="hover:text-white">Drogarias</a></li>
+                        <li><a href="#" class="hover:text-white">Postos de Combustíveis</a></li>
+                        <li><a href="#" class="hover:text-white">Outros varejistas</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4">Grandes Empresas</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Bancos</a></li>
+                        <li><a href="#" class="hover:text-white">Cooperativas de crédito</a></li>
+                        <li><a href="#" class="hover:text-white">Varejistas</a></li>
+                        <li><a href="#" class="hover:text-white">Indústria</a></li>
+                        <li><a href="#" class="hover:text-white">Serviços</a></li>
+                        <li><a href="#" class="hover:text-white">Grandes Eventos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4">Trabalhe Conosco</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Vagas</a></li>
+                        <li><a href="#" class="hover:text-white">Blog Dinheiro</a></li>
+                        <li><a href="#" class="hover:text-white">Media Center</a></li>
+                        <li><a href="#" class="hover:text-white">Sala de Imprensa</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 mb-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <div class="mb-4 md:mb-0">
+                    <span>© Copyright 2025 Prosegur</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <a href="#" class="hover:text-white">Sitemap</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Legal</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Política de Cookies</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Canal Ético</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Cambiar preferencias de las cookies</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyPixCode() {
+            const pixCode = document.getElementById('pix-code');
+            pixCode.select();
+            pixCode.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(pixCode.value);
+            alert('Código Pix copiado para a área de transferência!');
+        }
+    </script>
+</body>
+</html>

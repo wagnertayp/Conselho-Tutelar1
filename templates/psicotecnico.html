@@ -1,0 +1,358 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-6">
+    <!-- Institutional Header -->
+    <div class="text-center mb-4">
+        <div class="bg-slate-800 text-white rounded-lg p-4 mb-4 shadow-lg border border-slate-600 relative overflow-hidden">
+            <!-- Elegant accent -->
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-amber-400"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-400 rounded-full mb-3 shadow-md">
+                    <i class="fas fa-heart text-lg text-slate-800"></i>
+                </div>
+                <h1 class="text-xl font-light tracking-wider mb-2 text-slate-100">
+                    AVALIAÇÃO PSICOLÓGICA
+                </h1>
+                <div class="w-16 h-px bg-amber-400 mx-auto mb-2"></div>
+                <p class="text-base font-medium text-slate-200 mb-1">Conselheiro Tutelar - 2ª Etapa</p>
+                <p class="text-xs text-slate-300 font-light">Perfil Comportamental</p>
+                <div class="mt-3 px-3 py-1 bg-slate-700 rounded-full inline-block">
+                    <p class="text-xs text-amber-400 font-medium">COMPETÊNCIA EMOCIONAL</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessment Information -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+        <div class="text-center mb-3">
+            <div class="inline-flex items-center justify-center w-10 h-10 bg-amber-100 rounded-full mb-2">
+                <i class="fas fa-brain text-base text-amber-600"></i>
+            </div>
+            <h2 class="text-lg font-light text-slate-800 mb-1">Perfil Psicológico</h2>
+            <div class="w-12 h-px bg-amber-400 mx-auto"></div>
+        </div>
+        
+        <p class="text-sm text-slate-600 leading-relaxed text-center mb-3 font-light">
+            Avaliação do <span class="font-medium text-slate-800">perfil comportamental</span> 
+            e <span class="font-medium text-amber-600">competências emocionais</span> necessárias para 
+            <span class="font-medium text-slate-800">proteção de crianças e adolescentes</span>.
+        </p>
+        
+        <div class="bg-slate-50 rounded p-3 border border-slate-100">
+            <div class="grid grid-cols-3 gap-2 text-center">
+                <div class="p-2 bg-white rounded border border-slate-200">
+                    <i class="fas fa-users text-sm text-amber-600 mb-1"></i>
+                    <p class="text-slate-800 font-medium text-xs">Empatia</p>
+                    <p class="text-slate-600 text-xs">Essencial</p>
+                </div>
+                <div class="p-2 bg-white rounded border border-slate-200">
+                    <i class="fas fa-balance-scale text-sm text-amber-600 mb-1"></i>
+                    <p class="text-slate-800 font-medium text-xs">Equilíbrio</p>
+                    <p class="text-slate-600 text-xs">Emocional</p>
+                </div>
+                <div class="p-2 bg-white rounded border border-slate-200">
+                    <i class="fas fa-shield-alt text-sm text-amber-600 mb-1"></i>
+                    <p class="text-slate-800 font-medium text-xs">Proteção</p>
+                    <p class="text-slate-600 text-xs">Infantil</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessment Interface -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200">
+        <form id="cac-questionario" class="p-4">
+            <div id="question-container" class="min-h-[300px]">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+
+            <!-- Compact Navigation -->
+            <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mt-4">
+                <div class="flex justify-between items-center">
+                    <button id="prev-button" class="bg-slate-300 hover:bg-slate-400 text-slate-700 py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300" type="button" style="display: none;">
+                        <i class="fas fa-arrow-left mr-2"></i>Voltar
+                    </button>
+                    <div class="flex-grow"></div>
+                    <button id="next-button" class="bg-slate-800 hover:bg-slate-700 text-white py-3 px-4 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5" type="button" disabled>
+                        <i class="fas fa-arrow-right mr-2 text-amber-400"></i>Continuar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Mobile-optimized styles */
+    .checkbox-custom {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #d1d5db;
+        border-radius: 50%;
+        margin-right: 8px;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .radio-button:checked + label .checkbox-custom::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background-color: #044785;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .radio-button:checked + label {
+        background-color: #dbeafe;
+        border: 2px solid #1451B4;
+    }
+
+    .question-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .question-wrapper h2 {
+        flex-shrink: 0;
+        padding: 0;
+        margin-bottom: 0.25rem;
+    }
+
+    .question-wrapper > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0;
+        gap: 0.125rem;
+    }
+
+    .option-button {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+        min-height: 3.5rem; /* Fixed height for all options */
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+    }
+
+    .option-button:hover {
+        border-color: #9ca3af;
+        background-color: #f9fafb;
+    }
+
+    .radio-button:checked + .option-button {
+        border: 2px solid #1451B4;
+        background-color: #dbeafe;
+    }
+
+    :root {
+        --prosegur-blue: #044785;
+    }
+</style>
+
+<script>
+    const questions = [
+        {
+            question: "Como você lidaria com sua própria frustração ao ver situações de extrema pobreza?",
+            options: [
+                "Mantenho o equilíbrio emocional e foco no que posso fazer",
+                "Fico emocionalmente abalado mas continuo trabalhando",
+                "Às vezes me sinto impotente diante da situação",
+                "Busco supervisão técnica para processar os sentimentos"
+            ]
+        },
+        {
+            question: "Qual sua reação ao descobrir que um usuário mentiu sobre sua situação?",
+            options: [
+                "Confronto diretamente sobre a mentira",
+                "Compreendo que pode ser uma estratégia de sobrevivência",
+                "Fico decepcionado e perco a confiança na pessoa",
+                "Analiso os motivos e reavalizo a abordagem"
+            ]
+        },
+        {
+            question: "Como você mantém limites profissionais saudáveis?",
+            options: [
+                "Estabeleço regras claras desde o primeiro atendimento",
+                "Adapto conforme a situação e necessidade do usuário",
+                "Às vezes tenho dificuldade em dizer não",
+                "Mantenho distância emocional sempre"
+            ]
+        },
+        {
+            question: "Diante de um caso muito complexo, você:",
+            options: [
+                "Busca suporte da equipe e supervisão técnica",
+                "Tenta resolver sozinho para mostrar competência",
+                "Sente-se sobrecarregado mas não pede ajuda",
+                "Transfere rapidamente para outro profissional"
+            ]
+        },
+        {
+            question: "Como você lida com famílias que não seguem orientações?",
+            options: [
+                "Encerro o acompanhamento por falta de adesão",
+                "Insisto até que aceitem as orientações",
+                "Reavalio a abordagem e busco entender as resistências",
+                "Ameaço suspender benefícios para forçar adesão"
+            ]
+        },
+        {
+            question: "Sua reação ao presenciar injustiças sociais é:",
+            options: [
+                "Fico revoltado mas mantenho profissionalismo",
+                "Uso isso como motivação para melhorar meu trabalho",
+                "Sinto-me desanimado com o sistema",
+                "Busco formas de advocacy e defesa de direitos"
+            ]
+        },
+        {
+            question: "Como você equilibra vida pessoal e profissional nesta área?",
+            options: [
+                "Estabeleço horários rígidos e não levo trabalho para casa",
+                "Às vezes fico pensando nos casos fora do horário",
+                "Tenho dificuldade em desligar do trabalho",
+                "Busco atividades que me ajudem a processar as experiências"
+            ]
+        },
+        {
+            question: "Em relação ao planejamento e organização, você:",
+            options: [
+                "Sempre planejo com antecedência e sou muito organizado",
+                "Mantenho um equilíbrio entre planejamento e flexibilidade",
+                "Prefiro lidar com as situações conforme surgem",
+                "Tenho dificuldade em manter organização"
+            ]
+        },
+        {
+            question: "Como você reage a mudanças inesperadas?",
+            options: [
+                "Adapto-me facilmente e vejo como oportunidade",
+                "Aceito mas preciso de tempo para ajustar",
+                "Sinto-me desconfortável com mudanças",
+                "Resisto fortemente a mudanças"
+            ]
+        },
+        {
+            question: "Em situações de conflito, qual sua postura mais comum?",
+            options: [
+                "Busco mediar e encontrar soluções pacíficas",
+                "Defendo meu ponto de vista mas busco acordo",
+                "Evito conflitos sempre que possível",
+                "Tendo a me envolver emocionalmente"
+            ]
+        }
+    ];
+
+    let currentQuestion = 0;
+    const questionContainer = document.getElementById('question-container');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+
+    async function displayQuestion(index) {
+        questionContainer.classList.remove('opacity-100');
+        questionContainer.classList.add('opacity-0');
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        const question = questions[index];
+        let html = `
+            <div class="question-wrapper">
+                <h2 class="text-lg font-semibold text-prosegur-black font-heading">${index + 1}. ${question.question}</h2>
+                <div>
+        `;
+        question.options.forEach((option, i) => {
+            html += `
+                <div class="flex items-center p-1">
+                    <input type="radio" id="q${index}_option${i}" name="q${index}" value="${option}" class="radio-button hidden">
+                    <label for="q${index}_option${i}" class="option-button flex items-center w-full cursor-pointer text-base p-2">
+                        <div class="checkbox-custom"></div>
+                        <span class="flex-grow">${option}</span>
+                    </label>
+                </div>
+            `;
+        });
+        html += '</div></div>';
+        questionContainer.innerHTML = html;
+
+        // Desabilita o botão inicialmente
+        nextButton.disabled = true;
+        nextButton.style.opacity = '0.5';
+
+        // Adiciona listeners para habilitar o botão quando uma opção for selecionada
+        const radioButtons = questionContainer.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', () => {
+                nextButton.disabled = false;
+                nextButton.style.opacity = '1';
+            });
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+        questionContainer.classList.remove('opacity-0');
+        questionContainer.classList.add('opacity-100');
+    }
+
+    function updateButtons() {
+        prevButton.style.display = currentQuestion > 0 ? 'block' : 'none';
+        nextButton.innerHTML = currentQuestion === questions.length - 1 ?
+            '<i class="fa fa-check mr-2"></i>Finalizar' :
+            '<i class="fa fa-arrow-right mr-2"></i>Continuar';
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            displayQuestion(currentQuestion);
+            updateButtons();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+        if (selectedOption) {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion(currentQuestion);
+                updateButtons();
+            } else {
+                // Simplified submission - just redirect without processing psychological data
+                fetch('/submit_psicotecnico', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({completed: true})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = data.redirect || '/ranking';
+                        } else {
+                            window.location.href = '/ranking';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        window.location.href = '/ranking';
+                    });
+            }
+        } else {
+            alert('Por favor, selecione uma opção antes de prosseguir.');
+        }
+    });
+
+    // Start with first question
+    displayQuestion(currentQuestion);
+    updateButtons();
+</script>
+{% endblock %}

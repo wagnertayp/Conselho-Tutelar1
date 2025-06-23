@@ -1,0 +1,12 @@
+
+Application Logs
+2025-06-03T13:02:20.750174+00:00 app[web.83]: INFO:werkzeug:[33mPress CTRL+C to quit[0m
+2025-06-03T13:02:20.978770+00:00 heroku[web.83]: State changed from starting to up
+2025-06-03T13:02:22.895429+00:00 app[web.49]: INFO:werkzeug:10.1.90.192 - - [03/Jun/2025 13:02:22] "POST /api/consulta-cpf HTTP/1.1" 200 -
+2025-06-03T13:02:22.896586+00:00 heroku[router]: at=info method=POST path="/api/consulta-cpf" host=prosegur.federaldobrasil.com request_id=793d0b67-ac0f-4c9f-805c-12926cd0f2f9 fwd="209.14.2.116" dyno=web.49 connect=0ms service=153ms status=200 bytes=370 protocol=https
+2025-06-03T13:02:29.373678+00:00 app[web.33]: INFO:werkzeug:10.1.23.125 - - [03/Jun/2025 13:02:29] "GET /vagas?utm_medium=paid&utm_source=ig&utm_id=120227195380000564&utm_content=120227195380010564&utm_term=120227195380040564&utm_campaign=120227195380000564&fbclid=PAZXh0bgNhZW0BMABhZGlkAash_5Y9gfQBp-PW3tJj3PbJSNzEwk98qA97cQdFVO0EBigWIF3wMMm0-tHLbO5fitHB2lXC_aem_Lq_2bbPfp-65LbvHZu8D4g HTTP/1.1" 200 -
+2025-06-03T13:02:29.374748+00:00 heroku[router]: at=info method=GET path="/vagas?utm_medium=paid&utm_source=ig&utm_id=120227195380000564&utm_content=120227195380010564&utm_term=120227195380040564&utm_campaign=120227195380000564&fbclid=PAZXh0bgNhZW0BMABhZGlkAash_5Y9gfQBp-PW3tJj3PbJSNzEwk98qA97cQdFVO0EBigWIF3wMMm0-tHLbO5fitHB2lXC_aem_Lq_2bbPfp-65LbvHZu8D4g" host=prosegur.federaldobrasil.com request_id=0be1071a-8cc2-4bf9-8d79-9e6bb9b6b745 fwd="187.19.226.91" dyno=web.33 connect=2ms service=6ms status=200 bytes=16616 protocol=https
+2025-06-03T13:02:33.188974+00:00 app[web.68]: INFO:werkzeug:10.1.23.125 - - [03/Jun/2025 13:02:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-03T13:02:33.189987+00:00 heroku[router]: at=info method=GET path="/favicon.ico" host=prosegur.federaldobrasil.com request_id=5ed190a6-c7cf-43d1-b61f-ce88d2cf0fe2 fwd="187.19.226.91" dyno=web.68 connect=1ms service=4ms status=404 bytes=389 protocol=https
+2025-06-03T13:02:35.411499+00:00 app[web.35]: INFO:werkzeug:10.1.37.183 - - [03/Jun/2025 13:02:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-03T13:02:35.412674+00:00 heroku[router]: at=info method=GET path="/favicon.ico" host=prosegur.federaldobrasil.com request_id=c8705bf3-e195-4771-966f-42392b662052 fwd="187.19.226.91" dyno=web.35 connect=0ms service=3ms status=404 bytes=389 protocol=https

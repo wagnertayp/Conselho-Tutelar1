@@ -1,0 +1,154 @@
+/* Rawline Font Family */
+@font-face {
+  font-family: 'Rawline';
+  src: url("{{ url_for('static', filename='fonts/rawline-400.ea42a37247439622.woff2') }}") format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Rawline';
+  src: url("{{ url_for('static', filename='fonts/rawline-400i.1701033bc0b08320.woff2') }}") format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Rawline';
+  src: url("{{ url_for('static', filename='fonts/rawline-500.f8af4ec801afaa28.woff2') }}") format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Rawline';
+  src: url("{{ url_for('static', filename='fonts/rawline-600.844a17f0db94d147.woff2') }}") format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Rawline';
+  src: url("{{ url_for('static', filename='fonts/rawline-700.4b7902400c7e32ac.woff2') }}") format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Base Typography */
+body {
+  font-family: 'Rawline', sans-serif;
+}
+
+/* Consistent Font Weight for Bold Elements */
+strong, .font-bold {
+  font-weight: 500 !important;
+}
+
+/* Standard Text Classes */
+.encceja-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #555;
+  line-height: normal;
+  text-transform: uppercase;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.main-title {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: #0c326f;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  color: #555;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.share-text {
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Drop Cap Effect */
+.drop-cap::first-letter {
+  float: left;
+  font-size: 4em;
+  line-height: 0.68;
+  font-weight: bold;
+  margin-right: 0.05em;
+  color: #1451B4;
+}
+
+/* VLibras Icon */
+.vlibras-icon {
+  position: fixed;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+/* List Styling */
+.light-disc {
+  list-style-type: none;
+}
+.light-disc li::before {
+  content: "\2022";
+  color: #BBBBBB;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* Sticky Header */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+.sticky-header.shadow {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Theme Colors - Replace all yellow with #1451B4 */
+.bg-yellow-400, .bg-yellow-500, .bg-yellow-600 {
+  background-color: #1451B4 !important;
+}
+.text-yellow-400, .text-yellow-500, .text-yellow-600 {
+  color: #1451B4 !important;
+}
+.border-yellow-400, .border-yellow-500, .border-yellow-600 {
+  border-color: #1451B4 !important;
+}
+
+/* Standard Text Sizes and Colors */
+.text-base {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #1451B4;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #0c3d8a;
+}

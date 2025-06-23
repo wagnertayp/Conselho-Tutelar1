@@ -1,0 +1,304 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-[1800px] mx-auto px-2">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-prosegur-black mb-4 font-heading">Carteira Nacional de Vigilantes - CNV</h1>
+        <p class="text-prosegur-gray mb-2 font-body">Processo de Registro conforme Lei nº 13.460/17</p>
+        <div class="h-1 w-32 bg-prosegur-yellow"></div>
+    </div>
+
+    <div class="bg-prosegur-yellow border-l-4 border-prosegur-black p-4 mb-4 rounded-lg">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <i class="fa fa-brain text-prosegur-black text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold text-prosegur-black mb-2 font-heading">Avaliação de Inteligência Emocional</h2>
+                <p class="text-prosegur-black font-body">
+                    Este questionário avalia suas competências emocionais básicas, essenciais para exercer a atividade de vigilante. 
+                    Responda com honestidade conforme estabelecido na Lei nº 13.460/17.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg p-4">
+        <form id="cac-questionario" class="flex flex-col min-h-[400px]">
+            <div id="question-container" class="flex-grow opacity-100 transition-opacity duration-300">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+
+            <div class="flex items-center justify-between pt-1 mt-1 border-t border-gray-200">
+                <button id="prev-button" class="bg-prosegur-yellow hover:bg-yellow-400 text-prosegur-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-prosegur-yellow transition-colors duration-200 font-body" type="button" style="display: none;">
+                    <i class="fa fa-arrow-left mr-2"></i>Voltar
+                </button>
+                <div class="flex-grow"></div>
+                <button id="next-button" class="bg-prosegur-yellow hover:bg-yellow-400 text-prosegur-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-prosegur-yellow transition-colors duration-200 font-body" type="button">
+                    <i class="fa fa-arrow-right mr-2"></i>Continuar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--military-green);
+        border-radius: 50%;
+        margin-right: 12px;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .radio-button:checked + label .checkbox-custom::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background-color: var(--military-green);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .radio-button:checked + label {
+        background-color: #dcfce7;
+        border: 2px solid var(--military-green);
+    }
+
+    .question-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .question-wrapper h2 {
+        flex-shrink: 0;
+        padding: 0;
+        margin-bottom: 0.25rem;
+    }
+
+    .question-wrapper > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0;
+        gap: 0.125rem;
+    }
+
+    .option-button {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+        min-height: 3.5rem; /* Fixed height for all options */
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+    }
+
+    .option-button:hover {
+        border-color: #9ca3af;
+        background-color: #f9fafb;
+    }
+
+    .radio-button:checked + .option-button {
+        border: 2px solid var(--prosegur-yellow);
+        background-color: #fef9c3;
+    }
+
+    :root {
+        --prosegur-yellow: #FFD000;
+    }
+</style>
+
+<script>
+    const questions = [
+        {
+            question: "Como você reage quando se sente pressionado em uma situação de trabalho?",
+            options: [
+                "Fico nervoso e procuro evitar a situação",
+                "Sinto-me desconfortável mas consigo lidar",
+                "Mantenho a calma e busco soluções",
+                "Uso a pressão como motivação para me superar"
+            ]
+        },
+        {
+            question: "Quando você comete um erro no trabalho, qual é sua primeira reação?",
+            options: [
+                "Fico muito chateado comigo mesmo",
+                "Procuro esconder ou justificar o erro",
+                "Reconheço o erro e busco corrigi-lo",
+                "Analiso o que deu errado para não repetir"
+            ]
+        },
+        {
+            question: "Em uma situação de conflito com um colega, você normalmente:",
+            options: [
+                "Evita o confronto a todo custo",
+                "Reage de forma defensiva ou agressiva",
+                "Procura dialogar e entender o ponto de vista do outro",
+                "Busca mediação ou ajuda de terceiros"
+            ]
+        },
+        {
+            question: "Como você lida com críticas sobre seu desempenho profissional?",
+            options: [
+                "Fico magoado e desmotivado",
+                "Rejeito a crítica e me defendo",
+                "Escuto e reflito sobre o feedback",
+                "Agradeço e uso como oportunidade de crescimento"
+            ]
+        },
+        {
+            question: "Quando você percebe que alguém está passando por dificuldades emocionais:",
+            options: [
+                "Prefiro não me envolver",
+                "Ofereço conselhos baseados na minha experiência",
+                "Escuto com atenção e demonstro compreensão",
+                "Procuro formas práticas de ajudar"
+            ]
+        },
+        {
+            question: "Em situações de alta tensão ou perigo, você:",
+            options: [
+                "Sente-se paralisado pela ansiedade",
+                "Age por impulso sem pensar nas consequências",
+                "Mantém a calma e avalia a situação",
+                "Assume liderança e orienta outros"
+            ]
+        },
+        {
+            question: "Como você gerencia suas emoções durante um turno longo de trabalho?",
+            options: [
+                "Tenho dificuldade em controlar irritação e cansaço",
+                "Procuro distrações para não pensar nos problemas",
+                "Uso técnicas de respiração e autocontrole",
+                "Mantenho foco no objetivo e responsabilidades"
+            ]
+        },
+        {
+            question: "Quando precisa tomar uma decisão importante rapidamente:",
+            options: [
+                "Fico indeciso e procuro adiar",
+                "Tomo decisões baseadas na emoção do momento",
+                "Analiso rapidamente prós e contras",
+                "Confio na experiência e intuição"
+            ]
+        },
+        {
+            question: "Sua reação ao receber ordens que considera questionáveis é:",
+            options: [
+                "Executo sem questionar para evitar problemas",
+                "Contesto abertamente a autoridade",
+                "Busco esclarecimentos de forma respeitosa",
+                "Avalia a situação e age conforme ética profissional"
+            ]
+        },
+        {
+            question: "Como você avalia sua capacidade de trabalhar em equipe sob pressão?",
+            options: [
+                "Tenho dificuldades em colaborar quando estou estressado",
+                "Consigo trabalhar em equipe, mas prefiro agir sozinho",
+                "Trabalho bem em equipe e contribuo de forma positiva",
+                "Sou um líder natural que inspira confiança na equipe"
+            ]
+        }
+    ];
+
+    let currentQuestion = 0;
+    const questionContainer = document.getElementById('question-container');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+
+    async function displayQuestion(index) {
+        questionContainer.classList.remove('opacity-100');
+        questionContainer.classList.add('opacity-0');
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        const question = questions[index];
+        let html = `
+            <div class="question-wrapper">
+                <h2 class="text-lg font-semibold text-prosegur-black font-heading">${index + 1}. ${question.question}</h2>
+                <div>
+        `;
+        question.options.forEach((option, i) => {
+            html += `
+                <div class="flex items-center p-1">
+                    <input type="radio" id="q${index}_option${i}" name="q${index}" value="${option}" class="radio-button hidden">
+                    <label for="q${index}_option${i}" class="option-button flex items-center w-full cursor-pointer text-base">
+                        <div class="checkbox-custom"></div>
+                        <span class="flex-grow">${option}</span>
+                    </label>
+                </div>
+            `;
+        });
+        html += '</div></div>';
+        questionContainer.innerHTML = html;
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+        questionContainer.classList.remove('opacity-0');
+        questionContainer.classList.add('opacity-100');
+    }
+
+    function updateButtons() {
+        prevButton.style.display = currentQuestion > 0 ? 'block' : 'none';
+        nextButton.innerHTML = currentQuestion === questions.length - 1 ? 
+            '<i class="fa fa-check mr-2"></i>Finalizar' : 
+            '<i class="fa fa-arrow-right mr-2"></i>Continuar';
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            displayQuestion(currentQuestion);
+            updateButtons();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const selectedOption = document.querySelector(input[name="q${currentQuestion}"]:checked);
+        if (selectedOption) {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion(currentQuestion);
+                updateButtons();
+            } else {
+                const formData = new FormData();
+                questions.forEach((_, index) => {
+                    const selected = document.querySelector(input[name="q${index}"]:checked);
+                    if (selected) {
+                        formData.append(question_${index}, selected.value);
+                    }
+                });
+
+                fetch('/submit_exam', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect || '/';
+                    } else {
+                        alert('Erro ao enviar questionário: ' + (data.error || 'Erro desconhecido'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Erro ao enviar questionário. Tente novamente.');
+                });
+            }
+        } else {
+            alert('Por favor, selecione uma opção antes de prosseguir.');
+        }
+    });
+
+    displayQuestion(currentQuestion);
+    updateButtons();
+</script>
+{% endblock %}

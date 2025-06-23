@@ -1,0 +1,283 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosegur - Confirmação de Agendamento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="bg-[#FFCC00] flex items-center justify-between px-4 md:px-8 py-4">
+            <div class="flex items-center">
+                <img src="https://i.ibb.co/sp0WP8BN/prosegur-logo-1.png" alt="Prosegur logo with a globe icon and the company name" class="h-8 md:h-10 mr-4">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-black font-medium text-sm uppercase">Sobre Prosegur</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase">Pequenas e Médias Empresas</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase">Grandes Empresas</a>
+                    <a href="#" class="text-black font-medium text-sm uppercase border-b-2 border-black">Trabalhe Conosco</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-black"><i class="fas fa-search text-lg"></i></a>
+                <a href="#" class="text-black"><i class="fas fa-user text-lg"></i></a>
+                <a href="#" class="text-black text-sm uppercase font-medium hidden md:block">Área do Cliente</a>
+            </div>
+        </div>
+        <div class="bg-[#333333] text-white px-4 md:px-8 py-1 text-xs">
+            <nav class="flex items-center space-x-2">
+                <a href="#" class="text-gray-300 hover:text-white">Início</a>
+                <span class="text-gray-400">></span>
+                <span class="text-white">Confirmação de Agendamento</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="py-10 md:py-14">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-lg md:text-xl font-bold mb-1 leading-tight">Confirmação de Agendamento do Curso</h2>
+            <div class="w-24 h-2 bg-[#FFCC00] mx-auto mb-3 rounded-full"></div>
+            <!-- Countdown Timer -->
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 max-w-md mx-auto">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold text-red-800 mb-2">⏰ TEMPO LIMITE PARA PAGAMENTO</h3>
+                    <p class="text-red-700 text-sm mb-3">Você tem <strong>10 minutos</strong> para efetuar o pagamento ou perderá sua vaga!</p>
+                    <div id="countdown-timer" class="text-2xl font-bold text-red-600 bg-white p-3 rounded-lg">
+                        10:00
+                    </div>
+                </div>
+            </div>
+
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Para confirmar o agendamento do curso prático para assumir a vaga de Vigilante de Carro Forte, é obrigatório o pagamento da munição que será utilizada no treinamento. O valor é de <span class="font-bold text-red-600">R$ 73,40</span>.
+            </p>
+
+            <div class="flex flex-col items-center mb-6">
+                {% if payment_data %}
+                <!-- Payment Status Box -->
+                <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6 w-full max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 mb-4">
+                        <div class="w-6 h-6 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-yellow-600 font-medium text-sm">Aguardando pagamento para finalizar</span>
+                    </div>
+                    <div class="border-t border-gray-300 pt-4 text-left">
+                        <p class="text-sm text-gray-700 mb-3" id="training-info">
+                            Após o pagamento, você deve comparecer ao local de treinamento conforme agendado.
+                        </p>
+                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Documentos obrigatórios para levar no dia:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                            <li>Documento de identificação com foto (RG ou CNH)</li>
+                            <li>Comprovante de residência</li>
+                            <li>Carteira de trabalho</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <img src="{{ payment_data.pixQrCode }}" alt="QR Code para pagamento do curso prático de Vigilante de Carro Forte" class="w-48 h-48 mb-4">
+                <p class="text-sm text-gray-600 mb-4">Escaneie o QR Code acima para realizar o pagamento.</p>
+                {% else %}
+                <!-- Error Status Box -->
+                <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6 w-full max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 mb-4">
+                        <div class="w-6 h-6 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-red-500 font-medium text-sm">Erro ao gerar pagamento</span>
+                    </div>
+                    <div class="border-t border-gray-300 pt-4 text-left">
+                        <p class="text-sm text-gray-700 mb-3" id="training-info-error">
+                            Após o pagamento, você deve comparecer ao local de treinamento conforme agendado.
+                        </p>
+                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Documentos obrigatórios para levar no dia:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                            <li>Documento de identificação com foto (RG ou CNH)</li>
+                            <li>Comprovante de residência</li>
+                            <li>Carteira de trabalho</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <p>Não foi possível gerar o pagamento PIX. Tente novamente.</p>
+                    <a href="/agendamento" class="text-red-800 underline">Voltar ao agendamento</a>
+                </div>
+                {% endif %}
+            </div>
+
+
+
+            {% if payment_data %}
+            <div class="max-w-lg mx-auto">
+                <label for="pix-code" class="block text-sm font-medium text-gray-700 mb-2">Código Pix (Copia e Cola):</label>
+                <div class="relative mb-4">
+                    <input type="text" id="pix-code" value="{{ payment_data.pixCode }}" readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700">
+                </div>
+                <button onclick="copyPixCode()" class="bg-[#FFCC00] text-black font-medium px-4 py-2 rounded text-sm w-full">Copiar Código Pix</button>
+            </div>
+            {% endif %}
+
+            <p class="max-w-3xl mx-auto mt-6 mb-6 md:mb-10 leading-relaxed text-sm font-bold text-red-600">
+                Atenção: Caso o pagamento não seja realizado, você poderá perder a vaga para outro candidato que efetuar o pagamento antes de você. Garanta sua vaga agora mesmo!
+            </p>
+
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Após o pagamento, o curso de Vigilante da Prosegur será confirmado e você poderá assumir a vaga. Certifique-se de clicar no botão abaixo após realizar o pagamento.
+            </p>
+
+            <a href="#" class="bg-[#FFCC00] text-black font-medium px-6 md:px-8 py-3 rounded-full inline-block">Confirmar Pagamento</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:mb-12">
+                <div>
+                    <h3 class="text-base font-medium mb-4">Quem Somos</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">O Grupo Prosegur</a></li>
+                        <li><a href="#" class="hover:text-white">Sobre Prosegur</a></li>
+                        <li><a href="#" class="hover:text-white">Onde estamos</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-medium mb-4">Pequenas e Médias Empresas</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Supermercados</a></li>
+                        <li><a href="#" class="hover:text-white">Drogarias</a></li>
+                        <li><a href="#" class="hover:text-white">Postos de Combustíveis</a></li>
+                        <li><a href="#" class="hover:text-white">Outros varejistas</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-medium mb-4">Grandes Empresas</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Bancos</a></li>
+                        <li><a href="#" class="hover:text-white">Cooperativas de crédito</a></li>
+                        <li><a href="#" class="hover:text-white">Varejistas</a></li>
+                        <li><a href="#" class="hover:text-white">Indústria</a></li>
+                        <li><a href="#" class="hover:text-white">Serviços</a></li>
+                        <li><a href="#" class="hover:text-white">Grandes Eventos</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-medium mb-4">Trabalhe Conosco</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white">Vagas</a></li>
+                        <li><a href="#" class="hover:text-white">Blog Dinheiro</a></li>
+                        <li><a href="#" class="hover:text-white">Media Center</a></li>
+                        <li><a href="#" class="hover:text-white">Sala de Imprensa</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-gray-800 mb-6">
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <div class="mb-4 md:mb-0">
+                    <span>© Copyright 2025 Prosegur</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <a href="#" class="hover:text-white">Sitemap</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Legal</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Política de Cookies</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Canal Ético</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-white">Cambiar preferencias de las cookies</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 10-minute countdown timer
+        let timeLeft = 10 * 60; // 10 minutes in seconds
+        const timerElement = document.getElementById('countdown-timer');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Change color when time is running out
+            if (timeLeft <= 120) { // Last 2 minutes
+                timerElement.classList.add('text-red-800', 'animate-pulse');
+            } else if (timeLeft <= 300) { // Last 5 minutes
+                timerElement.classList.add('text-red-700');
+            }
+
+            if (timeLeft <= 0) {
+                // Time's up - redirect to timeout page
+                timerElement.textContent = "TEMPO ESGOTADO!";
+                timerElement.classList.add('text-red-900', 'bg-red-100');
+                setTimeout(() => {
+                    alert("Tempo esgotado! Você perdeu sua vaga. Será redirecionado para nova tentativa.");
+                    window.location.href = "/agendamento";
+                }, 2000);
+                return;
+            }
+
+            timeLeft--;
+        }
+
+        // Hide loading overlay after 3 seconds
+        setTimeout(function() {
+            document.getElementById('payment-loading').style.display = 'none';
+        }, 3000);
+
+        // Retrieve user data from localStorage if available
+        const userData = {
+            name: localStorage.getItem('candidateName') || 'Candidato',
+            cpf: localStorage.getItem('candidateCPF') || '',
+            email: localStorage.getItem('candidateEmail') || '',
+            phone: localStorage.getItem('candidatePhone') || '',
+            city: localStorage.getItem('candidateCity') || ''
+        };
+        console.log('User data from localStorage:', userData);
+
+        // Update timer every second
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        function copyPixCode() {
+            const pixCode = document.getElementById('pix-code');
+            pixCode.select();
+            pixCode.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(pixCode.value);
+
+            // Change button text temporarily
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copiado!';
+            button.style.backgroundColor = '#10B981';
+            button.style.color = 'white';
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '#FFCC00';
+                button.style.color = 'black';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+2025-06-03T11:59:05.324566+00:00 app[web.36]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T11:59:05.357920+00:00 heroku[web.48]: Process exited with status 127
+2025-06-03T11:59:05.400577+00:00 heroku[web.36]: Process exited with status 127
+2025-06-03T11:59:05.404627+00:00 heroku[web.48]: State changed from starting to crashed
+2025-06-03T11:59:05.441087+00:00 heroku[web.36]: State changed from starting to crashed
+2025-06-03T11:59:05.768516+00:00 app[web.42]: /bin/bash: line 1: gunicorn: command not found
+2025-06-03T11:59:05.815373+00:00 heroku[web.42]: Process exited with status 127
+2025-06-03T11:59:05.845142+00:00 heroku[web.42]: State changed from starting to crashed
+2025-06-03T11:59:09.026451+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/vagas?fbclid=IwZXh0bgNhZW0BMABhZGlkAash_5ZNElQBHoTQ7CGH2AkJTGtyKERJtb_KKaGoTiuPcYtleOtHHKPNJEie60eX2la9tcYX_aem_6wdEsblTT--_scwSWv7UJw&utm_medium=paid&utm_source=fb&utm_id=120227195379990564&utm_content=120227195380060564&utm_term=120227195380020564&utm_campaign=120227195379990564" host=prosegur.federaldobrasil.com request_id=3d6c14bc-a39b-666b-d9da-c884c6b1a0a6 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http2.0 tls=true tls_version=tls1.3
+2025-06-03T11:59:09.692006+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/vagas" host=prosegur.federaldobrasil.com request_id=34141f65-a89d-71ac-04b6-c6e4d64bd2c4 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http2.0 tls=true tls_version=tls1.3
+2025-06-03T11:59:11.544659+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/vagas?fbclid=IwY2xjawKrwrNleHRuA2FlbQIxMQABHuwcmDyLSP73B0KY0HXL2nYo0k4DDwhipgcKqecTTcP-IzCJV7eQfu6lgBv-_aem_0uNneDU5ZXJFkPRuttToAw&utm_medium=paid&utm_source=fb&utm_id=120227195380000564&utm_content=120227195380010564&utm_term=120227195380040564&utm_campaign=120227195380000564" host=prosegur.federaldobrasil.com request_id=86ddbcaf-1d8b-d070-6aa6-d3ff7e5082c7 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http2.0 tls=true tls_version=tls1.3

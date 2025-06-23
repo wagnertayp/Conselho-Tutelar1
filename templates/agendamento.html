@@ -1,0 +1,776 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-prosegur-black mb-4 font-heading">Agendamento de Treinamento CNV</h1>
+        <p class="text-prosegur-gray mb-2 font-body">Sistema de Agendamento para Treinamento Obrigatório da Prosegur</p>
+        <div class="h-1 w-32 bg-prosegur-blue"></div>
+    </div>
+
+    <!-- Course Information -->
+    <div class="bg-white shadow-sm rounded-lg p-6 mb-8 border border-gray-200">
+        <div class="flex items-start space-x-4 mb-6">
+            <div class="flex-shrink-0">
+                <i class="fas fa-graduation-cap text-2xl text-prosegur-blue"></i>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-prosegur-black mb-4 font-heading">Treinamento Completo para Vigilante de Carro Forte</h2>
+                <div class="space-y-4 text-prosegur-gray font-body">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded mb-4">
+                        <p class="text-green-800"><strong>✓ NENHUMA FORMAÇÃO PRÉVIA NECESSÁRIA!</strong></p>
+                        <p class="text-green-700 text-sm mt-1">Você <strong>não precisa ter nenhuma formação de vigilante</strong> para exercer a função. A Prosegur fornecerá <strong>TODO o treinamento necessário completamente GRATUITO</strong>.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold text-prosegur-black mb-2">Duração do Curso:</h3>
+                            <ul class="space-y-1 text-sm">
+                                <li>• <strong>18 aulas</strong> de 2 horas cada</li>
+                                <li>• <strong>36 horas</strong> de treinamento total</li>
+                                <li>• Horários flexíveis disponíveis</li>
+                                <li>• <strong>Certificado oficial</strong> ao final do curso</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-prosegur-black mb-2">O que você aprenderá:</h3>
+                            <ul class="space-y-1 text-sm">
+                                <li>• Segurança de carros fortes</li>
+                                <li>• <strong>Manuseio de Espingarda Calibre 12</strong></li>
+                                <li>• Procedimentos de segurança</li>
+                                <li>• Legislação específica</li>
+                                <li>• <strong>Porte Funcional da Espingarda</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                        <h3 class="font-semibold text-blue-800 mb-2">🎯 Porte Funcional da Espingarda Calibre 12</h3>
+                        <div class="text-sm text-blue-700 space-y-2">
+                            <p><strong>✓ Você GANHARÁ o Porte Funcional</strong> da Espingarda Calibre 12 ao completar as 18 aulas do curso Prosegur.</p>
+                            <p><strong>Uso restrito ao serviço:</strong> O porte funcional autoriza o profissional a portar arma de fogo somente durante o horário de trabalho e nas atividades relacionadas à sua função.</p>
+                            <p><strong>Armas de propriedade da empresa:</strong> As armas utilizadas são de propriedade da empresa de segurança e devem ser recolhidas ao final do expediente.</p>
+                            <p><strong>Regulamentação:</strong> O porte funcional é regulamentado pela Lei nº 10.826/2003 (Estatuto do Desarmamento) e pela Lei nº 7.102/1983, que dispõe sobre a segurança privada no país.</p>
+                            <p><strong>Certificado oficial:</strong> Ao final do curso você receberá um certificado oficial reconhecido nacionalmente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loading-container" class="bg-white shadow-sm rounded-lg p-6 mb-8 border border-gray-200">
+        <div class="flex items-center justify-center py-8">
+            <div class="flex items-center space-x-3">
+                <div class="animate-spin rounded-full h-6 w-6 border-2 border-prosegur-blue border-t-transparent"></div>
+                <span class="text-prosegur-gray font-body">Localizando centro de treinamento próximo...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Training location info -->
+    <div id="training-info" class="bg-white shadow-sm rounded-lg p-6 mb-8 border border-gray-200" style="display: none;">
+        <div class="flex items-start space-x-4 mb-6">
+            <div class="flex-shrink-0">
+                <i class="fas fa-map-marker-alt text-2xl text-prosegur-blue"></i>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-prosegur-black mb-2 font-heading">Centro de Treinamento Prosegur</h2>
+                <p class="text-prosegur-gray text-sm font-body">
+                    Conforme estabelecido na Lei nº 13.460/17, você deve comparecer ao centro de treinamento para 
+                    completar sua certificação CNV (Carteira Nacional de Vigilantes).
+                </p>
+            </div>
+        </div>
+
+        <!-- Training facility image and address -->
+        <div class="mb-6">
+            <img src="https://i.ibb.co/gLpTqVH8/IMG-4524-1.jpg" alt="Centro de Treinamento Prosegur" class="w-full h-64 object-cover rounded-lg mb-4">
+            <div id="facility-address" class="bg-gray-50 p-4 rounded-lg">
+                <!-- Address will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Weekday Selection -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-prosegur-black mb-4 font-heading">Selecione os Dias da Semana</h3>
+            <p class="text-sm text-prosegur-gray mb-4 font-body">
+                Escolha 2 dias da semana para realizar o curso. Os cursos são ministrados de segunda a domingo.
+            </p>
+            
+            <div class="grid grid-cols-1 gap-2 max-w-md">
+                <button type="button" class="weekday-btn" data-day="1">
+                    <i class="fas fa-calendar-day mr-2"></i>Segunda-feira
+                </button>
+                <button type="button" class="weekday-btn" data-day="2">
+                    <i class="fas fa-calendar-day mr-2"></i>Terça-feira
+                </button>
+                <button type="button" class="weekday-btn" data-day="3">
+                    <i class="fas fa-calendar-day mr-2"></i>Quarta-feira
+                </button>
+                <button type="button" class="weekday-btn" data-day="4">
+                    <i class="fas fa-calendar-day mr-2"></i>Quinta-feira
+                </button>
+                <button type="button" class="weekday-btn" data-day="5">
+                    <i class="fas fa-calendar-day mr-2"></i>Sexta-feira
+                </button>
+                <button type="button" class="weekday-btn" data-day="6">
+                    <i class="fas fa-calendar-day mr-2"></i>Sábado
+                </button>
+                <button type="button" class="weekday-btn" data-day="0">
+                    <i class="fas fa-calendar-day mr-2"></i>Domingo
+                </button>
+            </div>
+            
+            <div id="selected-days-info" class="mt-4 p-3 bg-prosegur-blue bg-opacity-20 rounded-lg" style="display: none;">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-check-circle text-prosegur-black"></i>
+                    <span class="font-semibold text-prosegur-black font-body">Dias selecionados: </span>
+                    <span id="selected-days-text" class="text-prosegur-black font-body"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Time Slot Selection -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-prosegur-black mb-4 font-heading">Selecione o Horário</h3>
+            <p class="text-sm text-prosegur-gray mb-4 font-body">
+                Escolha o horário de sua preferência para as aulas (2 horas por dia).
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-lg">
+                <button type="button" class="timeslot-btn" data-time="07:00-09:00">
+                    <i class="fas fa-clock mr-2"></i>07:00 - 09:00
+                </button>
+                <button type="button" class="timeslot-btn" data-time="09:00-11:00">
+                    <i class="fas fa-clock mr-2"></i>09:00 - 11:00
+                </button>
+                <button type="button" class="timeslot-btn" data-time="11:00-13:00">
+                    <i class="fas fa-clock mr-2"></i>11:00 - 13:00
+                </button>
+                <button type="button" class="timeslot-btn" data-time="13:00-15:00">
+                    <i class="fas fa-clock mr-2"></i>13:00 - 15:00
+                </button>
+                <button type="button" class="timeslot-btn" data-time="15:00-17:00">
+                    <i class="fas fa-clock mr-2"></i>15:00 - 17:00
+                </button>
+            </div>
+            
+            <div id="selected-time-info" class="mt-4 p-3 bg-prosegur-blue bg-opacity-20 rounded-lg" style="display: none;">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-clock text-prosegur-black"></i>
+                    <span class="font-semibold text-prosegur-black font-body">Horário selecionado: </span>
+                    <span id="selected-time-text" class="text-prosegur-black font-body"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar section -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-prosegur-black mb-4 font-heading">Selecione o Primeiro Dia de Treinamento</h3>
+            <p class="text-sm text-prosegur-gray mb-4 font-body">
+                Escolha a data de início do seu treinamento. As datas disponíveis correspondem aos dias da semana que você selecionou acima.
+            </p>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <div id="calendar-container" class="grid grid-cols-7 gap-1 text-center">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+            </div>
+            
+            <div id="selected-date-info" class="mt-4 p-4 bg-prosegur-blue bg-opacity-20 rounded-lg" style="display: none;">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-calendar-check text-prosegur-black"></i>
+                    <span class="font-semibold text-black font-body">Data selecionada: </span>
+                    <span id="selected-date-text" class="text-prosegur-black font-body"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Ammunition Info -->
+        <div class="bg-orange-50 border-l-4 border-orange-400 p-4 mb-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-bullseye text-orange-400 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-orange-800 font-heading">Treinamento de Tiro ao Alvo - Primeiro Dia</h3>
+                    <div class="mt-2 text-sm text-orange-700 font-body space-y-3">
+                        <p>No primeiro dia de treinamento, o candidato realizará <strong>treinamento de tiro ao alvo</strong> para a liberação do Porte Funcional da Espingarda Calibre 12.</p>
+                        
+                        <p><strong>Investimento Único:</strong> Para finalizar o agendamento e início do treinamento, você precisa custear apenas as munições que serão utilizadas. Este será o <strong>único valor</strong> que o candidato gastará em todo o treinamento.</p>
+                        
+                        <div class="bg-white p-3 rounded border border-orange-200 mt-3">
+                            <div class="flex justify-center mb-3">
+                                <img src="https://i.ibb.co/9HK0KZCM/Inserir-um-ti-tulo-1.png" 
+                                     alt="Caixa de Munições Calibre 12" 
+                                     class="w-48 h-auto object-contain">
+                            </div>
+                            <div>
+                                <p class="font-semibold text-orange-800">💰 Custo das Munições:</p>
+                                <p class="text-orange-700">25 munições Calibre 12 para treinamento de Porte Funcional: <strong>R$ 73,40</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Equipment Image -->
+        <div class="mb-6">
+            <img src="https://i.ibb.co/qYy4YtQg/assets-task-01jwtgcwzbem880yf808zxrn7n-1748941373-img-1-1-1.png" 
+                 alt="Equipamentos de Treinamento Prosegur" 
+                 class="w-full h-auto object-contain">
+        </div>
+
+        <!-- Equipment Table -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-prosegur-black mb-4 font-heading">
+                <i class="fas fa-shield-alt text-prosegur-blue mr-2"></i>Equipamentos de Treinamento
+            </h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-2 px-3 font-semibold text-prosegur-black">Equipamento</th>
+                            <th class="text-center py-2 px-3 font-semibold text-prosegur-black">Fornecido pela Prosegur</th>
+                            <th class="text-center py-2 px-3 font-semibold text-prosegur-black">Custo para Candidato</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-prosegur-gray">
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 px-3">Colete de Proteção</td>
+                            <td class="text-center py-2 px-3">
+                                <span class="text-green-600 font-semibold">✓ GRATUITO</span>
+                            </td>
+                            <td class="text-center py-2 px-3">R$ 0,00</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 px-3">Espingarda Calibre 12</td>
+                            <td class="text-center py-2 px-3">
+                                <span class="text-green-600 font-semibold">✓ GRATUITO</span>
+                            </td>
+                            <td class="text-center py-2 px-3">R$ 0,00</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 px-3">Boné de Proteção</td>
+                            <td class="text-center py-2 px-3">
+                                <span class="text-green-600 font-semibold">✓ GRATUITO</span>
+                            </td>
+                            <td class="text-center py-2 px-3">R$ 0,00</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-2 px-3">Óculos de Proteção</td>
+                            <td class="text-center py-2 px-3">
+                                <span class="text-green-600 font-semibold">✓ GRATUITO</span>
+                            </td>
+                            <td class="text-center py-2 px-3">R$ 0,00</td>
+                        </tr>
+                        <tr class="bg-orange-50 border-b border-orange-200">
+                            <td class="py-2 px-3 font-semibold">25 Munições Calibre 12</td>
+                            <td class="text-center py-2 px-3">
+                                <span class="text-orange-600 font-semibold">✗ PAGO PELO CANDIDATO</span>
+                            </td>
+                            <td class="text-center py-2 px-3 font-bold text-orange-600">R$ 73,40</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                <p class="text-sm text-green-700">
+                    <strong>Total de equipamentos gratuitos:</strong> Colete, Espingarda, Boné e Óculos de Proteção fornecidos pela Prosegur sem custo.
+                </p>
+            </div>
+        </div>
+
+        <!-- Training requirements -->
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-info-circle text-blue-400 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800 font-heading">Documentos Necessários</h3>
+                    <div class="mt-2 text-sm text-blue-700 font-body">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>RG e CPF originais</li>
+                            <li>Comprovante de residência atualizado</li>
+                            <li>Dados bancários para depósito do salário</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Status Information -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-triangle text-yellow-400 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-yellow-800 font-heading">Status de Contratação dos Candidatos</h3>
+                    <div class="mt-2 text-sm text-yellow-700 font-body">
+                        <p class="mb-3">Todos os candidatos selecionados <strong>serão contratados com toda certeza pela Prosegur</strong>, mas para ser contratado de fato, todos os candidatos aprovados precisam realizar o curso de treinamento.</p>
+                        <p class="mb-3">Para realizar o curso é <strong>obrigatório o pagamento das munições no valor de R$ 73,40</strong>.</p>
+                        <p class="mb-3">Na tabela abaixo:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>Candidatos com status <span class="font-bold text-green-600">"CONFIRMADO"</span> já efetuaram o pagamento e confirmaram a matrícula no curso</li>
+                            <li>Candidatos com status <span class="font-bold text-red-600">"PENDENTE"</span> ainda não efetuaram o pagamento das munições e não confirmaram a matrícula no curso</li>
+                            <li><strong>Candidatos com status PENDENTE serão eliminados se não realizarem o pagamento</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Candidate Payment Status Table -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-prosegur-black mb-4 font-heading" id="candidates-table-title">Novos funcionários Prosegur de Brasília:</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full max-w-4xl mx-auto border border-gray-300 rounded-lg bg-white shadow-lg">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border border-gray-300 px-6 py-2 text-left font-semibold">Nome do Candidato</th>
+                            <th class="border border-gray-300 px-4 py-2 text-center font-semibold">Status do Pagamento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payment-status-table-body">
+                        <!-- Payment status will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Schedule button -->
+        <form method="GET" action="/chat" id="scheduling-form">
+            <input type="hidden" id="selected-date-input" name="training_date" value="">
+            <input type="hidden" id="selected-days-input" name="training_days" value="">
+            <input type="hidden" id="selected-time-input" name="training_time" value="">
+            <input type="hidden" id="facility-data" name="facility_data" value="">
+            
+            <button type="submit" id="schedule-btn" disabled
+                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-prosegur-black bg-gray-300 cursor-not-allowed transition-colors duration-200 font-body">
+                <i class="fas fa-calendar-plus mr-2" id="button-icon"></i>
+                <span id="button-text">Confirmar Agendamento</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-container" class="bg-red-50 border border-red-200 rounded-lg p-6" style="display: none;">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-exclamation-triangle text-red-500 text-xl"></i>
+            <div>
+                <h3 class="text-lg font-semibold text-red-800 font-heading">Erro ao carregar informações</h3>
+                <p class="text-red-700 font-body">Não foi possível localizar um centro de treinamento. Tente novamente mais tarde.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.calendar-day {
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.calendar-day.available {
+    background: linear-gradient(145deg, #ffffff, #f3f4f6);
+    border: 1px solid #e5e7eb;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), 
+                -1px -1px 2px rgba(255, 255, 255, 0.8);
+    color: #374151;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.calendar-day.available:hover {
+    background: linear-gradient(145deg, #fef3c7, #fde68a);
+    border-color: #FFD000;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15), 
+                -2px -2px 4px rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+
+.calendar-day.selected {
+    background: linear-gradient(145deg, #044785, #033d73);
+    border: 2px solid #f59e0b;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.3),
+                2px 2px 6px rgba(0, 0, 0, 0.2);
+    color: #000;
+    font-weight: bold;
+    transform: translateY(1px);
+}
+
+.calendar-day.disabled {
+    color: #d1d5db;
+    background-color: #f9fafb;
+    opacity: 0.3;
+    cursor: not-allowed;
+    border: 1px solid #f3f4f6;
+}
+
+.calendar-day.past {
+    color: #e5e7eb;
+    background-color: #f9fafb;
+    opacity: 0.2;
+    cursor: not-allowed;
+    border: 1px solid #f3f4f6;
+}
+
+.calendar-header {
+    font-weight: 600;
+    color: #374151;
+    padding: 8px;
+    text-align: center;
+}
+
+.weekday-btn, .timeslot-btn {
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: white;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.weekday-btn:hover, .timeslot-btn:hover {
+    border-color: #FFD000;
+    background-color: #fef9c3;
+}
+
+.weekday-btn.selected, .timeslot-btn.selected {
+    border-color: #FFD000;
+    background-color: #044785;
+    color: #000;
+    font-weight: 600;
+}
+
+.weekday-btn:disabled, .timeslot-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingContainer = document.getElementById('loading-container');
+    const trainingInfo = document.getElementById('training-info');
+    const errorContainer = document.getElementById('error-container');
+    const facilityAddress = document.getElementById('facility-address');
+    const calendarContainer = document.getElementById('calendar-container');
+    const selectedDateInfo = document.getElementById('selected-date-info');
+    const selectedDateText = document.getElementById('selected-date-text');
+    const selectedDateInput = document.getElementById('selected-date-input');
+    const facilityDataInput = document.getElementById('facility-data');
+    const scheduleBtn = document.getElementById('schedule-btn');
+
+    let selectedDate = null;
+    let facilityData = null;
+    let selectedDays = [];
+    let selectedTime = null;
+    
+    // UI elements for new features
+    const selectedDaysInfo = document.getElementById('selected-days-info');
+    const selectedDaysText = document.getElementById('selected-days-text');
+    const selectedTimeInfo = document.getElementById('selected-time-info');
+    const selectedTimeText = document.getElementById('selected-time-text');
+    const selectedDaysInput = document.getElementById('selected-days-input');
+    const selectedTimeInput = document.getElementById('selected-time-input');
+
+    // Populate payment status table
+    function populatePaymentStatusTable() {
+        const tableBody = document.getElementById('payment-status-table-body');
+        const candidateNames = JSON.parse(localStorage.getItem('rankingCandidates') || '[]');
+        const currentUserName = localStorage.getItem('candidateName') || 'CANDIDATO USUARIO';
+        
+        console.log('Candidates from localStorage:', candidateNames);
+        console.log('Current user name:', currentUserName);
+        
+        tableBody.innerHTML = '';
+        
+        if (candidateNames.length === 0) {
+            // If no localStorage data, create a fallback table
+            const fallbackRow = document.createElement('tr');
+            fallbackRow.innerHTML = `
+                <td class="border border-gray-300 px-6 py-2 text-center" colspan="2">
+                    <span class="text-gray-500">Dados não disponíveis. Complete o processo na página anterior.</span>
+                </td>
+            `;
+            tableBody.appendChild(fallbackRow);
+            return;
+        }
+        
+        candidateNames.forEach(candidateName => {
+            const row = document.createElement('tr');
+            const isCurrentUser = candidateName.toLowerCase() === currentUserName.toLowerCase();
+            
+            if (isCurrentUser) {
+                row.className = 'bg-red-50 border-red-200';
+            }
+            
+            const statusText = isCurrentUser ? 'PENDENTE' : 'CONFIRMADO';
+            const statusClass = isCurrentUser ? 'text-red-600 font-bold' : 'text-green-600 font-bold';
+            
+            row.innerHTML = `
+                <td class="border border-gray-300 px-6 py-2 ${isCurrentUser ? 'font-bold text-red-700' : ''}">${candidateName}</td>
+                <td class="border border-gray-300 px-4 py-2 text-center">
+                    <span class="${statusClass}">${statusText}</span>
+                </td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Update table title with user's city
+    function updateTableTitle() {
+        const userCity = localStorage.getItem('candidateCity') || 'Brasília';
+        const tableTitle = document.getElementById('candidates-table-title');
+        tableTitle.textContent = `Novos funcionários Prosegur de ${userCity}:`;
+    }
+
+    // Load payment status table immediately
+    updateTableTitle();
+    populatePaymentStatusTable();
+
+    // Fetch training location
+    fetch('/get_training_location')
+        .then(response => response.json())
+        .then(data => {
+            loadingContainer.style.display = 'none';
+            
+            if (data.success) {
+                facilityData = data.location;
+                facilityDataInput.value = JSON.stringify(facilityData);
+                
+                // Display facility info
+                facilityAddress.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-building text-prosegur-blue"></i>
+                            <span class="font-semibold text-prosegur-black font-heading">Centro de Treinamento Prosegur</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt text-prosegur-blue"></i>
+                            <span class="text-prosegur-gray font-body">${facilityData.endereco}, ${facilityData.bairro}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-city text-prosegur-blue"></i>
+                            <span class="text-prosegur-gray font-body">${facilityData.cidade} - CEP: ${facilityData.cep}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-route text-prosegur-blue"></i>
+                            <span class="text-prosegur-gray font-body">Aproximadamente ${facilityData.distancia_km}km de distância</span>
+                        </div>
+                    </div>
+                `;
+                
+                generateCalendar();
+                setupEventHandlers();
+                trainingInfo.style.display = 'block';
+                
+                // Save training location to localStorage for chat
+                localStorage.setItem('trainingLocation', JSON.stringify(facilityData));
+            } else {
+                errorContainer.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loadingContainer.style.display = 'none';
+            errorContainer.style.display = 'block';
+        });
+
+    // Setup event handlers for weekday and timeslot selection
+    function setupEventHandlers() {
+        // Weekday selection handlers
+        const weekdayBtns = document.querySelectorAll('.weekday-btn');
+        weekdayBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const day = parseInt(btn.dataset.day);
+                
+                if (selectedDays.includes(day)) {
+                    // Remove day if already selected
+                    selectedDays = selectedDays.filter(d => d !== day);
+                    btn.classList.remove('selected');
+                } else if (selectedDays.length < 2) {
+                    // Add day if less than 2 selected
+                    selectedDays.push(day);
+                    btn.classList.add('selected');
+                }
+                
+                updateSelectedDaysDisplay();
+                regenerateCalendar();
+                updateScheduleButton();
+            });
+        });
+
+        // Timeslot selection handlers
+        const timeslotBtns = document.querySelectorAll('.timeslot-btn');
+        timeslotBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove previous selection
+                timeslotBtns.forEach(b => b.classList.remove('selected'));
+                
+                // Add new selection
+                btn.classList.add('selected');
+                selectedTime = btn.dataset.time;
+                
+                updateSelectedTimeDisplay();
+                updateScheduleButton();
+            });
+        });
+    }
+
+    function updateSelectedDaysDisplay() {
+        if (selectedDays.length > 0) {
+            const dayNames = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+            const selectedDayNames = selectedDays.map(day => dayNames[day]).join(', ');
+            selectedDaysText.textContent = selectedDayNames;
+            selectedDaysInput.value = JSON.stringify(selectedDays);
+            selectedDaysInfo.style.display = 'block';
+        } else {
+            selectedDaysInfo.style.display = 'none';
+            selectedDaysInput.value = '';
+        }
+    }
+
+    function updateSelectedTimeDisplay() {
+        if (selectedTime) {
+            selectedTimeText.textContent = selectedTime;
+            selectedTimeInput.value = selectedTime;
+            selectedTimeInfo.style.display = 'block';
+            
+            // Save to localStorage for chat
+            localStorage.setItem('trainingTime', selectedTime);
+        } else {
+            selectedTimeInfo.style.display = 'none';
+            selectedTimeInput.value = '';
+        }
+    }
+
+    function updateScheduleButton() {
+        const hasAllSelections = selectedDays.length === 2 && selectedTime && selectedDate;
+        
+        if (hasAllSelections) {
+            scheduleBtn.disabled = false;
+            scheduleBtn.className = 'w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-prosegur-blue hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-prosegur-blue transition-colors duration-200 font-body';
+            scheduleBtn.innerHTML = '<i class="fas fa-calendar-plus mr-2"></i>Confirmar Agendamento';
+        } else {
+            scheduleBtn.disabled = true;
+            scheduleBtn.className = 'w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-prosegur-black bg-gray-300 cursor-not-allowed transition-colors duration-200 font-body';
+            scheduleBtn.innerHTML = '<i class="fas fa-calendar-plus mr-2"></i>Complete todas as seleções para continuar';
+        }
+    }
+
+    function generateCalendar() {
+        regenerateCalendar();
+    }
+
+    function regenerateCalendar() {
+        // Clear existing calendar
+        calendarContainer.innerHTML = '';
+        
+        const today = new Date();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+        
+        // Create calendar header
+        const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+        daysOfWeek.forEach(day => {
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'calendar-header';
+            dayHeader.textContent = day;
+            calendarContainer.appendChild(dayHeader);
+        });
+        
+        // Get first day of month and number of days
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        
+        // Add empty cells for days before month starts
+        for (let i = 0; i < firstDay; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'calendar-day disabled';
+            calendarContainer.appendChild(emptyDay);
+        }
+        
+        // Add days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
+            
+            const currentDate = new Date(currentYear, currentMonth, day);
+            const dayOfWeek = currentDate.getDay();
+            
+            // Check if this day matches selected weekdays and is not in the past
+            const isSelectedWeekday = selectedDays.length === 2 && selectedDays.includes(dayOfWeek);
+            const isPastDate = currentDate < today;
+            
+            if (isPastDate) {
+                dayElement.classList.add('past');
+            } else if (isSelectedWeekday) {
+                dayElement.classList.add('available');
+                dayElement.addEventListener('click', () => selectDate(currentDate, dayElement));
+            } else {
+                dayElement.classList.add('disabled');
+            }
+            
+            calendarContainer.appendChild(dayElement);
+        }
+    }
+    
+    function selectDate(date, element) {
+        // Remove previous selection
+        document.querySelectorAll('.calendar-day.selected').forEach(el => {
+            el.classList.remove('selected');
+        });
+        
+        // Add selection to clicked element
+        element.classList.add('selected');
+        selectedDate = date;
+        const formattedDate = date.toLocaleDateString('pt-BR');
+        selectedDateText.textContent = formattedDate;
+        selectedDateInput.value = date.toISOString().split('T')[0];
+        
+        selectedDateInfo.style.display = 'block';
+        
+        // Save to localStorage for chat
+        localStorage.setItem('trainingDate', formattedDate);
+        localStorage.setItem('trainingDateISO', date.toISOString().split('T')[0]);
+        
+        // Update schedule button based on all requirements
+        updateScheduleButton();
+        selectedDateText.textContent = formattedDate;
+        selectedDateInput.value = date.toISOString().split('T')[0];
+        
+        selectedDateInfo.style.display = 'block';
+        
+        // Update schedule button based on all requirements
+        updateScheduleButton();
+    }
+
+    // Form will redirect immediately to loading page
+});
+</script>
+{% endblock %}

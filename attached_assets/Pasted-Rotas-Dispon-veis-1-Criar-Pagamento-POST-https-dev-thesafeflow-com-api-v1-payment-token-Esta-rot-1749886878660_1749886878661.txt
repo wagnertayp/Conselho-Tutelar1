@@ -1,0 +1,77 @@
+Rotas Disponíveis
+1. Criar Pagamento
+POST https://dev.thesafeflow.com/api/v1/payment/:token
+Esta rota é utilizada para criar um novo pagamento usando o token da campanha.
+Parâmetros:
+token (path parameter): Token da campanha
+Headers Obrigatórios:
+x-api-key: sua-api-key
+Você pode obter sua API Key no seu perfil.
+
+Body da Requisição:
+{
+  "amount": number,      // Valor do pagamento (opcional, se não informado usa o valor padrão da campanha)
+  "name": string,        // Nome do pagador
+  "email": string,       // Email do pagador
+  "cpf": string,         // CPF do pagador
+  "phone": string        // Telefone do pagador
+}
+Resposta:
+Sucesso (201 Created):
+{
+  "paymentId": string,    // ID único do pagamento
+  "pixCode": string,      // Código PIX copia e cola
+  "pixQrCode": string,    // Código QR do PIX em base64
+  "expiresAt": string,    // Data de expiração do pagamento
+  "status": string,       // Status atual do pagamento
+  "campaign": {
+    "name": string,       // Nome da campanha
+    "paymentTitle": string // Título do pagamento
+  }
+}
+Erros:
+400 Bad Request: Dados inválidos
+401 Unauthorized: API Key inválida
+404 Not Found: Token da campanha não encontrado
+2. Consultar Status do Pagamento
+GET https://dev.thesafeflow.com/api/v1/payment/:token/status/:paymentId
+Esta rota é utilizada para consultar o status de um pagamento específico.
+Parâmetros:
+token (path parameter): Token da campanha
+paymentId (path parameter): ID do pagamento
+Headers Obrigatórios:
+x-api-key: sua-api-key
+Você pode obter sua API Key no seu perfil.
+
+Resposta:
+Sucesso (200 OK):
+{
+  "paymentId": string,    // ID único do pagamento
+  "status": string,       // Status atual do pagamento
+  "pixQrCode": string,    // Código QR do PIX em base64
+  "pixCode": string,      // Código PIX copia e cola
+  "campaign": {
+    "name": string,       // Nome da campanha
+    "paymentTitle": string // Título do pagamento
+  }
+}
+Erros:
+401 Unauthorized: API Key inválida
+404 Not Found: Pagamento não encontrado
+Exemplos de Uso
+Criar um Pagamento
+curl -X POST \
+  'https://dev.thesafeflow.com/api/payment/seu-token-campanha' \
+  -H 'x-api-key: sua-api-key' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "amount": 100.00,
+    "currency": "BRL",
+    "description": "Pagamento de teste"
+  }'
+Consultar Status do Pagamento
+curl -X GET 'https://dev.thesafeflow.com/api/payment/seu-token-campanha/status/123456' -H 'x-api-key: sua-api-key'
+Observações Importantes
+O token da campanha deve ser válido e ativo
+Os valores monetários devem ser enviados em centavos (ex: 10000 para R$ 100,00)
+Recomenda-se implementar tratamento de erros adequado no lado do cliente

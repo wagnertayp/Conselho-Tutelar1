@@ -102,6 +102,10 @@ def local():
 
 @app.route("/teste")
 def teste():
+    return render_template('simple_test.html')
+
+@app.route("/test-simple")
+def test_simple():
     return send_from_directory('.', 'test_page.html')
 
 @app.teardown_appcontext

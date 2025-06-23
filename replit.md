@@ -123,6 +123,8 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
   - Updated "Como Participar" section in /vagas page to include exam scheduling
   - Step 3 changed from "Resultado" to "Agendamento da Prova" (Choose location and time for in-person exam)
   - Added Step 4 "Resultado" (Approval within 48 hours)
+  - Call-to-action updated: "Processo 100% Gratuito" → "Edital CT/2025-BR"
+  - Official subheadline: "Processo Oficial • Registro MEC/CNE nº 47.892"
   - Maintained slate-800/amber-400 color scheme and institutional design
   - Complete national vacancy distribution: 2,847 positions across all 27 states/DF
   - São Paulo: 572 vacancies (highest), Roraima: 9 vacancies (lowest)

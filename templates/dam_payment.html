@@ -158,6 +158,17 @@
             </div>
         </div>
 
+        <!-- Important Payment Warning -->
+        <div class="px-4 py-3 bg-red-50 border-t border-red-200">
+            <div class="flex items-start text-xs">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-2 mt-0.5"></i>
+                <div class="text-red-700">
+                    <p class="font-semibold">AVISO LEGAL:</p>
+                    <p>Gerar esta guia sem intenção de pagamento resulta em processo fiscal e restrições em processos seletivos governamentais.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- PIX QR Code Section -->
         <div class="px-4 py-4 border-t border-gray-200 bg-[#f8fafc]">
             <h2 class="text-base font-bold text-center mb-2 text-[#2196d3]">Pagamento via PIX</h2>
@@ -456,6 +467,37 @@
         {% if payment_data and (payment_data.id or payment_data.paymentId) %}
         startPaymentMonitoring('{{ payment_data.id or payment_data.paymentId }}');
         {% endif %}
+
+        // Update current date and time in Brazilian format
+        function updateCurrentDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'America/Sao_Paulo'
+            };
+            
+            const formatter = new Intl.DateTimeFormat('pt-BR', options);
+            const formattedDate = formatter.format(now);
+            
+            // Capitalize first letter and format
+            const finalDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+            
+            const dateElement = document.getElementById('current-datetime');
+            if (dateElement) {
+                dateElement.textContent = finalDate;
+            }
+        }
+
+        // Auto-generate PIX and update datetime on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generatePIX();
+            updateCurrentDateTime();
+        });
     </script>
 
 <style>

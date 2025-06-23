@@ -119,6 +119,13 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: Avisos de Pagamento Obrigatório - IMPLEMENTADOS
+  - Aviso destacado na página de aprovação sobre obrigatoriedade do pagamento DAM
+  - Alerta sobre consequências de gerar guia sem intenção de pagar
+  - Lista de penalidades: processo fiscal, restrições em seleções governamentais, bloqueio no sistema
+  - Aviso legal compacto na página DAM de pagamento
+  - Design com cores de alerta (vermelho) para chamar atenção
+
 - June 23, 2025: Data e Horário Atual do Usuário - IMPLEMENTADA
   - Campo "Data/Horário" agora exibe data e hora atual do usuário
   - Formatação em português brasileiro com fuso horário America/Sao_Paulo

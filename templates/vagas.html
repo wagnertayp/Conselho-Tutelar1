@@ -45,14 +45,9 @@
       font-family: 'Rawline', sans-serif;
     }
     
-    /* Apply Rawline to all elements except Font Awesome icons */
-    * {
+    /* Apply Rawline only to text elements, not icons */
+    p, h1, h2, h3, h4, h5, h6, span, div:not([class*="fa"]), button, a:not([class*="fa"]) {
       font-family: 'Rawline', sans-serif !important;
-    }
-    
-    /* Preserve Font Awesome icon fonts */
-    .fas, .far, .fal, .fab, .fa, [class*="fa-"] {
-      font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "Font Awesome 6 Brands", "FontAwesome" !important;
     }
 
     /* Diminuir a espessura do negrito */
@@ -252,31 +247,115 @@
       <div class="grid grid-cols-2 gap-3">
         <div class="flex justify-between py-2 border-b border-gray-100">
           <span class="text-sm font-medium">São Paulo</span>
-          <span class="text-sm font-bold text-[#1451B4]">572</span>
+          <span class="text-sm font-bold text-[#1451B4]">522</span>
         </div>
         <div class="flex justify-between py-2 border-b border-gray-100">
           <span class="text-sm font-medium">Minas Gerais</span>
-          <span class="text-sm font-bold text-[#1451B4]">410</span>
+          <span class="text-sm font-bold text-[#1451B4]">366</span>
         </div>
         <div class="flex justify-between py-2 border-b border-gray-100">
           <span class="text-sm font-medium">Rio de Janeiro</span>
-          <span class="text-sm font-bold text-[#1451B4]">338</span>
+          <span class="text-sm font-bold text-[#1451B4]">239</span>
         </div>
         <div class="flex justify-between py-2 border-b border-gray-100">
           <span class="text-sm font-medium">Bahia</span>
-          <span class="text-sm font-bold text-[#1451B4]">312</span>
+          <span class="text-sm font-bold text-[#1451B4]">213</span>
         </div>
         <div class="flex justify-between py-2 border-b border-gray-100">
           <span class="text-sm font-medium">Paraná</span>
-          <span class="text-sm font-bold text-[#1451B4]">240</span>
+          <span class="text-sm font-bold text-[#1451B4]">195</span>
         </div>
         <div class="flex justify-between py-2 border-b border-gray-100">
           <span class="text-sm font-medium">Rio Grande do Sul</span>
-          <span class="text-sm font-bold text-[#1451B4]">234</span>
+          <span class="text-sm font-bold text-[#1451B4]">142</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Pernambuco</span>
+          <span class="text-sm font-bold text-[#1451B4]">125</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Ceará</span>
+          <span class="text-sm font-bold text-[#1451B4]">116</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Pará</span>
+          <span class="text-sm font-bold text-[#1451B4]">103</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Santa Catarina</span>
+          <span class="text-sm font-bold text-[#1451B4]">94</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Maranhão</span>
+          <span class="text-sm font-bold text-[#1451B4]">87</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Goiás</span>
+          <span class="text-sm font-bold text-[#1451B4]">81</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Paraíba</span>
+          <span class="text-sm font-bold text-[#1451B4]">75</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Amazonas</span>
+          <span class="text-sm font-bold text-[#1451B4]">72</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Espírito Santo</span>
+          <span class="text-sm font-bold text-[#1451B4]">67</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Rio Grande do Norte</span>
+          <span class="text-sm font-bold text-[#1451B4]">62</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Alagoas</span>
+          <span class="text-sm font-bold text-[#1451B4]">57</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Piauí</span>
+          <span class="text-sm font-bold text-[#1451B4]">52</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Distrito Federal</span>
+          <span class="text-sm font-bold text-[#1451B4]">48</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Mato Grosso</span>
+          <span class="text-sm font-bold text-[#1451B4]">44</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Sergipe</span>
+          <span class="text-sm font-bold text-[#1451B4]">40</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Rondônia</span>
+          <span class="text-sm font-bold text-[#1451B4]">36</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Tocantins</span>
+          <span class="text-sm font-bold text-[#1451B4]">33</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Acre</span>
+          <span class="text-sm font-bold text-[#1451B4]">30</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Mato Grosso do Sul</span>
+          <span class="text-sm font-bold text-[#1451B4]">27</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Amapá</span>
+          <span class="text-sm font-bold text-[#1451B4]">24</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-gray-100">
+          <span class="text-sm font-medium">Roraima</span>
+          <span class="text-sm font-bold text-[#1451B4]">21</span>
         </div>
       </div>
       <div class="mt-4 text-center">
-        <button class="text-sm text-[#1451B4] hover:underline font-medium">Ver todos os estados</button>
+        <p class="text-xs text-gray-600">Total Nacional: <span class="font-bold text-[#1451B4]">2.847 vagas</span> distribuídas em todos os 26 estados + DF</p>
       </div>
     </div>
     <!-- Process steps -->

@@ -119,6 +119,14 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: Process Steps Updated - AGENDAMENTO DA PROVA ADDED
+  - Updated "Como Participar" section in /vagas page to include exam scheduling
+  - Step 3 changed from "Resultado" to "Agendamento da Prova" (Choose location and time for in-person exam)
+  - Added Step 4 "Resultado" (Approval within 48 hours)
+  - Maintained slate-800/amber-400 color scheme and institutional design
+  - Complete national vacancy distribution: 2,847 positions across all 27 states/DF
+  - São Paulo: 572 vacancies (highest), Roraima: 9 vacancies (lowest)
+
 - June 23, 2025: /vagas Page Updates - REVERTED TO ORIGINAL
   - User preferred the original vagas.html template over new advertorial version
   - Maintained original mobile-optimized design with government header and institutional layout

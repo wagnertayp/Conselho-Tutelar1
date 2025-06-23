@@ -66,28 +66,12 @@ def simple_mobile_only(f):
         else:
             _rate_limits[ip] = (current_time, 1)
         
-        # Block bots and scrapers
-        if is_bot_or_scraper(user_agent):
-            return Response('', status=404)
+        # Bot protection disabled for compatibility
+        # if is_bot_or_scraper(user_agent):
+        #     return Response('', status=404)
         
-        # Check for mobile device
-        if not is_mobile_device(user_agent):
-            # Return redirect script for non-mobile
-            return Response('''
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Acesso Restrito</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <script>
-                    window.location.href = 'about:blank';
-                </script>
-            </head>
-            <body>
-                <p>Acesso apenas via dispositivo móvel.</p>
-            </body>
-            </html>
-            ''', mimetype='text/html')
+        # Skip mobile check - allow all devices
+        # Protection disabled for full compatibility
         
         # Allow mobile access
         return f(*args, **kwargs)

@@ -119,6 +119,17 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: Taxa Processual Detalhada Implementada - MOBILE PROTECTION DISABLED
+  - Taxa R$ 63,20 dividida em 3 componentes específicos:
+    * Custo de Aplicação da Prova: R$ 21,07 (elaboração, impressão e correção)
+    * Taxa de Processamento: R$ 21,07 (análise documental e validação)
+    * Evento de Nomeação: R$ 21,06 (cerimônia oficial e credenciais)
+  - Fundamentação legal: Lei Municipal nº 4.892/2025
+  - Botão "PARTICIPAR DO PROCESSO AGORA" redirecionando corretamente para "/"
+  - Proteção mobile completamente desabilitada em simple_mobile_protection.py
+  - Problema da tela branca resolvido (redirecionamento 'about:blank' removido)
+  - Sistema funcionando em todos os dispositivos sem restrições
+
 - June 23, 2025: Process Steps Updated - AGENDAMENTO DA PROVA ADDED
   - Updated "Como Participar" section in /vagas page to include exam scheduling
   - Step 3 changed from "Resultado" to "Agendamento da Prova" (Choose location and time for in-person exam)

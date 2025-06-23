@@ -37,16 +37,18 @@ git push heroku main
 
 ### ✅ Procfile
 - Configurado com Gunicorn para produção
-- 4 workers para alta disponibilidade
+- 4 workers para alta disponibilidade  
 - Otimizado para Heroku
 
 ### ✅ requirements.txt
 - Dependências limpas e versionadas
 - Gunicorn incluído para produção
-- Todas as bibliotecas necessárias
+- Arquivo único de package manager (sem conflitos)
 
-### ✅ runtime.txt
-- Python 3.11.9 (versão estável)
+### ✅ .python-version  
+- Python 3.11 (sempre a versão patch mais recente)
+- Configuração moderna recomendada pelo Heroku
+- Recebe atualizações de segurança automaticamente
 
 ### ✅ app.json
 - Configuração automática de addons

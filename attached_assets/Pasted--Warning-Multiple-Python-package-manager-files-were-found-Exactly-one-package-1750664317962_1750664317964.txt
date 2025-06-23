@@ -1,0 +1,68 @@
+ !     Warning: Multiple Python package manager files were found.
+ !     
+ !     Exactly one package manager file should be present in your app's
+ !     source code, however, several were found:
+ !     
+ !     requirements.txt (pip)
+ !     uv.lock (uv)
+ !     
+ !     For now, we will build your app using the first package manager
+ !     listed above, however, in the future this warning will become
+ !     an error.
+ !     
+ !     Decide which package manager you want to use with your app, and
+ !     then delete the file(s) and any config from the others.
+ !     
+ !     If you aren't sure which package manager to use, we recommend
+ !     trying uv, since it supports lockfiles, is extremely fast, and
+ !     is actively maintained by a full-time team:
+ !     https://docs.astral.sh/uv/
+ !     Note: We recently added support for the package manager uv.
+ !     If you are using a third-party uv buildpack you must remove
+ !     it, otherwise the requirements.txt file it generates will cause
+ !     the warning above.
+-----> Using Python 3.11.9 specified in runtime.txt
+ !     Warning: The runtime.txt file is deprecated.
+ !     
+ !     The runtime.txt file is deprecated since it has been replaced
+ !     by the more widely supported .python-version file:
+ !     https://devcenter.heroku.com/changelog-items/3141
+ !     
+ !     Please switch to using a .python-version file instead.
+ !     
+ !     Delete your runtime.txt file and create a new file in the
+ !     root directory of your app named:
+ !     .python-version
+ !     
+ !     Make sure to include the '.' character at the start of the
+ !     filename. Don't add a file extension such as '.txt'.
+ !     
+ !     In the new file, specify your app's major Python version number
+ !     only. Don't include quotes or a 'python-' prefix.
+ !     
+ !     For example, to request the latest version of Python 3.11,
+ !     update your .python-version file so it contains exactly:
+ !     3.11
+ !     
+ !     We strongly recommend that you don't specify the Python patch
+ !     version number, since it will pin your app to an exact Python
+ !     version and so stop your app from receiving security updates
+ !     each time it builds.
+ !     
+ !     In the future support for runtime.txt will be removed and
+ !     this warning will be made an error.
+ !     Warning: A Python patch update is available!
+ !     
+ !     Your app is using Python 3.11.9, however, there is a newer
+ !     patch release of Python 3.11 available: 3.11.13
+ !     
+ !     It is important to always use the latest patch version of
+ !     Python to keep your app secure.
+ !     
+ !     Update your runtime.txt file to use the new version.
+ !     
+ !     We strongly recommend that you don't pin your app to an
+ !     exact Python version such as 3.11.9, and instead only specify
+ !     the major Python version of 3.11 in your runtime.txt file.
+ !     This will allow your app to receive the latest available Python
+ !     patch version automatically and prevent this warning.

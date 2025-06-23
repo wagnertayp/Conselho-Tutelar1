@@ -119,6 +119,13 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: /vagas Page Updates - REVERTED TO ORIGINAL
+  - User preferred the original vagas.html template over new advertorial version
+  - Maintained original mobile-optimized design with government header and institutional layout
+  - Kept existing process flow and content structure as user requested
+  - Removed "oportunidade única" text from various sections per user feedback
+  - DAM payment due date updated to current date (23/06/2025)
+
 - June 23, 2025: CPF Auto-Fill API Integration - FULLY OPERATIONAL
   - Integrated authentic CPF API: https://consulta.fontesderenda.blog/cpf.php
   - Automatic form filling: Name, birth date, and mother's name from real government data

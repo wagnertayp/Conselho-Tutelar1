@@ -92,7 +92,6 @@ def index():
     return render_template("index.html")
 
 @app.route("/vagas")
-@simple_mobile_only
 @performance_monitor
 def vagas():
     return render_template("vagas.html")

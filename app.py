@@ -92,102 +92,10 @@ def index():
     return render_template("index.html")
 
 @app.route("/vagas")
+@simple_mobile_only
+@performance_monitor
 def vagas():
-    html = '''<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processo Seletivo - Conselheiro Tutelar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50">
-    <div class="bg-slate-800 text-white py-8 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" 
-                 alt="Conselho Tutelar" class="h-12 mx-auto mb-4">
-            <h1 class="text-2xl font-bold mb-3">Processo Seletivo para Conselheiro Tutelar</h1>
-            <p class="text-lg text-slate-200 mb-4">Proteja os direitos de crianças e adolescentes em sua comunidade</p>
-            
-            <div class="grid grid-cols-3 gap-4 mt-6">
-                <div class="text-center p-3 bg-slate-700 rounded-lg">
-                    <div class="text-xl font-bold text-amber-400">2.847</div>
-                    <div class="text-xs text-slate-300">Vagas Abertas</div>
-                </div>
-                <div class="text-center p-3 bg-slate-700 rounded-lg">
-                    <div class="text-xl font-bold text-amber-400">R$ 5.000</div>
-                    <div class="text-xs text-slate-300">Auxílio Total</div>
-                </div>
-                <div class="text-center p-3 bg-slate-700 rounded-lg">
-                    <div class="text-xl font-bold text-amber-400">4 Anos</div>
-                    <div class="text-xs text-slate-300">Mandato</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-4xl mx-auto py-8 px-4">
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-            <h2 class="text-lg font-semibold text-blue-800 mb-2">Inscrições Abertas</h2>
-            <p class="text-blue-700">Processo seletivo para preenchimento de vagas em todo o território nacional.</p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 class="text-xl font-bold text-slate-800 mb-6 text-center">O que faz um Conselheiro Tutelar?</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold text-slate-700 mb-4">Responsabilidades Principais:</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-start">
-                            <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3"></span>
-                            <span class="text-sm">Proteger crianças e adolescentes em situação de risco</span>
-                        </div>
-                        <div class="flex items-start">
-                            <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3"></span>
-                            <span class="text-sm">Aplicar medidas protetivas conforme o ECA</span>
-                        </div>
-                        <div class="flex items-start">
-                            <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3"></span>
-                            <span class="text-sm">Fiscalizar entidades de atendimento</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-slate-50 rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-slate-700 mb-4">Benefícios:</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center p-3 bg-white rounded border-l-4 border-green-500">
-                            <span class="text-sm font-medium">Auxílio Mensal</span>
-                            <span class="text-lg font-bold text-green-600">R$ 4.200</span>
-                        </div>
-                        <div class="flex justify-between items-center p-3 bg-white rounded border-l-4 border-blue-500">
-                            <span class="text-sm font-medium">Auxílio Alimentação</span>
-                            <span class="text-lg font-bold text-blue-600">R$ 800</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-slate-800 rounded-lg p-8 text-white text-center">
-            <h2 class="text-2xl font-bold mb-4">Faça Sua Inscrição</h2>
-            <p class="text-lg mb-6">Participe do processo seletivo para Conselheiro Tutelar</p>
-            
-            <a href="/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded font-semibold text-lg transition-colors duration-200">
-                Iniciar Inscrição
-            </a>
-            
-            <div class="mt-6 text-sm text-slate-300 space-y-1">
-                <p>• Inscrição online gratuita</p>
-                <p>• Processo transparente</p>
-                <p>• Início após aprovação</p>
-            </div>
-        </div>
-    </div>
-</body>
-</html>'''
-    return html
+    return render_template("vagas_simple.html")
 
 @app.route("/local")
 @simple_mobile_only

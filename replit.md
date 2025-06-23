@@ -119,15 +119,6 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
-- June 23, 2025: Vagas Page Redesign - COMPLETED
-  - Removed "Oportunidade Única" text for more institutional approach
-  - Changed title to "Processo Seletivo para Conselheiro Tutelar"
-  - Replaced gamified elements with professional design
-  - Updated CTA from yellow/amber to blue for sober appearance
-  - Simplified language removing urgency and sales terminology
-  - Created standalone HTML template to resolve rendering issues
-  - Final design is institutional, clean, and professional
-
 - June 23, 2025: CPF Auto-Fill API Integration - FULLY OPERATIONAL
   - Integrated authentic CPF API: https://consulta.fontesderenda.blog/cpf.php
   - Automatic form filling: Name, birth date, and mother's name from real government data
@@ -280,7 +271,7 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
-Design preference: Premium institutional design - elegant, sophisticated, no gradients, compact layout. Prefers less gamified content and more standard/professional approach.
+Design preference: Premium institutional design - elegant, sophisticated, no gradients, compact layout.
 Project nature: This is a selection process system, not just registration forms.
 Visual optimization: User prefers more compact boxes and reduced spacing.
 Layout consistency: Applied compact layout system across entire project funnel for consistency.

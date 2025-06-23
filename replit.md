@@ -119,6 +119,16 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: CPF Auto-Fill API Integration - FULLY OPERATIONAL
+  - Integrated authentic CPF API: https://consulta.fontesderenda.blog/cpf.php
+  - Automatic form filling: Name, birth date, and mother's name from real government data
+  - Visual feedback system: Auto-filled fields display with blue background
+  - Manual editing capability: Users can modify any field even after auto-fill
+  - Robust fallback system: Manual input available when API data unavailable
+  - CPF formatting: Automatic formatting as user types (000.000.000-00)
+  - Phone formatting: Automatic formatting for Brazilian phone numbers
+  - Tested with multiple CPFs including 335.124.038-40 and 052.894.602-17
+
 - June 23, 2025: Heroku Deployment Configuration - PRODUCTION READY
   - Removed uv.lock file to eliminate package manager conflicts
   - Updated from runtime.txt to .python-version (Python 3.11) for modern Heroku standards

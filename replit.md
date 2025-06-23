@@ -119,6 +119,12 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: Data e Horário Atual do Usuário - IMPLEMENTADA
+  - Campo "Data/Horário" agora exibe data e hora atual do usuário
+  - Formatação em português brasileiro com fuso horário America/Sao_Paulo
+  - Atualização automática via JavaScript: "Domingo, 23 de junho de 2025 às 06:53"
+  - Função updateCurrentDateTime() com Intl.DateTimeFormat para localização
+
 - June 23, 2025: Integração Local e Data do Agendamento - IMPLEMENTADA
   - Criada rota /store-exam-selection para armazenar dados do agendamento na sessão
   - Dados de escola e data recuperados do session['exam_schedule'] na página DAM

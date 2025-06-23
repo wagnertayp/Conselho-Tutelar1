@@ -75,7 +75,6 @@ def serve_font(filename):
     return send_from_directory('static/fonts', filename)
 
 @app.route("/", methods=["GET", "POST"])
-@simple_mobile_only
 @performance_monitor
 def index():
     if request.method == "POST":
@@ -97,10 +96,13 @@ def vagas():
     return render_template("vagas.html")
 
 @app.route("/local")
-@simple_mobile_only
 @performance_monitor
 def local():
     return render_template("local.html")
+
+@app.route("/teste")
+def teste():
+    return send_from_directory('.', 'test_page.html')
 
 @app.teardown_appcontext
 def close_db(error):

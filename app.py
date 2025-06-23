@@ -93,7 +93,7 @@ def index():
 @app.route("/vagas")
 @performance_monitor
 def vagas():
-    return render_template("vagas.html")
+    return render_template("vagas_working.html")
 
 @app.route("/local")
 @performance_monitor

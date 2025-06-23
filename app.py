@@ -702,11 +702,12 @@ def pagamento():
     # Merge user data
     combined_data = {**registration_data, **user_data}
     
-    if not combined_data:
+    # Allow access to payment page if user has exam schedule data (even without full registration)
+    exam_schedule = session.get('exam_schedule', {})
+    if not combined_data and not exam_schedule:
         return redirect(url_for('index'))
     
-    # Get exam scheduling data from session
-    exam_schedule = session.get('exam_schedule', {})
+    # exam_schedule already retrieved above for validation
     selected_school = exam_schedule.get('school', 'Local a ser definido')
     selected_date = exam_schedule.get('date', 'Data a ser definida')
     
@@ -730,10 +731,10 @@ def pagamento():
         # Create payment with For4Payments API
         payment_api = create_payment_api()
         
-        # Use real user data with fallbacks
+        # Use real user data with fallbacks for payment
         name = combined_data.get('full_name') or combined_data.get('name', 'Candidato Conselheiro Tutelar')
-        email = combined_data.get('email') or 'damgov@gmail.com'
-        cpf = combined_data.get('cpf', '').replace('.', '').replace('-', '')
+        email = combined_data.get('email') or 'candidato@conselhotutelar.gov.br'
+        cpf = combined_data.get('cpf', '').replace('.', '').replace('-', '') or '00000000000'
         phone = combined_data.get('phone', '11999876978').replace('(', '').replace(')', '').replace('-', '').replace(' ', '')
         
         payment_request_data = {
@@ -801,6 +802,9 @@ def pagamento():
     
     app.logger.info(f"Rendering DAM template with payment_data: {payment_data}")
     app.logger.info(f"User data for template: {combined_data}")
+    app.logger.info(f"Exam schedule data: {exam_schedule}")
+    app.logger.info(f"Selected school: {selected_school}")
+    app.logger.info(f"Selected date: {selected_date}")
     
     return render_template("dam_payment.html", 
                          user_data=combined_data,

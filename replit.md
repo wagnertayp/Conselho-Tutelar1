@@ -119,6 +119,14 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 23, 2025: Integração Local e Data do Agendamento - IMPLEMENTADA
+  - Criada rota /store-exam-selection para armazenar dados do agendamento na sessão
+  - Dados de escola e data recuperados do session['exam_schedule'] na página DAM
+  - Formatação automática da data: "2025-06-25-14:30" → "25/06/2025 às 14:30"
+  - Seção "Informações da Prova" na página DAM exibe local e data escolhidos
+  - Correção na validação da rota /pagamento para permitir acesso com dados de agendamento
+  - Sistema completo: agendamento em /aprovado → dados na página DAM de pagamento
+
 - June 23, 2025: Taxa Processual Detalhada Implementada - MOBILE PROTECTION DISABLED
   - Taxa R$ 63,20 dividida em 3 componentes específicos:
     * Custo de Aplicação da Prova: R$ 28,50 (elaboração, impressão e correção)

@@ -705,9 +705,18 @@ def pagamento():
     if not combined_data:
         return redirect(url_for('index'))
     
-    # Get selected school and date from session if available
-    selected_school = session.get('selected_school', 'Local a ser definido')
-    selected_date = session.get('selected_date', 'Data a ser definida')
+    # Get exam scheduling data from session
+    exam_schedule = session.get('exam_schedule', {})
+    selected_school = exam_schedule.get('school', 'Local a ser definido')
+    selected_date = exam_schedule.get('date', 'Data a ser definida')
+    
+    # Format date for display
+    if selected_date != 'Data a ser definida' and '-' in selected_date:
+        # Convert "2025-06-25-09:00" to "25/06/2025 às 09:00"
+        date_parts = selected_date.split('-')
+        if len(date_parts) >= 4:
+            date_str = f"{date_parts[2]}/{date_parts[1]}/{date_parts[0]} às {date_parts[3]}"
+            selected_date = date_str
     
     # Always generate fresh payment data for DAM
     payment_data = None
@@ -1070,6 +1079,41 @@ def load_cras_data():
         return jsonify({
             "success": False,
             "error": f"Erro ao carregar dados CRAS: {str(e)}"
+        }), 500
+
+@app.route("/store-exam-selection", methods=["POST"])
+def store_exam_selection():
+    """Store exam scheduling selection in session"""
+    try:
+        data = request.get_json()
+        school = data.get('school')
+        date = data.get('date')
+        
+        if not school or not date:
+            return jsonify({
+                "success": False,
+                "error": "Escola e data são obrigatórios"
+            }), 400
+        
+        # Store scheduling data in session
+        session['exam_schedule'] = {
+            'school': school,
+            'date': date,
+            'scheduled_at': datetime.now().isoformat()
+        }
+        
+        app.logger.info(f"Agendamento de prova confirmado: {school} em {date}")
+        
+        return jsonify({
+            "success": True,
+            "message": "Agendamento confirmado com sucesso"
+        })
+        
+    except Exception as e:
+        app.logger.error(f"Erro ao armazenar agendamento: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": f"Erro ao armazenar agendamento: {str(e)}"
         }), 500
 
 @app.route("/agendamento", methods=["POST"])

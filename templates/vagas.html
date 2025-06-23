@@ -45,8 +45,14 @@
       font-family: 'Rawline', sans-serif;
     }
     
+    /* Apply Rawline to all elements except Font Awesome icons */
     * {
       font-family: 'Rawline', sans-serif !important;
+    }
+    
+    /* Preserve Font Awesome icon fonts */
+    .fas, .far, .fal, .fab, .fa, [class*="fa-"] {
+      font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "Font Awesome 6 Brands", "FontAwesome" !important;
     }
 
     /* Diminuir a espessura do negrito */

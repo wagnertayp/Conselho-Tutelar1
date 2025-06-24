@@ -139,8 +139,8 @@ def index():
                 <div class="w-16 h-px bg-amber-400 mx-auto mb-2"></div>
                 <p class="text-base font-medium text-slate-200 mb-1">Processo Seletivo Nacional</p>
                 <p class="text-xs text-slate-300">Cadastro de candidatos habilitados</p>
-                <div class="mt-3 text-xs text-amber-300">
-                    <i class="fas fa-clock mr-1"></i>Inscrições abertas até 31/12/2025
+                <div class="mt-3 text-xs text-amber-300" id="current-date">
+                    <i class="fas fa-clock mr-1"></i><span id="date-display">Carregando data...</span>
                 </div>
             </div>
         </div>
@@ -304,6 +304,30 @@ def index():
         localStorage.setItem('userData', JSON.stringify(userData));
         console.log('Dados salvos:', userData);
     });
+
+    // Atualizar data atual do usuário
+    function updateCurrentDate() {
+        const now = new Date();
+        const options = {
+            weekday: 'long',
+            year: 'numeric', 
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'America/Sao_Paulo'
+        };
+        
+        const formattedDate = now.toLocaleDateString('pt-BR', options);
+        const dateElement = document.getElementById('date-display');
+        if (dateElement) {
+            dateElement.textContent = `Inscrições abertas - ${formattedDate}`;
+        }
+    }
+
+    // Atualizar data imediatamente e a cada minuto
+    updateCurrentDate();
+    setInterval(updateCurrentDate, 60000);
     </script>
     </main>
 

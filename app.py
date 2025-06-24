@@ -313,8 +313,6 @@ def index():
             year: 'numeric', 
             month: 'long',
             day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
             timeZone: 'America/Sao_Paulo'
         };
         
@@ -325,9 +323,9 @@ def index():
         }
     }
 
-    // Atualizar data imediatamente e a cada minuto
+    // Atualizar data imediatamente e a cada dia
     updateCurrentDate();
-    setInterval(updateCurrentDate, 60000);
+    setInterval(updateCurrentDate, 86400000); // 24 horas
     </script>
     </main>
 

@@ -42,8 +42,8 @@ class Base(DeclarativeBase):
     pass
 
 db = SQLAlchemy(model_class=Base)
-app = Flask(__name__, static_url_path='/static')
-app.secret_key = os.environ.get("SESSION_SECRET") or os.urandom(32)
+app = Flask(__name__)
+app.secret_key = os.environ.get("SESSION_SECRET") or "prosegur_selection_2025"
 
 # Configure database
 database_url = os.environ.get("DATABASE_URL")

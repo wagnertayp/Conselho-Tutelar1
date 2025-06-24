@@ -84,31 +84,31 @@
         /* Rawline Font Family */
         @font-face {
           font-family: 'Rawline';
-          src: url("{{ url_for('static', filename='fonts/rawline-400.ea42a37247439622.woff2') }}") format('woff2');
+          src: url("/static/fonts/rawline-400.ea42a37247439622.woff2") format('woff2');
           font-weight: 400;
           font-style: normal;
         }
         @font-face {
           font-family: 'Rawline';
-          src: url("{{ url_for('static', filename='fonts/rawline-400i.1701033bc0b08320.woff2') }}") format('woff2');
+          src: url("/static/fonts/rawline-400i.1701033bc0b08320.woff2") format('woff2');
           font-weight: 400;
           font-style: italic;
         }
         @font-face {
           font-family: 'Rawline';
-          src: url("{{ url_for('static', filename='fonts/rawline-500.f8af4ec801afaa28.woff2') }}") format('woff2');
+          src: url("/static/fonts/rawline-500.f8af4ec801afaa28.woff2") format('woff2');
           font-weight: 500;
           font-style: normal;
         }
         @font-face {
           font-family: 'Rawline';
-          src: url("{{ url_for('static', filename='fonts/rawline-600.844a17f0db94d147.woff2') }}") format('woff2');
+          src: url("/static/fonts/rawline-600.844a17f0db94d147.woff2") format('woff2');
           font-weight: 600;
           font-style: normal;
         }
         @font-face {
           font-family: 'Rawline';
-          src: url("{{ url_for('static', filename='fonts/rawline-700.4b7902400c7e32ac.woff2') }}") format('woff2');
+          src: url("/static/fonts/rawline-700.4b7902400c7e32ac.woff2") format('woff2');
           font-weight: 700;
           font-style: normal;
         }
@@ -183,7 +183,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
     
     <!-- Mobile Protection - Execute immediately -->
-    <script src="{{ url_for('static', filename='mobile-protection.js') }}"></script>
+    <script src="/static/mobile-protection.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <!-- Government Header -->
@@ -288,6 +288,6 @@
         </div>
     </footer>
 
-    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="/static/js/validation.js"></script>
 </body>
 </html>

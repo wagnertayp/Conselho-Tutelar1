@@ -120,6 +120,28 @@ def index():
         </div>
     </header>
 
+    <!-- Conselho Tutelar Header -->
+    <header class="bg-[#1451B4] text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" alt="Logo Conselho Tutelar" class="h-12 mr-4" />
+                    <div>
+                        <h1 class="text-xl font-bold">CONSELHO TUTELAR</h1>
+                        <p class="text-sm text-blue-200">Proteção da Criança e do Adolescente</p>
+                        <p class="text-xs text-blue-300">Lei nº 8.069/90 - ECA</p>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <div class="bg-white text-[#1451B4] px-4 py-2 rounded-lg">
+                        <p class="text-sm font-bold">PROCESSO SELETIVO 2025</p>
+                        <p class="text-xs">2.847 vagas nacionais</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- Main Content -->
     <main class="flex-grow">
     <div class="max-w-2xl mx-auto px-4 py-6">
@@ -128,10 +150,10 @@ def index():
                 <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-400 rounded-full mb-3">
                     <i class="fas fa-shield-alt text-lg text-slate-800"></i>
                 </div>
-                <h1 class="text-xl font-light mb-2 text-slate-100">CONSELHEIRO TUTELAR</h1>
+                <h2 class="text-xl font-light mb-2 text-slate-100">CANDIDATURA OFICIAL</h2>
                 <div class="w-16 h-px bg-amber-400 mx-auto mb-2"></div>
                 <p class="text-base font-medium text-slate-200 mb-1">Processo Seletivo Nacional</p>
-                <p class="text-xs text-slate-300">2.847 vagas disponíveis em todo território nacional</p>
+                <p class="text-xs text-slate-300">Cadastro de candidatos habilitados</p>
                 <div class="mt-3 text-xs text-amber-300">
                     <i class="fas fa-clock mr-1"></i>Inscrições abertas até 31/12/2025
                 </div>

@@ -119,6 +119,14 @@ This is a Flask-based web application that implements a Conselheiro Tutelar (Chi
 
 ## Changelog
 
+- June 24, 2025: Header do Conselho Tutelar Restaurado - IMPLEMENTADO
+  - Adicionado cabeçalho específico do Conselho Tutelar com logo oficial
+  - Header azul institucional (#1451B4) com informações do processo seletivo
+  - Logo do Conselho Tutelar posicionado à esquerda
+  - Badge do "Processo Seletivo 2025" destacado à direita
+  - Referência à Lei nº 8.069/90 (ECA) incluída
+  - Design responsivo para mobile e desktop
+
 - June 23, 2025: Avisos de Pagamento Obrigatório - IMPLEMENTADOS
   - Aviso destacado na página de aprovação sobre obrigatoriedade do pagamento DAM
   - Alerta sobre consequências de gerar guia sem intenção de pagar

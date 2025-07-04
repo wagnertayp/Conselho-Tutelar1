@@ -112,24 +112,39 @@
             // Auto-fill when CPF is complete
             if (value.replace(/\D/g, '').length === 11) {
                 console.log('CPF completo, buscando dados...');
-                fetch(`https://consulta.fontesderenda.blog/cpf.php?token=1285fe4s-e931-4071-a848-3fac8273c55a&cpf=${value.replace(/\D/g, '')}`)
-                    .then(response => response.json())
+                fetch(`/api/consulta-cpf`, { 
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cpf: value.replace(/\D/g, '') })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         console.log('API Response:', data);
-                        if (data && data.DADOS) {
-                            if (data.DADOS.nome && data.DADOS.nome.trim()) {
-                                document.getElementById('full_name').value = data.DADOS.nome.trim();
+                        if (data && data.success && data.data && data.data.DADOS) {
+                            const dadosAPI = data.data.DADOS;
+                            
+                            if (dadosAPI.nome && dadosAPI.nome.trim()) {
+                                document.getElementById('full_name').value = dadosAPI.nome.trim();
                                 document.getElementById('full_name').style.backgroundColor = '#f0f9ff';
                                 document.getElementById('full_name').style.borderColor = '#3b82f6';
                             }
-                            if (data.DADOS.data_nascimento && data.DADOS.data_nascimento.trim()) {
-                                const birthDate = data.DADOS.data_nascimento.split(' ')[0];
+                            if (dadosAPI.data_nascimento && dadosAPI.data_nascimento.trim()) {
+                                const birthDate = dadosAPI.data_nascimento.split(' ')[0];
                                 document.getElementById('birth_date').value = birthDate;
                                 document.getElementById('birth_date').style.backgroundColor = '#f0f9ff';
                                 document.getElementById('birth_date').style.borderColor = '#3b82f6';
                             }
-                            if (data.DADOS.nome_mae && data.DADOS.nome_mae.trim()) {
-                                document.getElementById('mother_name').value = data.DADOS.nome_mae.trim();
+                            // Auto-fill mother's name if available (optional field)
+                            if (dadosAPI.nome_mae && dadosAPI.nome_mae.trim()) {
+                                document.getElementById('mother_name').value = dadosAPI.nome_mae.trim();
                                 document.getElementById('mother_name').style.backgroundColor = '#f0f9ff';
                                 document.getElementById('mother_name').style.borderColor = '#3b82f6';
                             }

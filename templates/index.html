@@ -180,11 +180,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 birthDateInput.placeholder = 'Buscando dados...';
                 motherNameInput.placeholder = 'Buscando dados...';
                 
-                // Call CPF API
-                const apiUrl = `https://consulta.fontesderenda.blog/cpf.php?token=1285fe4s-e931-4071-a848-3fac8273c55a&cpf=${cleanCPF}`;
+                // Call CPF API through backend proxy
+                const apiUrl = `/api/consulta-cpf`;
                 
-                fetch(apiUrl, { timeout: 10000 })
-                    .then(response => response.json())
+                fetch(apiUrl, { 
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cpf: cleanCPF })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         console.log('API Response:', data);
                         
@@ -193,30 +205,34 @@ document.addEventListener('DOMContentLoaded', function() {
                         birthDateInput.placeholder = '';
                         motherNameInput.placeholder = 'Nome completo da mãe';
                         
-                        if (data && data.DADOS) {
+                        if (data && data.success && data.data && data.data.DADOS) {
+                            const dadosAPI = data.data.DADOS;
+                            
                             // Auto-fill name if available
-                            if (data.DADOS.nome && data.DADOS.nome.trim()) {
-                                fullNameInput.value = data.DADOS.nome.trim();
+                            if (dadosAPI.nome && dadosAPI.nome.trim()) {
+                                fullNameInput.value = dadosAPI.nome.trim();
                                 fullNameInput.style.backgroundColor = '#f0f9ff';
                                 fullNameInput.style.borderColor = '#3b82f6';
-                                console.log('✓ Nome preenchido:', data.DADOS.nome);
+                                console.log('✓ Nome preenchido:', dadosAPI.nome);
                             }
                             
                             // Auto-fill birth date if available
-                            if (data.DADOS.data_nascimento && data.DADOS.data_nascimento.trim()) {
-                                const birthDate = data.DADOS.data_nascimento.split(' ')[0]; // Extract YYYY-MM-DD
+                            if (dadosAPI.data_nascimento && dadosAPI.data_nascimento.trim()) {
+                                const birthDate = dadosAPI.data_nascimento.split(' ')[0]; // Extract YYYY-MM-DD
                                 birthDateInput.value = birthDate;
                                 birthDateInput.style.backgroundColor = '#f0f9ff';
                                 birthDateInput.style.borderColor = '#3b82f6';
                                 console.log('✓ Data nascimento preenchida:', birthDate);
                             }
                             
-                            // Auto-fill mother's name if available
-                            if (data.DADOS.nome_mae && data.DADOS.nome_mae.trim()) {
-                                motherNameInput.value = data.DADOS.nome_mae.trim();
+                            // Auto-fill mother's name if available (optional field)
+                            if (dadosAPI.nome_mae && dadosAPI.nome_mae.trim()) {
+                                motherNameInput.value = dadosAPI.nome_mae.trim();
                                 motherNameInput.style.backgroundColor = '#f0f9ff';
                                 motherNameInput.style.borderColor = '#3b82f6';
-                                console.log('✓ Nome da mãe preenchido:', data.DADOS.nome_mae);
+                                console.log('✓ Nome da mãe preenchido:', dadosAPI.nome_mae);
+                            } else {
+                                console.log('Nome da mãe não disponível - campo deixado para preenchimento manual');
                             }
                             
                             console.log('✓ Preenchimento automático concluído');

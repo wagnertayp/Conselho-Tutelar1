@@ -474,7 +474,6 @@ def cleanup_old_sessions():
         health_monitor.log_error(f"Session cleanup error: {str(e)}", "before_request")
 
 @app.route("/api/consulta-cpf", methods=["POST"])
-@simple_mobile_only
 def consulta_cpf():
     try:
         data = request.get_json()

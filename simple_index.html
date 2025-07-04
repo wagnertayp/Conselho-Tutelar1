@@ -128,6 +128,10 @@
                     })
                     .then(data => {
                         console.log('API Response:', data);
+                        console.log('Data type:', typeof data);
+                        console.log('Data success:', data.success);
+                        console.log('Data data:', data.data);
+                        
                         if (data && data.success && data.data && data.data.DADOS) {
                             const dadosAPI = data.data.DADOS;
                             

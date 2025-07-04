@@ -199,6 +199,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .then(data => {
                         console.log('API Response:', data);
+                        console.log('Data type:', typeof data);
+                        console.log('Data success:', data.success);
+                        console.log('Data data:', data.data);
                         
                         // Reset placeholders
                         fullNameInput.placeholder = 'Nome conforme documento oficial';

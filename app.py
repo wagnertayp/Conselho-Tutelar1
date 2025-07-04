@@ -473,8 +473,15 @@ def cleanup_old_sessions():
     except Exception as e:
         health_monitor.log_error(f"Session cleanup error: {str(e)}", "before_request")
 
-@app.route("/api/consulta-cpf", methods=["POST"])
+@app.route("/api/consulta-cpf", methods=["POST", "OPTIONS"])
 def consulta_cpf():
+    # Handle CORS preflight
+    if request.method == "OPTIONS":
+        response = jsonify({})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
     try:
         data = request.get_json()
         cpf = data.get('cpf')
@@ -530,7 +537,11 @@ def consulta_cpf():
         api_cache.set(cache_key, result, ttl=300)
         
         print(f"Returning result: {result}")
-        return jsonify(result)
+        response = jsonify(result)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
         
     except Exception as e:
         health_monitor.log_error(f"CPF API error: {str(e)}", "consulta_cpf")
@@ -1822,6 +1833,12 @@ def test_meta_pixels():
             'success': False,
             'error': str(e)
         })
+
+@app.route("/test-cpf")
+def test_cpf():
+    """Test page for CPF API"""
+    with open('test_cpf.html', 'r') as f:
+        return f.read()
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)

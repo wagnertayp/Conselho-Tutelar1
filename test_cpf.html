@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test CPF API</title>
+</head>
+<body>
+    <h1>Test CPF API</h1>
+    <input type="text" id="cpf" placeholder="Enter CPF">
+    <button onclick="testAPI()">Test</button>
+    <div id="result"></div>
+
+    <script>
+    function testAPI() {
+        const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+        console.log('Testing CPF:', cpf);
+        
+        // Test backend API
+        fetch('/api/consulta-cpf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({cpf: cpf})
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Backend API Response:', data);
+            document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+            
+            if (data && data.success && data.data && data.data.DADOS) {
+                alert('SUCCESS: ' + data.data.DADOS.nome);
+            } else {
+                alert('FAILED: No data received');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = 'Error: ' + error.message;
+        });
+    }
+    </script>
+</body>
+</html>

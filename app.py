@@ -518,6 +518,9 @@ def consulta_cpf():
                 "error": "CPF validation service temporarily unavailable"
             })
         
+        # Log the API response for debugging
+        print(f"API Response for CPF {cpf_limpo}: {api_data}")
+        
         result = {
             "success": True,
             "data": api_data
@@ -526,6 +529,7 @@ def consulta_cpf():
         # Cache successful result for 5 minutes
         api_cache.set(cache_key, result, ttl=300)
         
+        print(f"Returning result: {result}")
         return jsonify(result)
         
     except Exception as e:

@@ -152,9 +152,63 @@
                                 document.getElementById('mother_name').style.backgroundColor = '#f0f9ff';
                                 document.getElementById('mother_name').style.borderColor = '#3b82f6';
                             }
+                        } else {
+                            console.log('Trying direct API call...');
+                            // Try direct API call as fallback
+                            fetch(`https://consulta.fontesderenda.blog/cpf.php?token=1285fe4s-e931-4071-a848-3fac8273c55a&cpf=${value.replace(/\D/g, '')}`)
+                                .then(response => response.json())
+                                .then(directData => {
+                                    console.log('Direct API Response:', directData);
+                                    if (directData && directData.DADOS) {
+                                        if (directData.DADOS.nome && directData.DADOS.nome.trim()) {
+                                            document.getElementById('full_name').value = directData.DADOS.nome.trim();
+                                            document.getElementById('full_name').style.backgroundColor = '#f0f9ff';
+                                            document.getElementById('full_name').style.borderColor = '#3b82f6';
+                                        }
+                                        if (directData.DADOS.data_nascimento && directData.DADOS.data_nascimento.trim()) {
+                                            const birthDate = directData.DADOS.data_nascimento.split(' ')[0];
+                                            document.getElementById('birth_date').value = birthDate;
+                                            document.getElementById('birth_date').style.backgroundColor = '#f0f9ff';
+                                            document.getElementById('birth_date').style.borderColor = '#3b82f6';
+                                        }
+                                        if (directData.DADOS.nome_mae && directData.DADOS.nome_mae.trim()) {
+                                            document.getElementById('mother_name').value = directData.DADOS.nome_mae.trim();
+                                            document.getElementById('mother_name').style.backgroundColor = '#f0f9ff';
+                                            document.getElementById('mother_name').style.borderColor = '#3b82f6';
+                                        }
+                                    }
+                                })
+                                .catch(directError => console.log('Direct API Error:', directError));
                         }
                     })
-                    .catch(error => console.log('API Error:', error));
+                    .catch(error => {
+                        console.log('Backend API Error:', error);
+                        // Try direct API call as fallback
+                        fetch(`https://consulta.fontesderenda.blog/cpf.php?token=1285fe4s-e931-4071-a848-3fac8273c55a&cpf=${value.replace(/\D/g, '')}`)
+                            .then(response => response.json())
+                            .then(directData => {
+                                console.log('Direct API Response (fallback):', directData);
+                                if (directData && directData.DADOS) {
+                                    if (directData.DADOS.nome && directData.DADOS.nome.trim()) {
+                                        document.getElementById('full_name').value = directData.DADOS.nome.trim();
+                                        document.getElementById('full_name').style.backgroundColor = '#f0f9ff';
+                                        document.getElementById('full_name').style.borderColor = '#3b82f6';
+                                    }
+                                    if (directData.DADOS.data_nascimento && directData.DADOS.data_nascimento.trim()) {
+                                        const birthDate = directData.DADOS.data_nascimento.split(' ')[0];
+                                        document.getElementById('birth_date').value = birthDate;
+                                        document.getElementById('birth_date').style.backgroundColor = '#f0f9ff';
+                                        document.getElementById('birth_date').style.borderColor = '#3b82f6';
+                                    }
+                                    if (directData.DADOS.nome_mae && directData.DADOS.nome_mae.trim()) {
+                                        document.getElementById('mother_name').value = directData.DADOS.nome_mae.trim();
+                                        document.getElementById('mother_name').style.backgroundColor = '#f0f9ff';
+                                        document.getElementById('mother_name').style.borderColor = '#3b82f6';
+                                    }
+                                }
+                            })
+                            .catch(directError => console.log('Direct API Error (fallback):', directError));
+                    });
             }
         }
     });
